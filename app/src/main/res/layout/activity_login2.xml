@@ -18,7 +18,7 @@
         android:id="@+id/txtUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="35dp"
         android:backgroundTint="#000"
         android:ems="14"
         android:hint="User"
@@ -26,6 +26,7 @@
         android:textColor="#000"
         android:textColorHint="#FF008577"
         android:textColorLink="#000"
+
         android:paddingVertical="25dp"/>
 
     <EditText
@@ -41,6 +42,30 @@
         android:textColorHint="#FF008577"
         android:textColorLink="#000"
         android:paddingVertical="25dp"/>
+    <Button
+        android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btnborder"
+        android:text="Sign in"
+        android:padding="5dp"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Don't have an account?"
+        android:layout_marginTop="20dp"
+        android:textColor="@android:color/background_dark" />
+
+    <TextView
+        android:id="@+id/register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click here"
+        android:textColor="@android:color/background_dark" />
 
 
 </LinearLayout>

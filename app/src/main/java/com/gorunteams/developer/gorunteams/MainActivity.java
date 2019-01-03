@@ -15,17 +15,30 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Button gologin = (Button) findViewById(R.id.signin);
+        gologin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent itemintent = new Intent(MainActivity.this, login2.class);
+                MainActivity.this.startActivity(itemintent);
+            }
+        });
     }
-    /*
+
+
+
+
+/*
     Button gosingin = (Button) findViewById(R.id.signin);
         gosingin.setOnClickListener(new View.OnClickListener() {
         @Override
-        public void onClick(View Object view;
-        view) {
-            Intent itemintent = new Intent(login.this, Principal.class);
-            login.this.startActivity(itemintent);
+        public void onClick(view) {
+            Intent itemintent = new Intent(MainActivity.this, login.class);
+            MainActivity.this.startActivity(itemintent);
         }
     });
     */
+
 
 }

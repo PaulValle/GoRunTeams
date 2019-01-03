@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".login" />
-        <activity android:name=".login2"></activity>
+        <activity android:name=".login2" />
+        <activity android:name=".resume"></activity>
     </application>
 
 </manifest>
