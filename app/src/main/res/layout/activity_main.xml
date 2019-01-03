@@ -5,41 +5,65 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:orientation="vertical"
+    android:background="#ffffff"
     android:gravity="center">
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="223dp"
-        android:layout_height="57dp"
-        android:fontFamily="sans-serif-smallcaps"
-        android:text="GoRunTeams"
-        android:textSize="36sp" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="178dp"
-        android:layout_height="81dp"
-        android:background="@color/colorAccent"
-        android:fontFamily="sans-serif-condensed"
-        android:paddingLeft="20dp"
-        android:paddingTop="20dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="20dp"
-        android:text="Próximamente"
-        android:textColor="@android:color/background_light"
-        android:textSize="24sp" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="288dp"
-        android:layout_height="241dp"
-        app:srcCompat="@drawable/dinonavi" />
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        app:srcCompat="@drawable/logogorun" />
 
     <TextView
+        android:id="@+id/starter"
         android:layout_width="wrap_content"
-        android:layout_height="28dp"
-        android:text="Feliz navidad, No te extingas"
-        android:textSize="18sp" />
+        android:layout_height="wrap_content"
+        android:text="Get Starter"
+        android:textColor="@android:color/background_dark"
+        android:layout_margin="10sp"
+        android:textSize="30sp" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="139dp"
+        android:layout_height="43dp"
+        android:layout_margin="10dp"
+        app:srcCompat="@drawable/buttonfacebook" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="141dp"
+        android:layout_height="43dp"
+        app:srcCompat="@drawable/buttongoogle" />
+
+    <Button
+        android:id="@+id/mail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btnborder"
+        android:text="Sign up with your email"
+        android:layout_margin="10dp"
+        android:textColor="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/notaccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Alredy have an account?"
+        android:textColor="@android:color/background_dark"
+        android:layout_margin="10sp"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/signin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btnborder"
+        android:text="Sign in"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:textColor="@color/colorPrimary" />
+
 
 </LinearLayout>
 
