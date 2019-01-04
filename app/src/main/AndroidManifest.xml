@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".login" />
         <activity android:name=".login2" />
-        <activity android:name=".resume"></activity>
+        <activity android:name=".resume" />
+        <activity android:name=".FormRegister"></activity>
     </application>
 
 </manifest>

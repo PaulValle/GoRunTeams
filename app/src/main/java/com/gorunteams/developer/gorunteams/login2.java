@@ -18,7 +18,7 @@ public class login2 extends AppCompatActivity {
         goregister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent itemintent = new Intent(login2.this, MainActivity.class);
+                Intent itemintent = new Intent(login2.this, FormRegister.class);
                 login2.this.startActivity(itemintent);
             }
         });

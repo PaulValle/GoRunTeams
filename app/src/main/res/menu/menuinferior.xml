@@ -4,7 +4,7 @@
     <item
         android:id="@+id/friends"
         android:icon="@drawable/iconuser"
-        android:title="Friends"/>
+        android:title="Training"/>
 
     <item
         android:id="@+id/resume"
