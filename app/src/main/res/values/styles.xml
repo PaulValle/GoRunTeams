@@ -10,4 +10,11 @@
     <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="DialogError" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+        <!--buttons color-->
+        <item name="colorAccent">#C72727</item>
+        <!--title and message color-->
+        <item name="android:textColorPrimary">#000</item>
+    </style>
 </resources>

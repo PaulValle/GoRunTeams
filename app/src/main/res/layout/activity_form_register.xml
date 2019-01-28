@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/formRegistro"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:orientation="vertical"
@@ -45,7 +46,7 @@
         android:textColorLink="#000" />
 
     <EditText
-        android:id="@+id/name"
+        android:id="@+id/txtName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -57,22 +58,6 @@
         android:textColor="#000"
         android:textColorHint="#FF008577"
         android:textColorLink="#000" />
-
-
-    <EditText
-        android:id="@+id/borndate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="#000"
-        android:ems="14"
-        android:hint="Born Date"
-        android:inputType="textPassword"
-        android:paddingVertical="15dp"
-        android:textColor="#000"
-        android:textColorHint="#FF008577"
-        android:textColorLink="#000" />
-
 
 
     <RadioButton
