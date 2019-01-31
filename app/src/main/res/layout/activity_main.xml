@@ -14,21 +14,17 @@
         android:layout_height="160dp"
         app:srcCompat="@drawable/logogorun" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="139dp"
-        android:layout_height="43dp"
-        android:layout_margin="10dp"
-        app:srcCompat="@drawable/buttonfacebook" />
-
     <TextView
-        android:id="@+id/txtName"
+        android:id="@+id/txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Get Starter"
+        android:text="GET STARTED"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:textColor="@android:color/background_dark"
-        android:layout_margin="10sp"
-        android:textSize="30sp" />
+        android:layout_marginTop="20sp"
+        android:textSize="24sp" />
+
 
 
     <com.google.android.gms.common.SignInButton
@@ -58,11 +54,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:background="@drawable/btnborder"
         android:padding="5dp"
-        android:text="Sign in"
+        android:text="Sign in Email"
         android:textColor="@color/colorPrimary" />
 
 

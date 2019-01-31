@@ -39,8 +39,9 @@ import android.widget.Toast;
 public class ResumeFragment extends Fragment {
 
     public ResumeFragment() {}
-    String texto;
-    String texto2;
+    String textomail;
+    String textname;
+    int idUsuario;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +50,9 @@ public class ResumeFragment extends Fragment {
         if (getArguments() != null){
 
 
-            String texto = getArguments().getString("mail");
-            texto2 = getArguments().getString("name");
+             textomail = getArguments().getString("mail");
+            textname = getArguments().getString("name");
+            idUsuario = getArguments().getInt("id");
         }
     }
 
@@ -58,7 +60,11 @@ public class ResumeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View inf = inflater.inflate(R.layout.fragment_resume, container, false);
         TextView tv = (TextView) inf.findViewById(R.id.txtMAIL);
-        tv.setText("aqui va"+texto2);
+        tv.setText(textomail);
+        TextView tv2 = (TextView) inf.findViewById(R.id.txtNAME);
+        tv2.setText(textname);
+        TextView tv3 = (TextView) inf.findViewById(R.id.txtID);
+        tv3.setText("#"+idUsuario);
         return inf;
     }
 

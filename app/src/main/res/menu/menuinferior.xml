@@ -9,7 +9,7 @@
     <item
         android:id="@+id/resume"
         android:icon="@drawable/iconuser"
-        android:title="Resume"/>
+        android:title="Profile"/>
 
     <item
         android:id="@+id/teams"

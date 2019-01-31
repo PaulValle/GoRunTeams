@@ -136,6 +136,12 @@ public class login2 extends AppCompatActivity {
             }
 
             responseText = response.toString();
+
+
+
+
+
+
             Log.d(TAG, "data:" + responseText);
             try {
                 JSONArray jsonarray = new JSONArray(responseText);
@@ -173,7 +179,8 @@ public class login2 extends AppCompatActivity {
         protected void onPostExecute(String respuesta) {
             super.onPostExecute(respuesta);
             Log.d(TAG, "onPostExecute" );
-            if (respuesta=="correcto"){
+
+            if (respuesta=="correcto" ){
                 Intent itemintent = new Intent(login2.this, resume.class);
                 login2.this.startActivity(itemintent);
 
@@ -188,5 +195,12 @@ public class login2 extends AppCompatActivity {
             }
         }
 
+
+
     }
+
+
+
+
+
 }

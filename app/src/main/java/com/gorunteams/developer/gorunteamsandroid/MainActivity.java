@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public String rsmail = "";
     public String rspass = "";
     ServicioWeb servicio;
-
+public int obtenerId=0;
     private LinearLayout prof_section;
     private Button SignOut;
     private SignInButton SignIn;
@@ -243,6 +243,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             HttpURLConnection urlConnection = null;
             String varComparar=this.getWebServiceResponseData2(rsmail);
+            obtenerId=this.guardarID(rsmail);
             if(varComparar=="existe"){
 
                 return "logear";
@@ -334,14 +335,72 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
 
+
+        protected int guardarID(String dato) {
+            try {
+                url=new URL(path2);
+                Log.d(TAG, "ServerData: " + path2);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(15000);
+                conn.setConnectTimeout(15000);
+                conn.setRequestMethod("GET");
+
+                int responseCode = conn.getResponseCode();
+
+                Log.d(TAG, "Response code: " + responseCode);
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+                    // Reading response from input Stream
+                    BufferedReader in = new BufferedReader(
+                            new InputStreamReader(conn.getInputStream()));
+                    String output;
+                    response = new StringBuffer();
+
+                    while ((output = in.readLine()) != null) {
+                        response.append(output);
+                    }
+                    in.close();
+                }}
+            catch(Exception e){
+                e.printStackTrace();
+            }
+            String mailcompare= dato;
+            int idUser=0;
+            responseText = response.toString();
+            Log.d(TAG, "data:" + responseText);
+            try {
+                JSONArray jsonarray = new JSONArray(responseText);
+                for (int i=0;i<jsonarray.length();i++){
+                    JSONObject jsonobject = jsonarray.getJSONObject(i);
+                    String mail = jsonobject.getString("mail");
+                    int id = jsonobject.getInt("idusuario");
+                    //String pass=jsonobject.getString("pass");
+                    if (String.valueOf(mailcompare).equals(String.valueOf(mail))){
+
+                        idUser=id;
+
+                    }else{
+
+                    }
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return idUser;
+        }
+
+
+
+
         @Override
         protected void onPostExecute(String respuesta) {
             super.onPostExecute(respuesta);
             Log.d(TAG, "onPostExecute");
             if (respuesta=="correcto" || respuesta=="logear"){
                Intent itemintent = new Intent(MainActivity.this, resume.class);
-               itemintent.putExtra("mail" , "aaaaaaaaaa");
-              itemintent.putExtra("name" , "aaaaaaaaaaaaa");
+               itemintent.putExtra("mail" , rsmail);
+              itemintent.putExtra("name" , rsname);
+                itemintent.putExtra("id" , obtenerId);
                // itemintent.putString("textFromActivityA", "sss");
                 // Agregas el Bundle al Intent e inicias ActivityB
 

@@ -25,9 +25,6 @@ public class resume extends AppCompatActivity implements BottomNavigationView.On
 
 
 
-
-
-
         Bundle parametros = this.getIntent().getExtras();
         datos = parametros;
 
@@ -36,18 +33,10 @@ public class resume extends AppCompatActivity implements BottomNavigationView.On
         tmpfragment.setArguments(datos);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.mainFrame, new ResumeFragment());
+        fragmentTransaction.add(R.id.mainFrame, tmpfragment );
         fragmentTransaction.commit();
 
 
-
-        /*Fragment tmpfragment = null;
-        tmpfragment = new ResumeFragment();
-        Bundle data = new Bundle();
-        data.putString("dato", "lo que sea");
-        tmpfragment.setArguments(data);*/
-
-        //setInitialFragment();
 
 
 
@@ -60,9 +49,11 @@ public class resume extends AppCompatActivity implements BottomNavigationView.On
                 break;
             case R.id.resume:
                 fragment= new ResumeFragment();
+                fragment.setArguments(datos);
                 break;
             case R.id.teams:
                 fragment= new TeamsFragment();
+                fragment.setArguments(datos);
                 break;
 
         };

@@ -53,6 +53,7 @@ public class FormRegister extends AppCompatActivity {
     EditText txtName;
     String respuesta;
     ServicioWeb servicio;
+    boolean validarEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,7 +146,7 @@ public class FormRegister extends AppCompatActivity {
                 }
             }
 
-
+            validarEmail = this.isValidEmail(txtMail.getText());
 
 
 
@@ -155,37 +156,50 @@ public class FormRegister extends AppCompatActivity {
 
                 return "logear";
             }else{
-                Log.i("MainActivity", "onCreate -> else -> Todos los EditText estan llenos.");
-                stringMap.put("mail", String.valueOf(txtMail.getText()));
-                stringMap.put("pass", String.valueOf(txtPass.getText()));
-                stringMap.put("nombre", String.valueOf(txtName.getText()));
-                String requestBody = Utils.buildPostParameters(stringMap);
-                try {
-                    urlConnection = (HttpURLConnection) Utils.makeRequest("POST", path, null, "application/x-www-form-urlencoded", requestBody);
-                    InputStream inputStream;
-                    Log.d(TAG, requestBody);
-                    // get stream
-                    if (urlConnection.getResponseCode() < HttpURLConnection.HTTP_BAD_REQUEST) {
-                        inputStream = urlConnection.getInputStream();
-                    } else {
-                        inputStream = urlConnection.getErrorStream();
+                if(validarEmail==true){
+                    Log.i("MainActivity", "onCreate -> else -> Todos los EditText estan llenos.");
+                    stringMap.put("mail", String.valueOf(txtMail.getText()));
+                    stringMap.put("pass", String.valueOf(txtPass.getText()));
+                    stringMap.put("nombre", String.valueOf(txtName.getText()));
+                    String requestBody = Utils.buildPostParameters(stringMap);
+                    try {
+                        urlConnection = (HttpURLConnection) Utils.makeRequest("POST", path, null, "application/x-www-form-urlencoded", requestBody);
+                        InputStream inputStream;
+                        Log.d(TAG, requestBody);
+                        // get stream
+                        if (urlConnection.getResponseCode() < HttpURLConnection.HTTP_BAD_REQUEST) {
+                            inputStream = urlConnection.getInputStream();
+                        } else {
+                            inputStream = urlConnection.getErrorStream();
+                        }
+                        // parse stream
+                        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                        String temp, response = "";
+                        while ((temp = bufferedReader.readLine()) != null) {
+                            response += temp;
+                        }
+                        respuesta="correcto";
+                        return respuesta;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return e.toString();
+                    } finally {
+                        if (urlConnection != null) {
+                            urlConnection.disconnect();
+                        }
                     }
-                    // parse stream
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                    String temp, response = "";
-                    while ((temp = bufferedReader.readLine()) != null) {
-                        response += temp;
-                    }
-                    respuesta="correcto";
-                    return respuesta;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return e.toString();
-                } finally {
-                    if (urlConnection != null) {
-                        urlConnection.disconnect();
-                    }
+
                 }
+                else {
+                    Bundle args = new Bundle();
+                    args.putString("titulo", "Advertencia");
+                    args.putString("texto", "El mail no es correcto");
+                    FragmentError f=new FragmentError();
+                    f.setArguments(args);
+                    f.show(getSupportFragmentManager(), "FragmentError");
+                    return "Dd";
+                }
+
 
             }
         }
@@ -240,6 +254,14 @@ public class FormRegister extends AppCompatActivity {
             return respuesta;
         }
 
+        public  boolean isValidEmail(CharSequence target) {
+            if (target == null)
+                return false;
+
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+        }
+
+
         @Override
         protected void onPostExecute(String respuesta) {
             super.onPostExecute(respuesta);
@@ -248,13 +270,20 @@ public class FormRegister extends AppCompatActivity {
                 Intent itemintent = new Intent(FormRegister.this, login2.class);
                 FormRegister.this.startActivity(itemintent);
             }else{
+
+                if(validarEmail==true){
+                    Bundle args = new Bundle();
+                    args.putString("titulo", "Advertencia");
+                    args.putString("texto", "El mail ya existe con otro usuario");
+                    FragmentError f=new FragmentError();
+                    f.setArguments(args);
+                    f.show(getSupportFragmentManager(), "FragmentError");
+                }else {
+
+                }
+
                // Log.d(TAG, "Registro fail:" + nombre);
-                Bundle args = new Bundle();
-                args.putString("titulo", "Advertencia");
-                args.putString("texto", "El mail ya existe con otro usuario");
-                FragmentError f=new FragmentError();
-                f.setArguments(args);
-                f.show(getSupportFragmentManager(), "FragmentError");
+
             }
 
         }
@@ -315,5 +344,8 @@ public class FormRegister extends AppCompatActivity {
                 return urlConnection;
             }
         }
+
+
+
     }
 
