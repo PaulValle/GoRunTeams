@@ -1,4 +1,4 @@
-package com.gorunteams.developer.gorunteams;
+package com.gorunteams.developer.gorunteamsandroid;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

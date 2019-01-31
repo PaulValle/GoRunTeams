@@ -1,4 +1,4 @@
-package com.gorunteams.developer.gorunteams;
+package com.gorunteams.developer.gorunteamsandroid;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

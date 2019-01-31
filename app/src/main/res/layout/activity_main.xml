@@ -14,15 +14,6 @@
         android:layout_height="160dp"
         app:srcCompat="@drawable/logogorun" />
 
-    <TextView
-        android:id="@+id/starter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Get Starter"
-        android:textColor="@android:color/background_dark"
-        android:layout_margin="10sp"
-        android:textSize="30sp" />
-
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="139dp"
@@ -30,26 +21,34 @@
         android:layout_margin="10dp"
         app:srcCompat="@drawable/buttonfacebook" />
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="141dp"
-        android:layout_height="43dp"
-        app:srcCompat="@drawable/buttongoogle" />
+    <TextView
+        android:id="@+id/txtName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get Starter"
+        android:textColor="@android:color/background_dark"
+        android:layout_margin="10sp"
+        android:textSize="30sp" />
 
-    <Button
-        android:id="@+id/mail"
+
+    <com.google.android.gms.common.SignInButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/btnborder"
-        android:text="Sign up with your email"
-        android:layout_margin="10dp"
-        android:textColor="@color/colorPrimary" />
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:id="@+id/btnLog"/>
+    
+    
+    
 
     <TextView
         android:id="@+id/notaccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Alredy have an account?"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:textColor="@android:color/background_dark"
         android:layout_margin="10sp"
         android:textSize="24sp" />
@@ -58,10 +57,12 @@
         android:id="@+id/signin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/btnborder"
-        android:text="Sign in"
         android:layout_margin="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/btnborder"
         android:padding="5dp"
+        android:text="Sign in"
         android:textColor="@color/colorPrimary" />
 
 
