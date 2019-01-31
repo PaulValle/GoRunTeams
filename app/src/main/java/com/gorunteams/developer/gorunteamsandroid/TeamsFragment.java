@@ -39,12 +39,15 @@ public class TeamsFragment extends Fragment {
 
     public final static String path = "https://restgorun.herokuapp.com/guardarEquipo";
     public final static String path2 = "https://restgorun.herokuapp.com/listarEquipos";
+    public final static String path3 = "https://restgorun.herokuapp.com/guardarUsuarioEnEquipo";
     java.net.URL url;
-    ArrayList listaUsuarios=new ArrayList();
+    //ArrayList listaUsuarios=new ArrayList();
     String responseText;
     StringBuffer response;
     String respuesta;
+    Integer respuesta2;
     ServicioWeb servicio;
+    ServicioWeb2 servicio2;
     public TextView tv;
     public static String nameEquipo;
     public static String detalleEquipo;
@@ -54,6 +57,7 @@ public class TeamsFragment extends Fragment {
     String textomail;
     String textname;
     int idUsuario;
+    Integer idEq;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +83,9 @@ public class TeamsFragment extends Fragment {
         final TextView user = (TextView) inf.findViewById(R.id.txtnombreuser);
         final TextView mail = (TextView) inf.findViewById(R.id.txtmailuser);
 
+        //id.setText(String.valueOf(idUsuario));
         id.setText(String.valueOf(idUsuario));
+       //user.setText(String.valueOf(textname));
        user.setText(String.valueOf(textname));
        mail.setText(String.valueOf(textomail));
 
@@ -140,15 +146,213 @@ public class TeamsFragment extends Fragment {
             }else{
                 if(validarEmail==true){
                     //Log.i("MainActivity", "onCreate -> else -> Todos los EditText estan llenos.");
-
-                    this.getWebServiceResponseData2(nameEquipo);
-
                     stringMap.put("nombre", nameEquipo);
                     stringMap.put("detalle", detalleEquipo);
                     //stringMap.put("nombre", String.valueOf(txtName.getText()));
+
+
+
                     String requestBody = FormRegister.Utils.buildPostParameters(stringMap);
                     try {
                         urlConnection = (HttpURLConnection) FormRegister.Utils.makeRequest("POST", path, null, "application/x-www-form-urlencoded", requestBody);
+                        InputStream inputStream;
+                        Log.d(TAG, requestBody);
+                        // get stream
+                        if (urlConnection.getResponseCode() < HttpURLConnection.HTTP_BAD_REQUEST) {
+                            inputStream = urlConnection.getInputStream();
+                        } else {
+                            inputStream = urlConnection.getErrorStream();
+                        }
+                        // parse stream
+                        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                        String temp, response = "";
+                        while ((temp = bufferedReader.readLine()) != null) {
+                            response += temp;
+                        }
+                        respuesta="correcto";
+                        idEq = this.getWebServiceResponseData2(nameEquipo);
+                        return respuesta;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return e.toString();
+                    } finally {
+                        if (urlConnection != null) {
+                            urlConnection.disconnect();
+                        }
+                    }
+                }else{
+                    return "ddd";
+                }
+            }
+        }
+
+
+        protected Integer getWebServiceResponseData2(String dato) {
+            try {
+                url=new URL(path2);
+                Log.d(TAG, "ServerData: " + path2);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(15000);
+                conn.setConnectTimeout(15000);
+                conn.setRequestMethod("GET");
+
+                int responseCode = conn.getResponseCode();
+
+                Log.d(TAG, "Response code: " + responseCode);
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+                    // Reading response from input Stream
+                    BufferedReader in = new BufferedReader(
+                            new InputStreamReader(conn.getInputStream()));
+                    String output;
+                    response = new StringBuffer();
+
+                    while ((output = in.readLine()) != null) {
+                        response.append(output);
+                    }
+                    in.close();
+                }}
+            catch(Exception e){
+                e.printStackTrace();
+            }
+            String nequipo2= dato;
+            Log.d(TAG, "Aqui recibi: " + nequipo2);
+
+
+            responseText = response.toString();
+            Log.d(TAG, "data:" + responseText);
+            try {
+                JSONArray jsonarray = new JSONArray(responseText);
+                Log.d(TAG, "Aqui recibi2: " + jsonarray.length());
+                for (int i=0;i<jsonarray.length();i++){
+                    Log.d(TAG, "Aqui recibi2: " + jsonarray.length());
+                    JSONObject jsonobject = jsonarray.getJSONObject(i);
+                    String nEquipo = jsonobject.getString("nombre");
+                    Log.d(TAG, "Aqui recibi2: " + jsonobject);
+                    int idEquipo = jsonobject.getInt("idequipo");
+                    //String pass=jsonobject.getString("pass");
+                    if (String.valueOf(nequipo2).equals(String.valueOf(nEquipo))){
+                        idTeam=idEquipo;
+
+                        respuesta2= idTeam;
+                        servicio2 = (ServicioWeb2) new ServicioWeb2().execute();
+
+                    }else{
+
+                    }
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return respuesta2;
+        }
+
+
+
+
+
+        @Override
+        protected void onPostExecute(String respuesta) {
+            super.onPostExecute(respuesta);
+            //idEq= this.getWebServiceResponseData2(nameEquipo);
+            Log.d(TAG, "data:siiiiiiiiiiiiii" + idEq );
+
+            Log.d(TAG, "onPostExecute");
+            if (respuesta=="correcto"){
+
+            }else{
+
+            }
+
+        }
+    }
+
+    public static class Utils{
+        public static String buildPostParameters(Object content) {
+            String output = null;
+            if ((content instanceof String) ||
+                    (content instanceof JSONObject) ||
+                    (content instanceof JSONArray)) {
+                output = content.toString();
+            } else if (content instanceof Map) {
+                Uri.Builder builder = new Uri.Builder();
+                HashMap hashMap = (HashMap) content;
+                if (hashMap != null) {
+                    Iterator entries = hashMap.entrySet().iterator();
+                    while (entries.hasNext()) {
+                        Map.Entry entry = (Map.Entry) entries.next();
+                        builder.appendQueryParameter(entry.getKey().toString(), entry.getValue().toString());
+                        entries.remove(); // avoids a ConcurrentModificationException
+                    }
+                    output = builder.build().getEncodedQuery();
+                }
+            }
+
+            return output;
+        }
+
+        public static URLConnection makeRequest(String method, String apiAddress, String accessToken, String mimeType, String requestBody) throws IOException {
+            URL url = null;
+            HttpURLConnection urlConnection = null;
+            try {
+                url = new URL(apiAddress);
+
+                urlConnection = (HttpURLConnection) url.openConnection();
+
+                urlConnection.setDoInput(true);
+                urlConnection.setDoOutput(!method.equals("GET"));
+                urlConnection.setRequestMethod(method);
+
+                urlConnection.setRequestProperty("Authorization", "Bearer " + accessToken);
+
+                urlConnection.setRequestProperty("Content-Type", mimeType);
+                OutputStream outputStream = new BufferedOutputStream(urlConnection.getOutputStream());
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "utf-8"));
+                writer.write(requestBody);
+                writer.flush();
+                writer.close();
+                outputStream.close();
+
+                urlConnection.connect();
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            return urlConnection;
+        }
+    }
+
+
+
+    private class ServicioWeb2 extends AsyncTask<Integer, Integer, String> {
+        @Override
+        protected String doInBackground(Integer... params) {
+            return getWebServiceResponseData();
+        }
+
+        protected String getWebServiceResponseData() {
+            respuesta="";
+
+            HttpURLConnection urlConnection = null;
+            Map<String, Integer> intMap = new HashMap<>();
+            String varComparar="ff";
+            boolean validarEmail = true;
+            if(varComparar=="existe"){
+
+                return "logear";
+            }else{
+                if(validarEmail==true){
+                    //Log.i("MainActivity", "onCreate -> else -> Todos los EditText estan llenos.");
+
+                    this.getWebServiceResponseData2(nameEquipo);
+                    //int ola = 8;
+
+                    intMap.put("idusuario", idUsuario);
+                    intMap.put("idequipo", idEq);
+                    //stringMap.put("nombre", String.valueOf(txtName.getText()));
+                    String requestBody = FormRegister.Utils.buildPostParameters(intMap);
+                    try {
+                        urlConnection = (HttpURLConnection) FormRegister.Utils.makeRequest("POST", path3, null, "application/x-www-form-urlencoded", requestBody);
                         InputStream inputStream;
                         Log.d(TAG, requestBody);
                         // get stream
@@ -179,6 +383,7 @@ public class TeamsFragment extends Fragment {
                 }
             }
         }
+
 
 
         protected String getWebServiceResponseData2(String dato) {
@@ -247,61 +452,6 @@ public class TeamsFragment extends Fragment {
 
             }
 
-        }
-    }
-
-    public static class Utils{
-        public static String buildPostParameters(Object content) {
-            String output = null;
-            if ((content instanceof String) ||
-                    (content instanceof JSONObject) ||
-                    (content instanceof JSONArray)) {
-                output = content.toString();
-            } else if (content instanceof Map) {
-                Uri.Builder builder = new Uri.Builder();
-                HashMap hashMap = (HashMap) content;
-                if (hashMap != null) {
-                    Iterator entries = hashMap.entrySet().iterator();
-                    while (entries.hasNext()) {
-                        Map.Entry entry = (Map.Entry) entries.next();
-                        builder.appendQueryParameter(entry.getKey().toString(), entry.getValue().toString());
-                        entries.remove(); // avoids a ConcurrentModificationException
-                    }
-                    output = builder.build().getEncodedQuery();
-                }
-            }
-
-            return output;
-        }
-
-        public static URLConnection makeRequest(String method, String apiAddress, String accessToken, String mimeType, String requestBody) throws IOException {
-            URL url = null;
-            HttpURLConnection urlConnection = null;
-            try {
-                url = new URL(apiAddress);
-
-                urlConnection = (HttpURLConnection) url.openConnection();
-
-                urlConnection.setDoInput(true);
-                urlConnection.setDoOutput(!method.equals("GET"));
-                urlConnection.setRequestMethod(method);
-
-                urlConnection.setRequestProperty("Authorization", "Bearer " + accessToken);
-
-                urlConnection.setRequestProperty("Content-Type", mimeType);
-                OutputStream outputStream = new BufferedOutputStream(urlConnection.getOutputStream());
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "utf-8"));
-                writer.write(requestBody);
-                writer.flush();
-                writer.close();
-                outputStream.close();
-
-                urlConnection.connect();
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-            return urlConnection;
         }
     }
 
