@@ -41,7 +41,6 @@ public class TeamsFragment extends Fragment {
     public final static String path2 = "https://restgorun.herokuapp.com/listarEquipos";
     public final static String path3 = "https://restgorun.herokuapp.com/guardarUsuarioEnEquipo";
     java.net.URL url;
-    //ArrayList listaUsuarios=new ArrayList();
     String responseText;
     StringBuffer response;
     String respuesta;
@@ -63,11 +62,8 @@ public class TeamsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null){
             textomail = getArguments().getString("mail");
-            //textomail = "ddd";
             textname = getArguments().getString("name");
-            //textname = "ssss";
            idUsuario = getArguments().getInt("id");
-            //idUsuario =25;
         }
     }
 
@@ -77,15 +73,10 @@ public class TeamsFragment extends Fragment {
         final TextView tv = (TextView) inf.findViewById(R.id.txtteam);
         tv.setText("qqqqqqqqqqqqqqqqqqqqqqqqqqq");
 
-
-
         final TextView id = (TextView) inf.findViewById(R.id.txtiduser);
         final TextView user = (TextView) inf.findViewById(R.id.txtnombreuser);
         final TextView mail = (TextView) inf.findViewById(R.id.txtmailuser);
-
-        //id.setText(String.valueOf(idUsuario));
         id.setText(String.valueOf(idUsuario));
-       //user.setText(String.valueOf(textname));
        user.setText(String.valueOf(textname));
        mail.setText(String.valueOf(textomail));
 
@@ -138,19 +129,8 @@ public class TeamsFragment extends Fragment {
 
             HttpURLConnection urlConnection = null;
             Map<String, String> stringMap = new HashMap<>();
-           String varComparar="ff";
-           boolean validarEmail = true;
-            if(varComparar=="existe"){
-
-                return "logear";
-            }else{
-                if(validarEmail==true){
-                    //Log.i("MainActivity", "onCreate -> else -> Todos los EditText estan llenos.");
                     stringMap.put("nombre", nameEquipo);
                     stringMap.put("detalle", detalleEquipo);
-                    //stringMap.put("nombre", String.valueOf(txtName.getText()));
-
-
 
                     String requestBody = FormRegister.Utils.buildPostParameters(stringMap);
                     try {
@@ -180,10 +160,6 @@ public class TeamsFragment extends Fragment {
                             urlConnection.disconnect();
                         }
                     }
-                }else{
-                    return "ddd";
-                }
-            }
         }
 
 
@@ -215,24 +191,19 @@ public class TeamsFragment extends Fragment {
                 e.printStackTrace();
             }
             String nequipo2= dato;
-            Log.d(TAG, "Aqui recibi: " + nequipo2);
-
-
             responseText = response.toString();
             Log.d(TAG, "data:" + responseText);
             try {
                 JSONArray jsonarray = new JSONArray(responseText);
                 Log.d(TAG, "Aqui recibi2: " + jsonarray.length());
                 for (int i=0;i<jsonarray.length();i++){
-                    Log.d(TAG, "Aqui recibi2: " + jsonarray.length());
                     JSONObject jsonobject = jsonarray.getJSONObject(i);
                     String nEquipo = jsonobject.getString("nombre");
-                    Log.d(TAG, "Aqui recibi2: " + jsonobject);
+
                     int idEquipo = jsonobject.getInt("idequipo");
-                    //String pass=jsonobject.getString("pass");
+
                     if (String.valueOf(nequipo2).equals(String.valueOf(nEquipo))){
                         idTeam=idEquipo;
-
                         respuesta2= idTeam;
                         servicio2 = (ServicioWeb2) new ServicioWeb2().execute();
 
@@ -249,12 +220,9 @@ public class TeamsFragment extends Fragment {
 
 
 
-
-
         @Override
         protected void onPostExecute(String respuesta) {
             super.onPostExecute(respuesta);
-            //idEq= this.getWebServiceResponseData2(nameEquipo);
             Log.d(TAG, "data:siiiiiiiiiiiiii" + idEq );
 
             Log.d(TAG, "onPostExecute");
@@ -335,21 +303,9 @@ public class TeamsFragment extends Fragment {
 
             HttpURLConnection urlConnection = null;
             Map<String, Integer> intMap = new HashMap<>();
-            String varComparar="ff";
-            boolean validarEmail = true;
-            if(varComparar=="existe"){
-
-                return "logear";
-            }else{
-                if(validarEmail==true){
-                    //Log.i("MainActivity", "onCreate -> else -> Todos los EditText estan llenos.");
-
                     this.getWebServiceResponseData2(nameEquipo);
-                    //int ola = 8;
-
                     intMap.put("idusuario", idUsuario);
                     intMap.put("idequipo", idEq);
-                    //stringMap.put("nombre", String.valueOf(txtName.getText()));
                     String requestBody = FormRegister.Utils.buildPostParameters(intMap);
                     try {
                         urlConnection = (HttpURLConnection) FormRegister.Utils.makeRequest("POST", path3, null, "application/x-www-form-urlencoded", requestBody);
@@ -377,13 +333,7 @@ public class TeamsFragment extends Fragment {
                             urlConnection.disconnect();
                         }
                     }
-
-                }else{
-                    return "ddd";
-                }
-            }
         }
-
 
 
         protected String getWebServiceResponseData2(String dato) {
@@ -422,25 +372,17 @@ public class TeamsFragment extends Fragment {
                     JSONObject jsonobject = jsonarray.getJSONObject(i);
                     String nEquipo = jsonobject.getString("nombre");
                     int idEquipo = jsonobject.getInt("idequipo");
-                    //String pass=jsonobject.getString("pass");
                     if (String.valueOf(mailcompare).equals(String.valueOf(nEquipo))){
                         idTeam=idEquipo;
                         respuesta="existe";
-
                     }else{
-
                     }
                 }
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             return respuesta;
         }
-
-
-
-
 
         @Override
         protected void onPostExecute(String respuesta) {
@@ -454,7 +396,5 @@ public class TeamsFragment extends Fragment {
 
         }
     }
-
-
 
 }

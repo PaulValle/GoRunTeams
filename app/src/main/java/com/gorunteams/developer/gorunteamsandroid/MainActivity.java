@@ -81,25 +81,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         Button gologin = (Button) findViewById(R.id.signin);
-        //TextView name = (TextView) findViewById(R.id.txtName);
         gologin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent itemintent = new Intent(MainActivity.this, login2.class);
-                //MainActivity.this.startActivity(itemintent);
 
-
-                Intent itemintent = new Intent(MainActivity.this, resume.class);
+                Intent itemintent = new Intent(MainActivity.this, login2.class);
                 startActivity(itemintent);
-
-
 
             }
         });
 
-        //prof_section = (LinearLayout)findViewById(R.id.txtUser);
         SignIn = (SignInButton)findViewById(R.id.btnLog);
         SignIn.setOnClickListener(this);
         name = (TextView) findViewById(R.id.txtName);
