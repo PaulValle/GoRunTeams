@@ -8,9 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.support.design.widget.BottomNavigationView;
+import android.widget.TextView;
 
 public class resume extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
-
+    public Bundle datos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +22,15 @@ public class resume extends AppCompatActivity implements BottomNavigationView.On
         BottomNavigationView nav = (BottomNavigationView) findViewById(R.id.navigationView);
         nav.setOnNavigationItemSelectedListener(this);
 
+
+
+
+
         setInitialFragment();
+
+
+
+
 
     }
     @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {

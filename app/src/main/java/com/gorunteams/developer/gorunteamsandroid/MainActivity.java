@@ -25,6 +25,7 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedOutputStream;
@@ -39,9 +40,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
+import javax.net.ssl.HttpsURLConnection;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener , GoogleApiClient.OnConnectionFailedListener {
@@ -49,6 +53,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String TAG = "AsyncTaskActivity";
 
     public final static String path = "https://restgorun.herokuapp.com/guardarUsuario";
+
+
+    public final static String path2 = "https://restgorun.herokuapp.com/listarusuarios";
+    java.net.URL url;
+    ArrayList listaUsuarios=new ArrayList();
+    String responseText;
+    StringBuffer response;
 
     String respuesta;
     public String rsname ="" ;
@@ -164,7 +175,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             updateUI(false);
         }
-        //return rsname;
 
     }
 
@@ -203,9 +213,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-
-
-
     public boolean isConnectedToInternet(){
         ConnectivityManager connectivity = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivity != null)
@@ -236,11 +243,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             HttpURLConnection urlConnection = null;
             Map<String, String> stringMap = new HashMap<>();
-            // Obtienes el layout que contiene los EditText
-
-            //main.enviarVariables("sds","sdsds","sdsd");
-
-           // name = (TextView) findViewById(R.id.txtName);
             Log.d(TAG, "por aqui entrooooooooooooooo");
 
             stringMap.put("mail",rsmail);
@@ -273,18 +275,71 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     urlConnection.disconnect();
                 }
             }
-            /*} else {
-                Log.i("MainActivity", "onCreate -> if -> Hay EditText vacios.");
-                Bundle args = new Bundle();
-                args.putString("titulo", "Advertencia");
-                args.putString("texto", "Llena todos los campos");
-                ProblemaConexion f=new ProblemaConexion();
-                f.setArguments(args);
-                f.show(getSupportFragmentManager(), "ProblemaConexión");
-                servicio.cancel(true);
-            }*/
-            //return respuesta;
+
+
         }
+
+
+
+
+        /*protected String getWebServiceResponseData2() {
+            try {
+                url=new URL(path);
+                Log.d(TAG, "ServerData: " + path);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(15000);
+                conn.setConnectTimeout(15000);
+                conn.setRequestMethod("GET");
+
+                int responseCode = conn.getResponseCode();
+
+                Log.d(TAG, "Response code: " + responseCode);
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+                    // Reading response from input Stream
+                    BufferedReader in = new BufferedReader(
+                            new InputStreamReader(conn.getInputStream()));
+                    String output;
+                    response = new StringBuffer();
+
+                    while ((output = in.readLine()) != null) {
+                        response.append(output);
+                    }
+                    in.close();
+                }}
+            catch(Exception e){
+                e.printStackTrace();
+            }
+
+            responseText = response.toString();
+            Log.d(TAG, "data:" + responseText);
+            try {
+                JSONArray jsonarray = new JSONArray(responseText);
+                for (int i=0;i<jsonarray.length();i++){
+                    JSONObject jsonobject = jsonarray.getJSONObject(i);
+                    String mail = jsonobject.getString("mail");
+                    //String pass=jsonobject.getString("pass");
+                    if (String.valueOf(txtPass.getText()).equals(String.valueOf(mail))){
+                        respuesta="correcto";
+
+                    }else{
+
+                    }
+
+
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return respuesta;
+        }*/
+
+
+
+
+
+
+
 
         @Override
         protected void onPostExecute(String respuesta) {
@@ -292,7 +347,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.d(TAG, "onPostExecute");
             if (respuesta=="correcto"){
                Intent itemintent = new Intent(MainActivity.this, resume.class);
-                MainActivity.this.startActivity(itemintent);
+               itemintent.putExtra("mail" , "aaaaaaaaaa");
+               itemintent.putExtra("name" , "aaaaaaaaaaaaa");
+                startActivity(itemintent);
             }else{
                 // Log.d(TAG, "Registro fail:" + nombre);
                 Bundle args = new Bundle();
@@ -366,31 +423,99 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
+/*
+    private class ServicioWeb2 extends AsyncTask<Integer, Integer, String> {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*
-    Button gosingin = (Button) findViewById(R.id.signin);
-        gosingin.setOnClickListener(new View.OnClickListener() {
         @Override
-        public void onClick(view) {
-            Intent itemintent = new Intent(MainActivity.this, login.class);
-            MainActivity.this.startActivity(itemintent);
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            Log.d(TAG, "UI thread onPreExecute");
         }
-    });
+
+        @Override
+        protected String doInBackground(Integer... params) {
+            return getWebServiceResponseData();
+        }
+        protected String getWebServiceResponseData() {
+            try {
+                url=new URL(path);
+                Log.d(TAG, "ServerData: " + path);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(15000);
+                conn.setConnectTimeout(15000);
+                conn.setRequestMethod("GET");
+
+                int responseCode = conn.getResponseCode();
+
+                Log.d(TAG, "Response code: " + responseCode);
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+                    // Reading response from input Stream
+                    BufferedReader in = new BufferedReader(
+                            new InputStreamReader(conn.getInputStream()));
+                    String output;
+                    response = new StringBuffer();
+
+                    while ((output = in.readLine()) != null) {
+                        response.append(output);
+                    }
+                    in.close();
+                }}
+            catch(Exception e){
+                e.printStackTrace();
+            }
+
+            responseText = response.toString();
+            Log.d(TAG, "data:" + responseText);
+            try {
+                JSONArray jsonarray = new JSONArray(responseText);
+                for (int i=0;i<jsonarray.length();i++){
+                    JSONObject jsonobject = jsonarray.getJSONObject(i);
+                    String mail = jsonobject.getString("mail");
+                    String pass=jsonobject.getString("pass");
+
+
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return respuesta;
+        }
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+
+            // Print progress to the log
+            Log.d(TAG, values[0] + " is prime " + values[1] + " % ready");
+        }
+
+        @Override
+        protected void onPostExecute(String respuesta) {
+            super.onPostExecute(respuesta);
+            Log.d(TAG, "onPostExecute" );
+            if (respuesta=="correcto"){
+                Intent itemintent = new Intent(login2.this, resume.class);
+                login2.this.startActivity(itemintent);
+
+            }else{
+                Log.d(TAG, "Login fail:" + respuesta);
+                Bundle args = new Bundle();
+                args.putString("titulo", "Advertencia");
+                args.putString("texto", "Usuario o contraseña incorrecta");
+                FragmentError f=new FragmentError();
+                f.setArguments(args);
+                f.show(getSupportFragmentManager(), "FragmentError");
+            }
+        }
+
+    }
     */
+
+
+
+
+
 
 
 }

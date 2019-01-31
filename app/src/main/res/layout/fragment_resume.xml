@@ -24,4 +24,16 @@
         android:layout_height="334dp"
         app:srcCompat="@drawable/resume" />
 
+    <TextView
+        android:id="@+id/txtMAIL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/txtNAME"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
 </LinearLayout>
