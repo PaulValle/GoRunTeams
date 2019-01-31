@@ -16,6 +16,8 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="@color/colorPrimary"
         android:layout_marginTop="55dp"
+        android:id="@+id/txtNAME2"
+
         android:textStyle="bold"/>
 
     <ImageView
@@ -28,12 +30,14 @@
         android:id="@+id/txtMAIL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="@color/colorPrimaryDark" />
 
     <TextView
         android:id="@+id/txtNAME"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="@color/colorPrimary" />
 
 </LinearLayout>

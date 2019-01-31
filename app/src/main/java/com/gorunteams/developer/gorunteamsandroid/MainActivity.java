@@ -242,50 +242,51 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             respuesta="";
 
             HttpURLConnection urlConnection = null;
-            Map<String, String> stringMap = new HashMap<>();
-            Log.d(TAG, "por aqui entrooooooooooooooo");
+            String varComparar=this.getWebServiceResponseData2(rsmail);
+            if(varComparar=="existe"){
 
-            stringMap.put("mail",rsmail);
-            stringMap.put("pass", rspass);
-            stringMap.put("nombre", rsname);
-            String requestBody = FormRegister.Utils.buildPostParameters(stringMap);
-            try {
-                urlConnection = (HttpURLConnection) FormRegister.Utils.makeRequest("POST", path, null, "application/x-www-form-urlencoded", requestBody);
-                InputStream inputStream;
-                Log.d(TAG, requestBody);
-                // get stream
-                if (urlConnection.getResponseCode() < HttpURLConnection.HTTP_BAD_REQUEST) {
-                    inputStream = urlConnection.getInputStream();
-                } else {
-                    inputStream = urlConnection.getErrorStream();
+                return "logear";
+            }else{
+
+                Map<String, String> stringMap = new HashMap<>();
+                stringMap.put("mail",rsmail);
+                stringMap.put("pass", rspass);
+                stringMap.put("nombre", rsname);
+                String requestBody = FormRegister.Utils.buildPostParameters(stringMap);
+                try {
+                    urlConnection = (HttpURLConnection) FormRegister.Utils.makeRequest("POST", path, null, "application/x-www-form-urlencoded", requestBody);
+                    InputStream inputStream;
+                    Log.d(TAG, requestBody);
+                    // get stream
+                    if (urlConnection.getResponseCode() < HttpURLConnection.HTTP_BAD_REQUEST) {
+                        inputStream = urlConnection.getInputStream();
+                    } else {
+                        inputStream = urlConnection.getErrorStream();
+                    }
+                    // parse stream
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    String temp, response = "";
+                    while ((temp = bufferedReader.readLine()) != null) {
+                        response += temp;
+                    }
+                    respuesta="correcto";
+                    return respuesta;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return e.toString();
+                } finally {
+                    if (urlConnection != null) {
+                        urlConnection.disconnect();
+                    }
                 }
-                // parse stream
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                String temp, response = "";
-                while ((temp = bufferedReader.readLine()) != null) {
-                    response += temp;
-                }
-                respuesta="correcto";
-                return respuesta;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return e.toString();
-            } finally {
-                if (urlConnection != null) {
-                    urlConnection.disconnect();
-                }
+
             }
-
-
         }
 
-
-
-
-        /*protected String getWebServiceResponseData2() {
+        protected String getWebServiceResponseData2(String dato) {
             try {
-                url=new URL(path);
-                Log.d(TAG, "ServerData: " + path);
+                url=new URL(path2);
+                Log.d(TAG, "ServerData: " + path2);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(15000);
                 conn.setConnectTimeout(15000);
@@ -309,7 +310,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             catch(Exception e){
                 e.printStackTrace();
             }
-
+            String mailcompare= dato;
             responseText = response.toString();
             Log.d(TAG, "data:" + responseText);
             try {
@@ -318,37 +319,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     JSONObject jsonobject = jsonarray.getJSONObject(i);
                     String mail = jsonobject.getString("mail");
                     //String pass=jsonobject.getString("pass");
-                    if (String.valueOf(txtPass.getText()).equals(String.valueOf(mail))){
-                        respuesta="correcto";
+                    if (String.valueOf(mailcompare).equals(String.valueOf(mail))){
+                        respuesta="existe";
 
                     }else{
 
                     }
-
-
                 }
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             return respuesta;
-        }*/
-
-
-
-
-
-
+        }
 
 
         @Override
         protected void onPostExecute(String respuesta) {
             super.onPostExecute(respuesta);
             Log.d(TAG, "onPostExecute");
-            if (respuesta=="correcto"){
+            if (respuesta=="correcto" || respuesta=="logear"){
                Intent itemintent = new Intent(MainActivity.this, resume.class);
                itemintent.putExtra("mail" , "aaaaaaaaaa");
-               itemintent.putExtra("name" , "aaaaaaaaaaaaa");
+              itemintent.putExtra("name" , "aaaaaaaaaaaaa");
+               // itemintent.putString("textFromActivityA", "sss");
+                // Agregas el Bundle al Intent e inicias ActivityB
+
                 startActivity(itemintent);
             }else{
                 // Log.d(TAG, "Registro fail:" + nombre);
@@ -418,104 +414,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return urlConnection;
         }
     }
-
-
-
-
-
-/*
-    private class ServicioWeb2 extends AsyncTask<Integer, Integer, String> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            Log.d(TAG, "UI thread onPreExecute");
-        }
-
-        @Override
-        protected String doInBackground(Integer... params) {
-            return getWebServiceResponseData();
-        }
-        protected String getWebServiceResponseData() {
-            try {
-                url=new URL(path);
-                Log.d(TAG, "ServerData: " + path);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setReadTimeout(15000);
-                conn.setConnectTimeout(15000);
-                conn.setRequestMethod("GET");
-
-                int responseCode = conn.getResponseCode();
-
-                Log.d(TAG, "Response code: " + responseCode);
-                if (responseCode == HttpsURLConnection.HTTP_OK) {
-                    // Reading response from input Stream
-                    BufferedReader in = new BufferedReader(
-                            new InputStreamReader(conn.getInputStream()));
-                    String output;
-                    response = new StringBuffer();
-
-                    while ((output = in.readLine()) != null) {
-                        response.append(output);
-                    }
-                    in.close();
-                }}
-            catch(Exception e){
-                e.printStackTrace();
-            }
-
-            responseText = response.toString();
-            Log.d(TAG, "data:" + responseText);
-            try {
-                JSONArray jsonarray = new JSONArray(responseText);
-                for (int i=0;i<jsonarray.length();i++){
-                    JSONObject jsonobject = jsonarray.getJSONObject(i);
-                    String mail = jsonobject.getString("mail");
-                    String pass=jsonobject.getString("pass");
-
-
-                }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return respuesta;
-        }
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-
-            // Print progress to the log
-            Log.d(TAG, values[0] + " is prime " + values[1] + " % ready");
-        }
-
-        @Override
-        protected void onPostExecute(String respuesta) {
-            super.onPostExecute(respuesta);
-            Log.d(TAG, "onPostExecute" );
-            if (respuesta=="correcto"){
-                Intent itemintent = new Intent(login2.this, resume.class);
-                login2.this.startActivity(itemintent);
-
-            }else{
-                Log.d(TAG, "Login fail:" + respuesta);
-                Bundle args = new Bundle();
-                args.putString("titulo", "Advertencia");
-                args.putString("texto", "Usuario o contraseña incorrecta");
-                FragmentError f=new FragmentError();
-                f.setArguments(args);
-                f.show(getSupportFragmentManager(), "FragmentError");
-            }
-        }
-
-    }
-    */
-
-
-
-
-
-
-
 }

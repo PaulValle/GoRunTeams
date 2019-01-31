@@ -21,14 +21,33 @@ public class resume extends AppCompatActivity implements BottomNavigationView.On
 
         BottomNavigationView nav = (BottomNavigationView) findViewById(R.id.navigationView);
         nav.setOnNavigationItemSelectedListener(this);
+        //setInitialFragment();
 
 
 
 
 
-        setInitialFragment();
+
+        Bundle parametros = this.getIntent().getExtras();
+        datos = parametros;
+
+        Fragment tmpfragment = null;
+        tmpfragment = new ResumeFragment();
+        tmpfragment.setArguments(datos);
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.mainFrame, new ResumeFragment());
+        fragmentTransaction.commit();
 
 
+
+        /*Fragment tmpfragment = null;
+        tmpfragment = new ResumeFragment();
+        Bundle data = new Bundle();
+        data.putString("dato", "lo que sea");
+        tmpfragment.setArguments(data);*/
+
+        //setInitialFragment();
 
 
 

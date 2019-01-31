@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedOutputStream;
@@ -30,16 +31,24 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class FormRegister extends AppCompatActivity {
     private static final String TAG = "AsyncTaskActivity";
 
     public final static String path = "https://restgorun.herokuapp.com/guardarUsuario";
+    public final static String path2 = "https://restgorun.herokuapp.com/listarusuarios";
+    java.net.URL url;
+    ArrayList listaUsuarios=new ArrayList();
+    String responseText;
+    StringBuffer response;
 
-    EditText txtMail;
+    public EditText txtMail;
     EditText txtPass;
     EditText txtName;
     String respuesta;
@@ -136,9 +145,17 @@ public class FormRegister extends AppCompatActivity {
                 }
             }
 
-            //if (isAllFill && genero != null) {
-                Log.i("MainActivity", "onCreate -> else -> Todos los EditText estan llenos.");
 
+
+
+
+
+            String varComparar=this.getWebServiceResponseData2(String.valueOf(txtMail.getText()));
+            if(varComparar=="existe"){
+
+                return "logear";
+            }else{
+                Log.i("MainActivity", "onCreate -> else -> Todos los EditText estan llenos.");
                 stringMap.put("mail", String.valueOf(txtMail.getText()));
                 stringMap.put("pass", String.valueOf(txtPass.getText()));
                 stringMap.put("nombre", String.valueOf(txtName.getText()));
@@ -169,17 +186,58 @@ public class FormRegister extends AppCompatActivity {
                         urlConnection.disconnect();
                     }
                 }
-            /*} else {
-                Log.i("MainActivity", "onCreate -> if -> Hay EditText vacios.");
-                Bundle args = new Bundle();
-                args.putString("titulo", "Advertencia");
-                args.putString("texto", "Llena todos los campos");
-                ProblemaConexion f=new ProblemaConexion();
-                f.setArguments(args);
-                f.show(getSupportFragmentManager(), "ProblemaConexión");
-                servicio.cancel(true);
-            }*/
-            //return respuesta;
+
+            }
+        }
+
+        protected String getWebServiceResponseData2(String dato) {
+            try {
+                url=new URL(path2);
+                Log.d(TAG, "ServerData: " + path2);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(15000);
+                conn.setConnectTimeout(15000);
+                conn.setRequestMethod("GET");
+
+                int responseCode = conn.getResponseCode();
+
+                Log.d(TAG, "Response code: " + responseCode);
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+                    // Reading response from input Stream
+                    BufferedReader in = new BufferedReader(
+                            new InputStreamReader(conn.getInputStream()));
+                    String output;
+                    response = new StringBuffer();
+
+                    while ((output = in.readLine()) != null) {
+                        response.append(output);
+                    }
+                    in.close();
+                }}
+            catch(Exception e){
+                e.printStackTrace();
+            }
+            String mailcompare= dato;
+            responseText = response.toString();
+            Log.d(TAG, "data:" + responseText);
+            try {
+                JSONArray jsonarray = new JSONArray(responseText);
+                for (int i=0;i<jsonarray.length();i++){
+                    JSONObject jsonobject = jsonarray.getJSONObject(i);
+                    String mail = jsonobject.getString("mail");
+                    //String pass=jsonobject.getString("pass");
+                    if (String.valueOf(mailcompare).equals(String.valueOf(mail))){
+                        respuesta="existe";
+
+                    }else{
+
+                    }
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return respuesta;
         }
 
         @Override
@@ -193,7 +251,7 @@ public class FormRegister extends AppCompatActivity {
                // Log.d(TAG, "Registro fail:" + nombre);
                 Bundle args = new Bundle();
                 args.putString("titulo", "Advertencia");
-                args.putString("texto", "No se pudo registrar sus datos");
+                args.putString("texto", "El mail ya existe con otro usuario");
                 FragmentError f=new FragmentError();
                 f.setArguments(args);
                 f.show(getSupportFragmentManager(), "FragmentError");
@@ -257,10 +315,5 @@ public class FormRegister extends AppCompatActivity {
                 return urlConnection;
             }
         }
-
-
-
-
-
     }
 
