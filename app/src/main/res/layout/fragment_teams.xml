@@ -18,11 +18,25 @@
         android:layout_marginTop="55dp"
         android:textStyle="bold"/>
 
-    <ImageView
-        android:id="@+id/imageView2"
+    <Button
+        android:id="@+id/btnTeams"
         android:layout_width="match_parent"
-        android:layout_height="334dp"
-        app:srcCompat="@drawable/trainning2_opt" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:text="New Team" />
+
+    <TextView
+        android:id="@+id/txtteam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginTop="50dp"
+        android:text="team" />
 
 
 </LinearLayout>

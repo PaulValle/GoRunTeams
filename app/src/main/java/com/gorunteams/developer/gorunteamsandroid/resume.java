@@ -22,9 +22,6 @@ public class resume extends AppCompatActivity implements BottomNavigationView.On
         BottomNavigationView nav = (BottomNavigationView) findViewById(R.id.navigationView);
         nav.setOnNavigationItemSelectedListener(this);
         //setInitialFragment();
-
-
-
         Bundle parametros = this.getIntent().getExtras();
         datos = parametros;
 
@@ -53,7 +50,6 @@ public class resume extends AppCompatActivity implements BottomNavigationView.On
                 break;
             case R.id.teams:
                 fragment= new TeamsFragment();
-                fragment.setArguments(datos);
                 break;
 
         };
