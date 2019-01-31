@@ -291,8 +291,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             super.onPostExecute(respuesta);
             Log.d(TAG, "onPostExecute");
             if (respuesta=="correcto"){
-               // Intent itemintent = new Intent(FormRegister.this, login2.class);
-                //FormRegister.this.startActivity(itemintent);
+               Intent itemintent = new Intent(MainActivity.this, resume.class);
+                MainActivity.this.startActivity(itemintent);
             }else{
                 // Log.d(TAG, "Registro fail:" + nombre);
                 Bundle args = new Bundle();
