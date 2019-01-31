@@ -43,6 +43,7 @@ public class resume extends AppCompatActivity implements BottomNavigationView.On
         switch (item.getItemId()){
             case R.id.friends:
                 fragment= new FriendFragment();
+                fragment.setArguments(datos);
                 break;
             case R.id.resume:
                 fragment= new ResumeFragment();
@@ -50,6 +51,7 @@ public class resume extends AppCompatActivity implements BottomNavigationView.On
                 break;
             case R.id.teams:
                 fragment= new TeamsFragment();
+                fragment.setArguments(datos);
                 break;
 
         };

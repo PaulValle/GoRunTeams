@@ -38,5 +38,40 @@
         android:layout_marginTop="50dp"
         android:text="team" />
 
+    <TextView
+        android:id="@+id/txtiduser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginTop="50dp"
+        android:text="team" />
+
+    <TextView
+        android:id="@+id/txtnombreuser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginTop="50dp"
+        android:text="team" />
+    <TextView
+        android:id="@+id/txtmailuser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginTop="50dp"
+        android:text="team" />
+
 
 </LinearLayout>

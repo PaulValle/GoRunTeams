@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -31,10 +32,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.net.ssl.HttpsURLConnection;
+
 public class TeamsFragment extends Fragment {
     private static final String TAG = "AsyncTaskActivity";
 
     public final static String path = "https://restgorun.herokuapp.com/guardarEquipo";
+    public final static String path2 = "https://restgorun.herokuapp.com/listarEquipos";
+    java.net.URL url;
     ArrayList listaUsuarios=new ArrayList();
     String responseText;
     StringBuffer response;
@@ -43,14 +48,40 @@ public class TeamsFragment extends Fragment {
     public TextView tv;
     public static String nameEquipo;
     public static String detalleEquipo;
+    public static int idTeam;
 
     public TeamsFragment() {}
+    String textomail;
+    String textname;
+    int idUsuario;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null){
+            textomail = getArguments().getString("mail");
+            //textomail = "ddd";
+            textname = getArguments().getString("name");
+            //textname = "ssss";
+           idUsuario = getArguments().getInt("id");
+            //idUsuario =25;
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View inf = inflater.inflate(R.layout.fragment_teams, container, false);
         final TextView tv = (TextView) inf.findViewById(R.id.txtteam);
         tv.setText("qqqqqqqqqqqqqqqqqqqqqqqqqqq");
+
+
+
+        final TextView id = (TextView) inf.findViewById(R.id.txtiduser);
+        final TextView user = (TextView) inf.findViewById(R.id.txtnombreuser);
+        final TextView mail = (TextView) inf.findViewById(R.id.txtmailuser);
+
+        id.setText(String.valueOf(idUsuario));
+       user.setText(String.valueOf(textname));
+       mail.setText(String.valueOf(textomail));
 
         Button btnNewTeam = (Button) inf.findViewById(R.id.btnTeams);
         btnNewTeam.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +139,10 @@ public class TeamsFragment extends Fragment {
                 return "logear";
             }else{
                 if(validarEmail==true){
-                    Log.i("MainActivity", "onCreate -> else -> Todos los EditText estan llenos.");
+                    //Log.i("MainActivity", "onCreate -> else -> Todos los EditText estan llenos.");
+
+                    this.getWebServiceResponseData2(nameEquipo);
+
                     stringMap.put("nombre", nameEquipo);
                     stringMap.put("detalle", detalleEquipo);
                     //stringMap.put("nombre", String.valueOf(txtName.getText()));
@@ -145,6 +179,61 @@ public class TeamsFragment extends Fragment {
                 }
             }
         }
+
+
+        protected String getWebServiceResponseData2(String dato) {
+            try {
+                url=new URL(path2);
+                Log.d(TAG, "ServerData: " + path2);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(15000);
+                conn.setConnectTimeout(15000);
+                conn.setRequestMethod("GET");
+
+                int responseCode = conn.getResponseCode();
+
+                Log.d(TAG, "Response code: " + responseCode);
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+                    // Reading response from input Stream
+                    BufferedReader in = new BufferedReader(
+                            new InputStreamReader(conn.getInputStream()));
+                    String output;
+                    response = new StringBuffer();
+
+                    while ((output = in.readLine()) != null) {
+                        response.append(output);
+                    }
+                    in.close();
+                }}
+            catch(Exception e){
+                e.printStackTrace();
+            }
+            String mailcompare= dato;
+            responseText = response.toString();
+            Log.d(TAG, "data:" + responseText);
+            try {
+                JSONArray jsonarray = new JSONArray(responseText);
+                for (int i=0;i<jsonarray.length();i++){
+                    JSONObject jsonobject = jsonarray.getJSONObject(i);
+                    String nEquipo = jsonobject.getString("nombre");
+                    int idEquipo = jsonobject.getInt("idequipo");
+                    //String pass=jsonobject.getString("pass");
+                    if (String.valueOf(mailcompare).equals(String.valueOf(nEquipo))){
+                        idTeam=idEquipo;
+                        respuesta="existe";
+
+                    }else{
+
+                    }
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return respuesta;
+        }
+
+
 
 
 
