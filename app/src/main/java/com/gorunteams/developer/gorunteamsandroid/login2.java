@@ -35,6 +35,9 @@ public class login2 extends AppCompatActivity {
     TextView txtUser , txtPass;
     String respuesta;
     ServicioWeb servicio;
+    int idUser;
+    String usuario;
+    String email;
 
 
     @Override
@@ -138,10 +141,6 @@ public class login2 extends AppCompatActivity {
             responseText = response.toString();
 
 
-
-
-
-
             Log.d(TAG, "data:" + responseText);
             try {
                 JSONArray jsonarray = new JSONArray(responseText);
@@ -149,10 +148,15 @@ public class login2 extends AppCompatActivity {
                     JSONObject jsonobject = jsonarray.getJSONObject(i);
                     String mail = jsonobject.getString("mail");
                     String pass=jsonobject.getString("pass");
+                    String name=jsonobject.getString("nombre");
+                    int id = jsonobject.getInt("idusuario");
                     if(String.valueOf(txtUser.getText()).equals(String.valueOf(mail))){
                         Log.d(TAG,"ENTRO");
                         if (String.valueOf(txtPass.getText()).equals(String.valueOf(pass))){
                             respuesta="correcto";
+                            usuario=name;
+                            idUser=id;
+                            email=mail;
 
                         }else{
 
@@ -182,7 +186,11 @@ public class login2 extends AppCompatActivity {
 
             if (respuesta=="correcto" ){
                 Intent itemintent = new Intent(login2.this, resume.class);
-                login2.this.startActivity(itemintent);
+                itemintent.putExtra("mail" , email);
+                itemintent.putExtra("name" , usuario);
+                itemintent.putExtra("id" , idUser);
+
+                startActivity(itemintent);
 
             }else{
                 Log.d(TAG, "Login fail:" + respuesta);
