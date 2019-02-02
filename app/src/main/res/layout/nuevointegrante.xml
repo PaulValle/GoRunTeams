@@ -3,14 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
     >
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="90dp"
+        android:layout_marginBottom="100dp"
         android:background="#ffffff"
         >
 
@@ -19,20 +21,20 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="Nuevo equipo"
+            android:text="Nuevo Integrante"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="@color/colorPrimary"
             android:layout_marginTop="35dp"
             android:textStyle="bold"/>
 
         <EditText
-            android:id="@+id/txtnomequipo"
+            android:id="@+id/txtcorreo"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="30dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:hint="Nombre del equipo"
+            android:hint="E-MAIL"
             android:inputType="text"
             android:textColor="#000"
             android:textColorHint="#FF008577"
@@ -40,33 +42,19 @@
             android:background="@drawable/btnborder"
             android:paddingLeft="10dp"/>
 
-        <EditText
-            android:id="@+id/txtdetequipo"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:hint="Detalle del equipo"
-            android:textColorHint="#FF008577"
-            android:textColorLink="#000"
-            android:textColor="@color/colorPrimaryDark"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/btnborder"
-            android:paddingLeft="10dp"/>
-
         <Button
-            android:id="@+id/btnguardar"
+            android:id="@+id/btnagregar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/btnborder"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:text="Crear equipo"
+            android:text="Añadir"
             android:layout_marginBottom="30dp"
+            android:layout_marginTop="30dp"
             android:textColor="@color/colorPrimary" />
         <Button
-            android:id="@+id/btncerrar"
+            android:id="@+id/btnclose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/btnborder"

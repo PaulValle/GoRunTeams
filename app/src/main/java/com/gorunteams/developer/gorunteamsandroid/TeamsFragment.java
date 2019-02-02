@@ -3,8 +3,6 @@ package com.gorunteams.developer.gorunteamsandroid;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -57,9 +55,6 @@ public class TeamsFragment extends Fragment {
     public TextView tv;
     public TextView detalleEquipoRow;
     public TextView nombreEquipoRow;
-
-
-
     public TextView jugador1;
     public TextView jugador2;
     public TextView jugador3;
@@ -74,16 +69,10 @@ public class TeamsFragment extends Fragment {
     public static int idEquipoSolicitado;
     public static String nombreEquipoSeleccionado;
 
-
-
-
-    public TeamsFragment() {}
     String textomail;
     String textname;
     public static int idUsuario;
     Integer idEq;
-    public LinearLayout layoutBotones;
-    public LinearLayout.LayoutParams lp;
     public static View inf;
     public ArrayList listaUsuarios=new ArrayList();
     public ArrayList listaBotones = new ArrayList();
@@ -92,6 +81,8 @@ public class TeamsFragment extends Fragment {
     public Button btnequipo3;
     public Button btnequipo4;
     public Button btnequipo5;
+
+    public TeamsFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -109,49 +100,11 @@ public class TeamsFragment extends Fragment {
         final TextView tv = (TextView) inf.findViewById(R.id.txtteam);
         tv.setText("qqqqqqqqqqqqqqqqqqqqqqqqqqq");
 
-        /*layoutBotones = (LinearLayout) inf.findViewById(R.id.layoutTeams);
-        lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT );
-        btnequipo1 = new Button(getContext());
-        btnequipo2 = new Button(getContext());
-        btnequipo3 = new Button(getContext());
-        btnequipo4 = new Button(getContext());
-        btnequipo5 = new Button(getContext());
-        btnequipo1.setLayoutParams(lp);
-        btnequipo2.setLayoutParams(lp);
-        btnequipo3.setLayoutParams(lp);
-        btnequipo4.setLayoutParams(lp);
-        btnequipo5.setLayoutParams(lp);
-
-        btnequipo1.setText("Nuevo Equipo");
-        btnequipo2.setText("Nuevo Equipo");
-        btnequipo3.setText("Nuevo Equipo");
-        btnequipo4.setText("Nuevo Equipo");
-        btnequipo5.setText("Nuevo Equipo");
-
-        layoutBotones.addView(btnequipo1);
-        layoutBotones.addView(btnequipo2);
-        layoutBotones.addView(btnequipo3);
-        layoutBotones.addView(btnequipo4);
-        layoutBotones.addView(btnequipo5);
-
-        listaBotones.add(btnequipo1);
-        listaBotones.add(btnequipo2);
-        listaBotones.add(btnequipo3);
-        listaBotones.add(btnequipo4);
-        listaBotones.add(btnequipo5);*/
-
         btnequipo1 = (Button) inf.findViewById(R.id.btn1);
-
-        Log.d(TAG, "aquiiiiiiiiiii voy a mandar 1 "+  btnequipo1.getText());
         btnequipo2 = (Button) inf.findViewById(R.id.btn2);
-        Log.d(TAG, "aquiiiiiiiiiii voy a mandar 2"+  btnequipo2.getText());
         btnequipo3 = (Button) inf.findViewById(R.id.btn3);
-        Log.d(TAG, "aquiiiiiiiiiii voy a mandar 3"+  btnequipo3.getText());
         btnequipo4 = (Button) inf.findViewById(R.id.btn4);
-        Log.d(TAG, "aquiiiiiiiiiii voy a mandar 4"+  btnequipo4.getText());
         btnequipo5 = (Button) inf.findViewById(R.id.btn5);
-        Log.d(TAG, "aquiiiiiiiiiii voy a mandar 5"+  btnequipo5.getText());
 
         btnequipo1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,16 +145,9 @@ public class TeamsFragment extends Fragment {
                     jugador1 = (TextView) popupView.findViewById(R.id.txtNombre1);
                     jugador2 = (TextView) popupView.findViewById(R.id.txtNombre2);
                     jugador3 = (TextView) popupView.findViewById(R.id.txtNombre3);
-                    //nombreEquipo.setText(btnequipo1.getText().toString());
                     nombreEquipoSeleccionado = btnequipo1.getText().toString();
 
                     servicio4 = (ServicioWeb4) new ServicioWeb4().execute();
-
-                    //detalleEquipo.setText(detalleEquipoSolicitado);
-
-                    //detalleEquipo.setText(det);
-
-
 
                     Button btn = (Button) popupView.findViewById(R.id.btnCerrarEquipo);
                     btn.setOnClickListener(new View.OnClickListener() {
@@ -213,18 +159,30 @@ public class TeamsFragment extends Fragment {
                     Button btn2 = (Button) popupView.findViewById(R.id.btnAgregarJugador);
                     btn2.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View view) {
-                            /*
-                            TextView nombreEquipo = (TextView) popupView.findViewById(R.id.txtnomequipo);
-                            TextView detalle = (TextView) popupView.findViewById(R.id.txtdetequipo);
-                            tv.setText(nombreEquipo.getText());
-                            nameEquipo=String.valueOf(nombreEquipo.getText());
+                            //popupWindow.dismiss();
+                            final View popupView2 = LayoutInflater.from(getActivity()).inflate(R.layout.nuevointegrante, null);
+                            final PopupWindow popupWindow2 = new PopupWindow(popupView2, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+                            popupWindow2.setFocusable(true);
+                            /*Button btn = (Button) popupView.findViewById(R.id.btnclose);
+                            btn.setOnClickListener(new View.OnClickListener() {
+                                public void onClick(View view) {
+                                    popupWindow2.dismiss();
+                                }
+                            });
 
-                            detalleEquipo=String.valueOf(detalle.getText());
-                            Log.d(TAG, "aquiiiiiiiiiii"+nombreEquipo.getText());
+                            Button btn2 = (Button) popupView.findViewById(R.id.btnagregar);
+                            btn2.setOnClickListener(new View.OnClickListener() {
+                                public void onClick(View view) {
 
-                            servicio = (ServicioWeb) new ServicioWeb().execute();
-                            popupWindow.dismiss();
-                            */
+                                }
+                            });*/
+
+
+
+
+
+
+
                         }
                     });
                     popupWindow.showAsDropDown(popupView, 0, 0);
@@ -268,7 +226,9 @@ public class TeamsFragment extends Fragment {
                     popupWindow.setFocusable(true);
                     nombreEquipoRow = (TextView) popupView.findViewById(R.id.txtNomnbreEquipo);
                     detalleEquipoRow = (TextView) popupView.findViewById(R.id.txtDetalleEquipo);
-                    //nombreEquipo.setText(btnequipo1.getText().toString());
+                    jugador1 = (TextView) popupView.findViewById(R.id.txtNombre1);
+                    jugador2 = (TextView) popupView.findViewById(R.id.txtNombre2);
+                    jugador3 = (TextView) popupView.findViewById(R.id.txtNombre3);
                     nombreEquipoSeleccionado = btnequipo2.getText().toString();
 
                     servicio4 = (ServicioWeb4) new ServicioWeb4().execute();
@@ -336,7 +296,9 @@ public class TeamsFragment extends Fragment {
                     popupWindow.setFocusable(true);
                     nombreEquipoRow = (TextView) popupView.findViewById(R.id.txtNomnbreEquipo);
                     detalleEquipoRow = (TextView) popupView.findViewById(R.id.txtDetalleEquipo);
-                    //nombreEquipo.setText(btnequipo1.getText().toString());
+                    jugador1 = (TextView) popupView.findViewById(R.id.txtNombre1);
+                    jugador2 = (TextView) popupView.findViewById(R.id.txtNombre2);
+                    jugador3 = (TextView) popupView.findViewById(R.id.txtNombre3);
                     nombreEquipoSeleccionado = btnequipo3.getText().toString();
 
                     servicio4 = (ServicioWeb4) new ServicioWeb4().execute();
@@ -403,9 +365,10 @@ public class TeamsFragment extends Fragment {
                     popupWindow.setFocusable(true);
                     nombreEquipoRow = (TextView) popupView.findViewById(R.id.txtNomnbreEquipo);
                     detalleEquipoRow = (TextView) popupView.findViewById(R.id.txtDetalleEquipo);
-                    //nombreEquipo.setText(btnequipo1.getText().toString());
+                    jugador1 = (TextView) popupView.findViewById(R.id.txtNombre1);
+                    jugador2 = (TextView) popupView.findViewById(R.id.txtNombre2);
+                    jugador3 = (TextView) popupView.findViewById(R.id.txtNombre3);
                     nombreEquipoSeleccionado = btnequipo4.getText().toString();
-
                     servicio4 = (ServicioWeb4) new ServicioWeb4().execute();
                     Button btn = (Button) popupView.findViewById(R.id.btnCerrarEquipo);
                     btn.setOnClickListener(new View.OnClickListener() {
@@ -470,7 +433,9 @@ public class TeamsFragment extends Fragment {
                     popupWindow.setFocusable(true);
                     nombreEquipoRow = (TextView) popupView.findViewById(R.id.txtNomnbreEquipo);
                     detalleEquipoRow = (TextView) popupView.findViewById(R.id.txtDetalleEquipo);
-                    //nombreEquipo.setText(btnequipo1.getText().toString());
+                    jugador1 = (TextView) popupView.findViewById(R.id.txtNombre1);
+                    jugador2 = (TextView) popupView.findViewById(R.id.txtNombre2);
+                    jugador3 = (TextView) popupView.findViewById(R.id.txtNombre3);
                     nombreEquipoSeleccionado = btnequipo5.getText().toString();
 
                     servicio4 = (ServicioWeb4) new ServicioWeb4().execute();
@@ -510,68 +475,10 @@ public class TeamsFragment extends Fragment {
         user.setText(String.valueOf(textname));
         mail.setText(String.valueOf(textomail));
         servicio3 = (ServicioWeb3) new ServicioWeb3(inf).execute();
-        /*Button btnNewTeam = (Button) inf.findViewById(R.id.btnTeams);
-        btnNewTeam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.popup_equipo, null);
-                final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-                popupWindow.setFocusable(true);
-                Button btn = (Button) popupView.findViewById(R.id.btncerrar);
-                btn.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View view) {
-                        popupWindow.dismiss();
-                    }
-                });
 
-                Button btn2 = (Button) popupView.findViewById(R.id.btnguardar);
-                btn2.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View view) {
-                        TextView nombreEquipo = (TextView) popupView.findViewById(R.id.txtnomequipo);
-                        TextView detalle = (TextView) popupView.findViewById(R.id.txtdetequipo);
-                        tv.setText(nombreEquipo.getText());
-                        nameEquipo=String.valueOf(nombreEquipo.getText());
-
-                        detalleEquipo=String.valueOf(detalle.getText());
-                        Log.d(TAG, "aquiiiiiiiiiii"+nombreEquipo.getText());
-
-                        servicio = (ServicioWeb) new ServicioWeb().execute();
-                        popupWindow.dismiss();
-                    }
-                });
-                popupWindow.showAsDropDown(popupView, 0, 0);
-
-            }
-        });*/
-
-        //consultarEquipos(idUsuario);
-        Log.d(TAG, "listaAFUERA" +listaUsuarios );
         return inf;
     }
-    /*public void crearBotones(String textoBotones){
-        //onCreateView(new Bundle());
 
-
-        //Obtenemos el linear layout donde colocar los botones
-
-
-        //Creamos las propiedades de layout que tendrán los botones.
-        //Son LinearLayout.LayoutParams porque los botones van a estar en un LinearLayout.
-        final LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT );
-
-
-        Log.d(TAG, "databotones" + textoBotones);
-
-        Button button;
-        button = new Button(getContext() );
-        //Asignamos propiedades de layout al boton
-        button.setLayoutParams(lp);
-        //Asignamos Texto al botón
-        button.setText("Boton "+String.format("%02d", 1 ));
-        //Añadimos el botón a la botonera
-        layoutBotones.addView(button);
-    }*/
     private class ServicioWeb4 extends AsyncTask<Integer, Integer, String> {
         @Override
         protected String doInBackground(Integer... params) {
@@ -622,9 +529,6 @@ public class TeamsFragment extends Fragment {
                         nombreEquipoSolicitado=nEquipo;
                         idEquipoSolicitado= idEquipo;
                         detalleEquipoSolicitado= dEquipo;
-
-                        //servicio2 = (ServicioWeb2) new ServicioWeb2().execute();
-
                     }else{
 
                     }
@@ -690,9 +594,6 @@ public class TeamsFragment extends Fragment {
                             jugador3.setText(nombrePersona);
                         }
 
-
-                        //servicio2 = (ServicioWeb2) new ServicioWeb2().execute();
-
                     }else{
 
                     }
@@ -735,12 +636,9 @@ public class TeamsFragment extends Fragment {
             Log.d(TAG, "data:" + responseText);
             try {
                 JSONArray jsonarray = new JSONArray(responseText);
-               // Log.d(TAG, "Aqui recibi2: " + jsonarray.length());
                 for (int i=0;i<jsonarray.length();i++){
                     JSONObject jsonobject = jsonarray.getJSONObject(i);
                     String nPersona = jsonobject.getString("nombre");
-                    //int idEquipoBuscando = jsonobject.getInt("idequipo");
-
                     int idPersonaBuscando = jsonobject.getInt("idusuario");
 
                     if (idUsuarioABuscar == idPersonaBuscando){
@@ -761,9 +659,6 @@ public class TeamsFragment extends Fragment {
         @Override
         protected void onPostExecute(String respuesta) {
             super.onPostExecute(respuesta);
-            Log.d(TAG, "data:siiiiiiiiiiiiii" + listaUsuarios );
-
-            Log.d(TAG, "onPostExecute");
             if (respuesta=="respuestas"){
                 detalleEquipoRow.setText(detalleEquipoSolicitado);
                 nombreEquipoRow.setText(nombreEquipoSolicitado);
@@ -816,7 +711,6 @@ public class TeamsFragment extends Fragment {
             catch(Exception e){
                 e.printStackTrace();
             }
-            //String nequipo2= dato;
             responseText = response.toString();
 
             Log.d(TAG, "data:" + responseText);
@@ -833,12 +727,7 @@ public class TeamsFragment extends Fragment {
 
                     if (idUserRow == dato){
                         indiceBotones++;
-                        //idTeam=idEquipo;
-
                         this.buscarNombredeEquipo(idEquipoRow);
-
-                        //respuesta2= idTeam;
-                        //servicio2 = (ServicioWeb2) new ServicioWeb2().execute();
                         Log.d(TAG, "buscandoid" + this.buscarNombredeEquipo(idEquipoRow) );
 
                         if(indiceBotones == 1){
@@ -856,43 +745,10 @@ public class TeamsFragment extends Fragment {
                         if(indiceBotones == 5){
                             btnequipo5.setText(this.buscarNombredeEquipo(idEquipoRow));
                         }
-                        //Obtenemos el linear layout donde colocar los botones
-                        //layoutBotones = (LinearLayout) inf.findViewById(R.id.layoutTeams);
-
-                        //Creamos las propiedades de layout que tendrán los botones.
-                        //Son LinearLayout.LayoutParams porque los botones van a estar en un LinearLayout.
-                        //lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                               // LinearLayout.LayoutParams.WRAP_CONTENT );
-
                         Log.d(TAG, "INDICES" + indiceBotones);
 
                         listaUsuarios.add(this.buscarNombredeEquipo(idEquipoRow) );
                         Log.d(TAG, "lista de usuarios" +listaUsuarios );
-                        //listaBotones.get(i).setText("adsada");
-                        //btnequipo1.setText(this.buscarNombredeEquipo(idEquipoRow));
-                        //layoutBotones.addView(btnequipo1);
-                        //Button btn = (Button) inf.findViewById(R.id.btn1);
-                        //btn.setText(this.buscarNombredeEquipo(idEquipoRow));
-
-                        //crearBotones(this.buscarNombredeEquipo(idEquipoRow));
-                        //layoutBotones.addView(btnequipo1);
-
-
-
-
-
-                        /*Button button = new Button(this.vista);
-                        //Asignamos propiedades de layout al boton
-                        button.setLayoutParams(lp);
-                        //Asignamos Texto al botón
-                        button.setText("Boton "+String.format("%02d", 1 ));
-                        //button.setText("ssss");
-                        //Añadimos el botón a la botonera
-                        layoutBotones.addView(button);*/
-
-
-
-
 
                     }else{
 
@@ -913,7 +769,6 @@ public class TeamsFragment extends Fragment {
         protected String buscarNombredeEquipo(int dato) {
             try {
                 url=new URL(path2);
-                //Log.d(TAG, "ServerData: " + path2);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(15000);
                 conn.setConnectTimeout(15000);
@@ -937,7 +792,6 @@ public class TeamsFragment extends Fragment {
             catch(Exception e){
                 e.printStackTrace();
             }
-            //String nequipo2= dato;
             responseText = response.toString();
             Log.d(TAG, "data:" + responseText);
             try {
@@ -951,10 +805,6 @@ public class TeamsFragment extends Fragment {
 
 
                     if (idEquipoRow == dato){
-                        //idTeam=idEquipo;
-                        //respuesta2= idTeam;
-                        //servicio2 = (ServicioWeb2) new ServicioWeb2().execute();
-                        //Log.d(TAG, "buscandoid" + idEquipoRow );
                         return nombreEquipoRow;
                     }else{
 
@@ -1262,7 +1112,6 @@ public class TeamsFragment extends Fragment {
             }else{
 
             }
-
         }
     }
 
