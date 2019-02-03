@@ -1027,10 +1027,20 @@ public class TeamsFragment extends Fragment {
 
             Log.d(TAG, "onPostExecute");
             if (respuesta=="satisfactorio"){
-                resAgreIntegrante = "AgregadoCorrectamente";
+
+
+                Bundle args = new Bundle();
+                args.putString("titulo", "Advertencia");
+                args.putString("texto", "Se registro su jugador");
+                FragmentError f=new FragmentError();
+                f.setArguments(args);
+                f.show(getFragmentManager(), "FragmentError");
+
+
+                /*resAgreIntegrante = "AgregadoCorrectamente";
                 TeamsFragment.mostrarMensaje(resAgreIntegrante);
                 Log.d(TAG, "si paso por aqui ");
-                Log.d(TAG, "resAgre "+resAgreIntegrante);
+                Log.d(TAG, "resAgre "+resAgreIntegrante);*/
 
 
             }else{
