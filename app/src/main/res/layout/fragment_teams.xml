@@ -7,15 +7,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ResumeFragment">
 
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/logogorun" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="Teams"
+        android:text="Equipos"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="@color/colorPrimaryDark"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="25dp"
         android:textStyle="bold"/>
 
 
@@ -85,53 +92,6 @@
 
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/txtteam"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginRight="30dp"
-        android:text="team"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="@color/colorPrimary" />
-
-    <TextView
-        android:id="@+id/txtiduser"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_gravity="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="@color/colorPrimary"
-        android:layout_marginTop="50dp"
-        android:text="team" />
-
-    <TextView
-        android:id="@+id/txtnombreuser"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_gravity="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="@color/colorPrimary"
-        android:layout_marginTop="50dp"
-        android:text="team" />
-    <TextView
-        android:id="@+id/txtmailuser"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_gravity="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="@color/colorPrimary"
-        android:layout_marginTop="50dp"
-        android:text="team" />
 
 
 </LinearLayout>

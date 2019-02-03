@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,12 +54,17 @@ public class TeamsFragment extends Fragment {
     ServicioWeb2 servicio2;
     ServicioWeb3 servicio3;
     ServicioWeb4 servicio4;
+    ServicioWeb5 servicio5;
     public TextView tv;
     public TextView detalleEquipoRow;
     public TextView nombreEquipoRow;
     public TextView jugador1;
     public TextView jugador2;
     public TextView jugador3;
+    public TextView txtEmail;
+    public TextView mensaje3;
+    public String txtEmail2;
+    public TextView mensajitoError;
 
     public static String nameEquipo;
     public static String detalleEquipo;
@@ -82,6 +89,9 @@ public class TeamsFragment extends Fragment {
     public Button btnequipo4;
     public Button btnequipo5;
 
+    public static String resAgreIntegrante;
+    public static String resAgreIntegrante2;
+
     public TeamsFragment() {}
 
     @Override
@@ -97,8 +107,7 @@ public class TeamsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         inf = inflater.inflate(R.layout.fragment_teams, container, false);
-        final TextView tv = (TextView) inf.findViewById(R.id.txtteam);
-        tv.setText("qqqqqqqqqqqqqqqqqqqqqqqqqqq");
+
 
         btnequipo1 = (Button) inf.findViewById(R.id.btn1);
         btnequipo2 = (Button) inf.findViewById(R.id.btn2);
@@ -106,13 +115,16 @@ public class TeamsFragment extends Fragment {
         btnequipo4 = (Button) inf.findViewById(R.id.btn4);
         btnequipo5 = (Button) inf.findViewById(R.id.btn5);
 
+
         btnequipo1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(btnequipo1.getText().equals("NUEVO EQUIPO")){
                     final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.popup_equipo, null);
                     final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-                    popupWindow.setFocusable(true);
+
+                    //TextView mensajitoError = (TextView) popupWindow.findViewById(R.id.mensajeChiquito);
+                    mensajitoError = (TextView) popupView.findViewById(R.id.mensajeChiquito);
                     Button btn = (Button) popupView.findViewById(R.id.btncerrar);
                     btn.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View view) {
@@ -159,36 +171,70 @@ public class TeamsFragment extends Fragment {
                     Button btn2 = (Button) popupView.findViewById(R.id.btnAgregarJugador);
                     btn2.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View view) {
-                            //popupWindow.dismiss();
+                            popupWindow.dismiss();
                             final View popupView2 = LayoutInflater.from(getActivity()).inflate(R.layout.nuevointegrante, null);
                             final PopupWindow popupWindow2 = new PopupWindow(popupView2, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
                             popupWindow2.setFocusable(true);
-                            /*Button btn = (Button) popupView.findViewById(R.id.btnclose);
+                            popupWindow2.showAsDropDown(popupView2, 0, 0);
+
+                            Button btn = (Button) popupView2.findViewById(R.id.btnclose);
                             btn.setOnClickListener(new View.OnClickListener() {
                                 public void onClick(View view) {
                                     popupWindow2.dismiss();
                                 }
                             });
 
-                            Button btn2 = (Button) popupView.findViewById(R.id.btnagregar);
+                            Button btn2 = (Button) popupView2.findViewById(R.id.btnagregar);
                             btn2.setOnClickListener(new View.OnClickListener() {
                                 public void onClick(View view) {
 
+                                    txtEmail = (TextView) popupView2.findViewById(R.id.txtcorreo);
+                                    txtEmail2 = txtEmail.getText().toString();
+                                    Log.d(TAG, "mostrando mail"+txtEmail2);
+                                    Log.d(TAG, "presentando respuesta11"+resAgreIntegrante);
+                                    servicio5 = (ServicioWeb5) new ServicioWeb5().execute();
+                                    popupWindow2.dismiss();
+                                    Log.d(TAG, "presentando respuesta11336"+resAgreIntegrante2);
+                                    /*
+                                    if (resAgreIntegrante =="AgregadoCorrectamente"){
+                                        //popupWindow2.dismiss();
+                                         final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.popup_equipo, null);
+                                         final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+                                            popupWindow.setFocusable(true);
+                                       mensaje3 = (TextView) popupView.findViewById(R.id.mensajePersonalizado);
+                                        Log.d(TAG, "presentando respuesta113355"+mensaje3.getText());
+                                         mensaje3.setText("Se registrò el usuario con èxito");
+                                         popupWindow.showAsDropDown(popupView, 0, 0);
+                                    }else {
+                                        final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.popup_equipo, null);
+                                        final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+                                        popupWindow.setFocusable(true);
+                                         mensaje3 = (TextView) popupView.findViewById(R.id.mensajePersonalizado);
+                                         String valor = String.valueOf(mensaje3.getText());
+                                        Log.d(TAG, "presentando respuesta113355"+valor );
+
+
+                                        mensaje3.setText("No se pudo registrar el usuario");
+                                        popupWindow.showAsDropDown(popupView, 0, 0);
+
+                                    }
+                                    */
+
                                 }
-                            });*/
 
-
-
-
-
-
+                            });
 
                         }
+
                     });
                     popupWindow.showAsDropDown(popupView, 0, 0);
+                    Log.d(TAG, "presentando respuesta112"+resAgreIntegrante);
                 }
             }
         });
+
+
+
 
         btnequipo2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -243,16 +289,32 @@ public class TeamsFragment extends Fragment {
                     Button btn2 = (Button) popupView.findViewById(R.id.btnAgregarJugador);
                     btn2.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View view) {
-                            TextView nombreEquipo = (TextView) popupView.findViewById(R.id.txtnomequipo);
-                            TextView detalle = (TextView) popupView.findViewById(R.id.txtdetequipo);
-                            tv.setText(nombreEquipo.getText());
-                            nameEquipo=String.valueOf(nombreEquipo.getText());
-
-                            detalleEquipo=String.valueOf(detalle.getText());
-                            Log.d(TAG, "aquiiiiiiiiiii"+nombreEquipo.getText());
-
-                            servicio = (ServicioWeb) new ServicioWeb().execute();
                             popupWindow.dismiss();
+                            final View popupView2 = LayoutInflater.from(getActivity()).inflate(R.layout.nuevointegrante, null);
+                            final PopupWindow popupWindow2 = new PopupWindow(popupView2, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+                            popupWindow2.setFocusable(true);
+                            popupWindow2.showAsDropDown(popupView2, 0, 0);
+
+                            Button btn = (Button) popupView2.findViewById(R.id.btnclose);
+                            btn.setOnClickListener(new View.OnClickListener() {
+                                public void onClick(View view) {
+                                    popupWindow2.dismiss();
+                                }
+                            });
+
+                            Button btn2 = (Button) popupView2.findViewById(R.id.btnagregar);
+                            btn2.setOnClickListener(new View.OnClickListener() {
+                                public void onClick(View view) {
+
+                                    txtEmail = (TextView) popupView2.findViewById(R.id.txtcorreo);
+                                    txtEmail2 = txtEmail.getText().toString();
+                                    Log.d(TAG, "mostrando mail"+txtEmail2);
+
+                                    servicio5 = (ServicioWeb5) new ServicioWeb5().execute();
+
+
+                                }
+                            });
                         }
                     });
                     popupWindow.showAsDropDown(popupView, 0, 0);
@@ -312,16 +374,32 @@ public class TeamsFragment extends Fragment {
                     Button btn2 = (Button) popupView.findViewById(R.id.btnAgregarJugador);
                     btn2.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View view) {
-                            TextView nombreEquipo = (TextView) popupView.findViewById(R.id.txtnomequipo);
-                            TextView detalle = (TextView) popupView.findViewById(R.id.txtdetequipo);
-                            tv.setText(nombreEquipo.getText());
-                            nameEquipo=String.valueOf(nombreEquipo.getText());
-
-                            detalleEquipo=String.valueOf(detalle.getText());
-                            Log.d(TAG, "aquiiiiiiiiiii"+nombreEquipo.getText());
-
-                            servicio = (ServicioWeb) new ServicioWeb().execute();
                             popupWindow.dismiss();
+                            final View popupView2 = LayoutInflater.from(getActivity()).inflate(R.layout.nuevointegrante, null);
+                            final PopupWindow popupWindow2 = new PopupWindow(popupView2, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+                            popupWindow2.setFocusable(true);
+                            popupWindow2.showAsDropDown(popupView2, 0, 0);
+
+                            Button btn = (Button) popupView2.findViewById(R.id.btnclose);
+                            btn.setOnClickListener(new View.OnClickListener() {
+                                public void onClick(View view) {
+                                    popupWindow2.dismiss();
+                                }
+                            });
+
+                            Button btn2 = (Button) popupView2.findViewById(R.id.btnagregar);
+                            btn2.setOnClickListener(new View.OnClickListener() {
+                                public void onClick(View view) {
+
+                                    txtEmail = (TextView) popupView2.findViewById(R.id.txtcorreo);
+                                    txtEmail2 = txtEmail.getText().toString();
+                                    Log.d(TAG, "mostrando mail"+txtEmail2);
+
+                                    servicio5 = (ServicioWeb5) new ServicioWeb5().execute();
+
+
+                                }
+                            });
                         }
                     });
                     popupWindow.showAsDropDown(popupView, 0, 0);
@@ -467,13 +545,6 @@ public class TeamsFragment extends Fragment {
         });
 
 
-
-        final TextView id = (TextView) inf.findViewById(R.id.txtiduser);
-        final TextView user = (TextView) inf.findViewById(R.id.txtnombreuser);
-        final TextView mail = (TextView) inf.findViewById(R.id.txtmailuser);
-        id.setText(String.valueOf(idUsuario));
-        user.setText(String.valueOf(textname));
-        mail.setText(String.valueOf(textomail));
         servicio3 = (ServicioWeb3) new ServicioWeb3(inf).execute();
 
         return inf;
@@ -834,6 +905,164 @@ public class TeamsFragment extends Fragment {
             }
 
         }
+    }
+
+
+    private class ServicioWeb5 extends AsyncTask<Integer, Integer, String> {
+
+        @Override
+        protected String doInBackground(Integer... params) {
+            return getWebServiceResponseData(txtEmail2);
+        }
+
+        protected String getWebServiceResponseData(String dato) {
+            try {
+                url=new URL(path5);
+                Log.d(TAG, "ServerData: " + path5);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(15000);
+                conn.setConnectTimeout(15000);
+                conn.setRequestMethod("GET");
+
+                int responseCode = conn.getResponseCode();
+
+                Log.d(TAG, "Response code: " + responseCode);
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+                    // Reading response from input Stream
+                    BufferedReader in = new BufferedReader(
+                            new InputStreamReader(conn.getInputStream()));
+                    String output;
+                    response = new StringBuffer();
+
+                    while ((output = in.readLine()) != null) {
+                        response.append(output);
+                    }
+                    in.close();
+                }}
+            catch(Exception e){
+                e.printStackTrace();
+            }
+            responseText = response.toString();
+            Log.d(TAG, "yo recibi "+dato);
+
+            Log.d(TAG, "data:" + responseText);
+            try {
+                JSONArray jsonarray = new JSONArray(responseText);
+                //int indiceBotones = 0;
+                for (int i=0;i<jsonarray.length();i++){
+                    JSONObject jsonobject = jsonarray.getJSONObject(i);
+                    int idUserEquipo = jsonobject.getInt("idusuario");
+                    String mailx = jsonobject.getString("mail");
+                    Log.d(TAG, "lokendo "+ mailx);
+                    if (dato.equals(mailx)){
+                        Log.d(TAG, "digimon"+mailx);
+
+                        this.añadirIntegranteEquipo(idUserEquipo);
+                        //return "";
+                        respuesta="satisfactorio";
+                    }else{
+                        Log.d(TAG, "NOVALE"+mailx);
+                        //mensajitoError.setText("El usuario no existe en la base");
+                    }
+                    //return "";
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return respuesta;
+        }
+
+
+
+
+        protected void añadirIntegranteEquipo(int usuario) {
+            respuesta="";
+
+            HttpURLConnection urlConnection = null;
+            Map<String, Integer> intMap = new HashMap<>();
+            //this.getWebServiceResponseData2(nameEquipo);
+            intMap.put("idusuario", usuario);
+            intMap.put("idequipo", idEquipoSolicitado);
+            Log.d(TAG, "pokemon"+ usuario);
+            Log.d(TAG, "digimon"+ idEquipoSolicitado);
+
+            String requestBody = FormRegister.Utils.buildPostParameters(intMap);
+            try {
+                urlConnection = (HttpURLConnection) FormRegister.Utils.makeRequest("POST", path3, null, "application/x-www-form-urlencoded", requestBody);
+                InputStream inputStream;
+                Log.d(TAG, requestBody);
+                // get stream
+                if (urlConnection.getResponseCode() < HttpURLConnection.HTTP_BAD_REQUEST) {
+                    inputStream = urlConnection.getInputStream();
+                } else {
+                    inputStream = urlConnection.getErrorStream();
+                }
+                // parse stream
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String temp, response = "";
+                while ((temp = bufferedReader.readLine()) != null) {
+                    response += temp;
+                }
+                respuesta="correcto";
+                resAgreIntegrante = "AgregadoCorrectamente";
+                //return respuesta;
+            } catch (Exception e) {
+                e.printStackTrace();
+                //return e.toString();
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+            }
+
+
+        }
+
+
+        @Override
+        protected void onPostExecute(String respuesta) {
+            super.onPostExecute(respuesta);
+            Log.d(TAG, "data:siiiiiiiiiiiiii" + idEq );
+
+            Log.d(TAG, "onPostExecute");
+            if (respuesta=="satisfactorio"){
+                resAgreIntegrante = "AgregadoCorrectamente";
+                TeamsFragment.mostrarMensaje(resAgreIntegrante);
+                Log.d(TAG, "si paso por aqui ");
+                Log.d(TAG, "resAgre "+resAgreIntegrante);
+
+
+            }else{
+
+            }
+
+        }
+    }
+
+    private static void mostrarMensaje(String resAgreIntegrante) {
+        Log.d(TAG, "aqui llegue"+resAgreIntegrante);
+        resAgreIntegrante2=resAgreIntegrante;
+        Log.d(TAG, "aqui llegue2"+resAgreIntegrante2);
+        resAgreIntegrante=resAgreIntegrante;
+         /*if(resAgreIntegrante =="AgregadoCorrectamente"){
+                    //popupWindow2.dismiss();
+                    final View popupView = LayoutInflater.from().inflate(R.layout.popup_equipo, null);
+                    final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+                    //popupWindow.setFocusable(true);
+                    final TextView mensaje = (TextView) inf.findViewById(R.id.mensajePersonalizado);
+                   // mensaje.setText("Se registrò el usuario con èxito");
+                    popupWindow.showAsDropDown(popupView, 0, 0);
+                }else {
+                    final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.popup_equipo, null);
+                    final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+                    popupWindow.setFocusable(true);
+                    final TextView mensaje = (TextView) inf.findViewById(R.id.mensajePersonalizado);
+                    mensaje.setText("No se pudo registrar el usuario");
+                    popupWindow.showAsDropDown(popupView, 0, 0);
+
+                }*/
+
     }
 
 
