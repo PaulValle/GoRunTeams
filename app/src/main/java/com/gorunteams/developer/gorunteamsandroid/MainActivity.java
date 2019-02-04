@@ -101,11 +101,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button gologin = (Button) findViewById(R.id.signin);
+
+
         gologin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent itemintent = new Intent(MainActivity.this, resume.class);
+                Intent itemintent = new Intent(MainActivity.this, login2.class);
                 startActivity(itemintent);
 
             }

@@ -122,6 +122,7 @@ public class TeamsFragment extends Fragment {
                 if(btnequipo1.getText().equals("NUEVO EQUIPO")){
                     final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.popup_equipo, null);
                     final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+                    popupWindow.setFocusable(true);
 
                     //TextView mensajitoError = (TextView) popupWindow.findViewById(R.id.mensajeChiquito);
                     mensajitoError = (TextView) popupView.findViewById(R.id.mensajeChiquito);
@@ -137,7 +138,8 @@ public class TeamsFragment extends Fragment {
                         public void onClick(View view) {
                             TextView nombreEquipo = (TextView) popupView.findViewById(R.id.txtnomequipo);
                             TextView detalle = (TextView) popupView.findViewById(R.id.txtdetequipo);
-                            tv.setText(nombreEquipo.getText());
+                            //
+                            // tv.setText(nombreEquipo.getText());
                             nameEquipo=String.valueOf(nombreEquipo.getText());
 
                             detalleEquipo=String.valueOf(detalle.getText());
@@ -255,7 +257,7 @@ public class TeamsFragment extends Fragment {
                         public void onClick(View view) {
                             TextView nombreEquipo = (TextView) popupView.findViewById(R.id.txtnomequipo);
                             TextView detalle = (TextView) popupView.findViewById(R.id.txtdetequipo);
-                            tv.setText(nombreEquipo.getText());
+                            //tv.setText(nombreEquipo.getText());
                             nameEquipo=String.valueOf(nombreEquipo.getText());
 
                             detalleEquipo=String.valueOf(detalle.getText());
@@ -341,7 +343,7 @@ public class TeamsFragment extends Fragment {
                         public void onClick(View view) {
                             TextView nombreEquipo = (TextView) popupView.findViewById(R.id.txtnomequipo);
                             TextView detalle = (TextView) popupView.findViewById(R.id.txtdetequipo);
-                            tv.setText(nombreEquipo.getText());
+                            //tv.setText(nombreEquipo.getText());
                             nameEquipo=String.valueOf(nombreEquipo.getText());
 
                             detalleEquipo=String.valueOf(detalle.getText());
@@ -354,8 +356,8 @@ public class TeamsFragment extends Fragment {
                     popupWindow.showAsDropDown(popupView, 0, 0);
                 }else{
                     final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.integrantesequipo, null);
-                    final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-                    popupWindow.setFocusable(true);
+                    final PopupWindow popupWindow3 = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+                    popupWindow3.setFocusable(true);
                     nombreEquipoRow = (TextView) popupView.findViewById(R.id.txtNomnbreEquipo);
                     detalleEquipoRow = (TextView) popupView.findViewById(R.id.txtDetalleEquipo);
                     jugador1 = (TextView) popupView.findViewById(R.id.txtNombre1);
@@ -367,14 +369,14 @@ public class TeamsFragment extends Fragment {
                     Button btn = (Button) popupView.findViewById(R.id.btnCerrarEquipo);
                     btn.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View view) {
-                            popupWindow.dismiss();
+                            popupWindow3.dismiss();
                         }
                     });
 
                     Button btn2 = (Button) popupView.findViewById(R.id.btnAgregarJugador);
                     btn2.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View view) {
-                            popupWindow.dismiss();
+                            popupWindow3.dismiss();
                             final View popupView2 = LayoutInflater.from(getActivity()).inflate(R.layout.nuevointegrante, null);
                             final PopupWindow popupWindow2 = new PopupWindow(popupView2, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
                             popupWindow2.setFocusable(true);
@@ -402,7 +404,7 @@ public class TeamsFragment extends Fragment {
                             });
                         }
                     });
-                    popupWindow.showAsDropDown(popupView, 0, 0);
+                    popupWindow3.showAsDropDown(popupView, 0, 0);
                 }
             }
         });
@@ -426,7 +428,7 @@ public class TeamsFragment extends Fragment {
                         public void onClick(View view) {
                             TextView nombreEquipo = (TextView) popupView.findViewById(R.id.txtnomequipo);
                             TextView detalle = (TextView) popupView.findViewById(R.id.txtdetequipo);
-                            tv.setText(nombreEquipo.getText());
+                            //tv.setText(nombreEquipo.getText());
                             nameEquipo=String.valueOf(nombreEquipo.getText());
 
                             detalleEquipo=String.valueOf(detalle.getText());
@@ -460,7 +462,7 @@ public class TeamsFragment extends Fragment {
                         public void onClick(View view) {
                             TextView nombreEquipo = (TextView) popupView.findViewById(R.id.txtnomequipo);
                             TextView detalle = (TextView) popupView.findViewById(R.id.txtdetequipo);
-                            tv.setText(nombreEquipo.getText());
+                            //tv.setText(nombreEquipo.getText());
                             nameEquipo=String.valueOf(nombreEquipo.getText());
 
                             detalleEquipo=String.valueOf(detalle.getText());
@@ -494,7 +496,7 @@ public class TeamsFragment extends Fragment {
                         public void onClick(View view) {
                             TextView nombreEquipo = (TextView) popupView.findViewById(R.id.txtnomequipo);
                             TextView detalle = (TextView) popupView.findViewById(R.id.txtdetequipo);
-                            tv.setText(nombreEquipo.getText());
+                            //tv.setText(nombreEquipo.getText());
                             nameEquipo=String.valueOf(nombreEquipo.getText());
 
                             detalleEquipo=String.valueOf(detalle.getText());
@@ -529,7 +531,7 @@ public class TeamsFragment extends Fragment {
                         public void onClick(View view) {
                             TextView nombreEquipo = (TextView) popupView.findViewById(R.id.txtnomequipo);
                             TextView detalle = (TextView) popupView.findViewById(R.id.txtdetequipo);
-                            tv.setText(nombreEquipo.getText());
+                            //tv.setText(nombreEquipo.getText());
                             nameEquipo=String.valueOf(nombreEquipo.getText());
 
                             detalleEquipo=String.valueOf(detalle.getText());

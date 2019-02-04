@@ -50,7 +50,8 @@ public class resume extends AppCompatActivity implements BottomNavigationView.On
                 fragment.setArguments(datos);
                 break;
             case R.id.teams:
-                fragment= new TeamsFragment();
+                fragment = new TeamsFragment();
+                //fragment= new TeamsFragment();
                 fragment.setArguments(datos);
                 break;
 

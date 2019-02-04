@@ -25,7 +25,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:ems="14"
-        android:hint="User"
+        android:hint="Correo"
         android:inputType="text"
         android:textColor="#000"
         android:textColorHint="#FF008577"
@@ -52,19 +52,18 @@
         android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/btnborder"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:text="Sign in"
         android:padding="5dp"
         android:layout_marginTop="30dp"
-        android:textColor="@color/colorPrimary" />
+        android:background="@drawable/buttonbackground" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Don't have an account?"
+        android:text="No tienes una cuenta?"
         android:layout_marginTop="20dp"
         android:textColor="@android:color/background_dark" />
 
@@ -72,7 +71,7 @@
         android:id="@+id/register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Click here"
+        android:text="Click Aqui"
         android:textColor="@android:color/background_dark" />
 
 

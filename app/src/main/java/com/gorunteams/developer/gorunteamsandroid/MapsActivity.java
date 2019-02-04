@@ -15,6 +15,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -60,11 +61,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void agregarMarcador(double lat, double lng) {
+        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.marcador);
         LatLng coordenadas = new LatLng(lat, lng);
         CameraUpdate miUbicacion = CameraUpdateFactory.newLatLngZoom(coordenadas, 16);
         if (marcador != null) marcador.remove();
         //GoogleMap nMap;
-        marcador = mMap.addMarker(new MarkerOptions().position(coordenadas).title("Mi posicion actual").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher)));
+        marcador = mMap.addMarker(new MarkerOptions().position(coordenadas).title("Mi posicion actual").icon(icon));
         mMap.animateCamera(miUbicacion);
     }
 
