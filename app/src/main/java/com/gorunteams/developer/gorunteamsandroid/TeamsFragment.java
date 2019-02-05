@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,8 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
+
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -61,6 +64,8 @@ public class TeamsFragment extends Fragment {
     public TextView jugador1;
     public TextView jugador2;
     public TextView jugador3;
+    public TextView jugador4;
+    public TextView jugador5;
     public TextView txtEmail;
     public TextView mensaje3;
     public String txtEmail2;
@@ -88,6 +93,8 @@ public class TeamsFragment extends Fragment {
     public Button btnequipo3;
     public Button btnequipo4;
     public Button btnequipo5;
+               public     TeamsFragment teamsFr;
+
 
     public static String resAgreIntegrante;
     public static String resAgreIntegrante2;
@@ -159,6 +166,8 @@ public class TeamsFragment extends Fragment {
                     jugador1 = (TextView) popupView.findViewById(R.id.txtNombre1);
                     jugador2 = (TextView) popupView.findViewById(R.id.txtNombre2);
                     jugador3 = (TextView) popupView.findViewById(R.id.txtNombre3);
+                    jugador4 = (TextView) popupView.findViewById(R.id.txtNombre4);
+                    jugador5 = (TextView) popupView.findViewById(R.id.txtNombre5);
                     nombreEquipoSeleccionado = btnequipo1.getText().toString();
 
                     servicio4 = (ServicioWeb4) new ServicioWeb4().execute();
@@ -277,6 +286,8 @@ public class TeamsFragment extends Fragment {
                     jugador1 = (TextView) popupView.findViewById(R.id.txtNombre1);
                     jugador2 = (TextView) popupView.findViewById(R.id.txtNombre2);
                     jugador3 = (TextView) popupView.findViewById(R.id.txtNombre3);
+                    jugador4 = (TextView) popupView.findViewById(R.id.txtNombre4);
+                    jugador5 = (TextView) popupView.findViewById(R.id.txtNombre5);
                     nombreEquipoSeleccionado = btnequipo2.getText().toString();
 
                     servicio4 = (ServicioWeb4) new ServicioWeb4().execute();
@@ -363,6 +374,8 @@ public class TeamsFragment extends Fragment {
                     jugador1 = (TextView) popupView.findViewById(R.id.txtNombre1);
                     jugador2 = (TextView) popupView.findViewById(R.id.txtNombre2);
                     jugador3 = (TextView) popupView.findViewById(R.id.txtNombre3);
+                    jugador4 = (TextView) popupView.findViewById(R.id.txtNombre4);
+                    jugador5 = (TextView) popupView.findViewById(R.id.txtNombre5);
                     nombreEquipoSeleccionado = btnequipo3.getText().toString();
 
                     servicio4 = (ServicioWeb4) new ServicioWeb4().execute();
@@ -448,6 +461,8 @@ public class TeamsFragment extends Fragment {
                     jugador1 = (TextView) popupView.findViewById(R.id.txtNombre1);
                     jugador2 = (TextView) popupView.findViewById(R.id.txtNombre2);
                     jugador3 = (TextView) popupView.findViewById(R.id.txtNombre3);
+                    jugador4 = (TextView) popupView.findViewById(R.id.txtNombre4);
+                    jugador5 = (TextView) popupView.findViewById(R.id.txtNombre5);
                     nombreEquipoSeleccionado = btnequipo4.getText().toString();
                     servicio4 = (ServicioWeb4) new ServicioWeb4().execute();
                     Button btn = (Button) popupView.findViewById(R.id.btnCerrarEquipo);
@@ -516,6 +531,8 @@ public class TeamsFragment extends Fragment {
                     jugador1 = (TextView) popupView.findViewById(R.id.txtNombre1);
                     jugador2 = (TextView) popupView.findViewById(R.id.txtNombre2);
                     jugador3 = (TextView) popupView.findViewById(R.id.txtNombre3);
+                    jugador4 = (TextView) popupView.findViewById(R.id.txtNombre4);
+                    jugador5 = (TextView) popupView.findViewById(R.id.txtNombre5);
                     nombreEquipoSeleccionado = btnequipo5.getText().toString();
 
                     servicio4 = (ServicioWeb4) new ServicioWeb4().execute();
@@ -665,6 +682,12 @@ public class TeamsFragment extends Fragment {
                         }
                         if(indexUsuarios == 3){
                             jugador3.setText(nombrePersona);
+                        }
+                        if(indexUsuarios == 4){
+                            jugador4.setText(nombrePersona);
+                        }
+                        if(indexUsuarios == 5){
+                            jugador5.setText(nombrePersona);
                         }
 
                     }else{
@@ -1032,20 +1055,21 @@ public class TeamsFragment extends Fragment {
 
 
                 Bundle args = new Bundle();
-                args.putString("titulo", "Advertencia");
+                args.putString("titulo", "Mensaje");
                 args.putString("texto", "Se registro su jugador");
                 FragmentError f=new FragmentError();
                 f.setArguments(args);
                 f.show(getFragmentManager(), "FragmentError");
 
 
-                /*resAgreIntegrante = "AgregadoCorrectamente";
-                TeamsFragment.mostrarMensaje(resAgreIntegrante);
-                Log.d(TAG, "si paso por aqui ");
-                Log.d(TAG, "resAgre "+resAgreIntegrante);*/
-
-
             }else{
+
+                Bundle args = new Bundle();
+                args.putString("titulo", "Mensaje");
+                args.putString("texto", "No se pudo registrar su jugador");
+                FragmentError f=new FragmentError();
+                f.setArguments(args);
+                f.show(getFragmentManager(), "FragmentError");
 
             }
 
@@ -1187,8 +1211,27 @@ public class TeamsFragment extends Fragment {
 
             Log.d(TAG, "onPostExecute");
             if (respuesta=="correcto"){
+                Bundle args = new Bundle();
+                args.putString("titulo", "Mensaje");
+                args.putString("texto", "Se ha registrado su nuevo equipo");
+                FragmentError f=new FragmentError();
+                f.setArguments(args);
+                f.show(getFragmentManager(), "FragmentError");
+
+
+                servicio3 = (ServicioWeb3) new ServicioWeb3(inf).execute();
+
+
+
+
 
             }else{
+                Bundle args = new Bundle();
+                args.putString("titulo", "Mensaje");
+                args.putString("texto", "Error al registrar su equipo");
+                FragmentError f=new FragmentError();
+                f.setArguments(args);
+                f.show(getFragmentManager(), "FragmentError");
 
             }
 
