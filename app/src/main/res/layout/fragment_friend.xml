@@ -94,9 +94,9 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
-            android:text="0.00"
+            android:text="000"
             android:textAlignment="center"
-            android:paddingLeft="45dp"
+            android:paddingLeft="35dp"
             android:textColor="@android:color/holo_orange_dark"
             android:textSize="24sp" />
         <TextView
@@ -104,7 +104,7 @@
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
-            android:text="km"
+            android:text="m"
             android:textAlignment="center"
             android:textColor="@android:color/holo_orange_dark"
             android:textSize="24sp" />
