@@ -2,6 +2,8 @@ package com.gorunteams.developer.gorunteamsandroid;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -14,7 +16,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -53,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String TAG = "AsyncTaskActivity";
 
     public final static String path = "https://restgorun.herokuapp.com/guardarUsuario";
+
+    private ProgressBar progressBar;
 
 
     public final static String path2 = "https://restgorun.herokuapp.com/listarusuarios";
@@ -100,21 +106,54 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setMax(10);
         Button gologin = (Button) findViewById(R.id.signin);
 
 
         gologin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                progressBar.setVisibility(View.VISIBLE);
+                progressBar.setProgress(0);
                 Intent itemintent = new Intent(MainActivity.this, login2.class);
                 startActivity(itemintent);
+                progressBar.setVisibility(View.GONE);
+
+
+                /*PackageManager pm=getPackageManager();
+                try {
+
+                    Intent waIntent = new Intent(Intent.ACTION_SEND);
+                    waIntent.setType("text/plain");
+                    String text = "YOUR TEXT HERE";
+
+                    PackageInfo info=pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
+                    //Check if package exists or not. If not then code
+                    //in catch block will be called
+                    waIntent.setPackage("com.whatsapp");
+
+                    waIntent.putExtra(Intent.EXTRA_TEXT, text);
+                    startActivity(Intent.createChooser(waIntent, "Share with"));
+
+                } catch (PackageManager.NameNotFoundException e) {
+
+                }*/
+
+
+
+
 
             }
         });
 
         SignIn = (SignInButton)findViewById(R.id.btnLog);
         SignIn.setOnClickListener(this);
+
+
+
+
         name = (TextView) findViewById(R.id.txtName);
         //prof_section.setVisibility(View.GONE);
         GoogleSignInOptions signInOptions= new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
@@ -130,7 +169,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId())
         {
             case R.id.btnLog:
+                progressBar.setVisibility(View.VISIBLE);
+                progressBar.setProgress(0);
                 signIn();
+
+
                 break;
         }
 
@@ -149,8 +192,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // Run AsyncTask
             Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
             startActivityForResult(intent,REQ_CODE);
-
-
         }
         else
         {
@@ -364,6 +405,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             super.onPostExecute(respuesta);
             Log.d(TAG, "onPostExecute");
             if (respuesta=="correcto" || respuesta=="logear"){
+                progressBar.setVisibility(View.GONE);
                 Intent itemintent = new Intent(MainActivity.this, resume.class);
                 itemintent.putExtra("mail" , rsmail);
                 itemintent.putExtra("name" , rsname);
@@ -381,6 +423,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 f.setArguments(args);
                 f.show(getSupportFragmentManager(), "FragmentError");
             }
+
+
+
+
+
+
+
+
+/*
+            try {
+                PackageManager packageManager = context.getPackageManager();
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                String url = "https://api.whatsapp.com/send?phone="+ phone +"&text=" + URLEncoder.encode(message, "UTF-8");
+                i.setPackage("com.whatsapp"); i.setData(Uri.parse(url));
+                if (i.resolveActivity(packageManager) != null) {
+                    context.startActivity(i);
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+*/
+
 
         }
     }
@@ -441,3 +505,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 }
+
+
+
+
