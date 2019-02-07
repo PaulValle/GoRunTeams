@@ -89,11 +89,7 @@ public class ResumeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         if (getArguments() != null){
-
-
              textomail = getArguments().getString("mail");
             textname = getArguments().getString("name");
             idUsuario = getArguments().getInt("id");

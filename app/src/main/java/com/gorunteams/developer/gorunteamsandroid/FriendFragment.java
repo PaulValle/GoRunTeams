@@ -177,7 +177,7 @@ public class FriendFragment extends Fragment implements OnMapReadyCallback{
        tiempo1 = (TextView) inf.findViewById(R.id.txtT1);
 
 
-        date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        date = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
         Log.d("ddd", "La fecha de hoy es"+date);
 
 

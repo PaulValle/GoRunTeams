@@ -33,7 +33,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -48,6 +50,7 @@ public class TeamsFragment extends Fragment {
     public final static String path3 = "https://restgorun.herokuapp.com/guardarUsuarioEnEquipo";
     public final static String path4 = "https://restgorun.herokuapp.com/listarUsuariosxEquipo";
     public final static String path5 = "https://restgorun.herokuapp.com/listarUsuarios";
+    public final static String path6 = "https://restgorun.herokuapp.com/listarRecorridos";
     java.net.URL url;
     String responseText;
     StringBuffer response;
@@ -66,6 +69,19 @@ public class TeamsFragment extends Fragment {
     public TextView jugador3;
     public TextView jugador4;
     public TextView jugador5;
+
+    public TextView tiempo1;
+    public TextView tiempo2;
+    public TextView tiempo3;
+    public TextView tiempo4;
+    public TextView tiempo5;
+
+    public TextView distancia1;
+    public TextView distancia2;
+    public TextView distancia3;
+    public TextView distancia4;
+    public TextView distancia5;
+
     public TextView txtEmail;
     public TextView mensaje3;
     public String txtEmail2;
@@ -93,7 +109,10 @@ public class TeamsFragment extends Fragment {
     public Button btnequipo3;
     public Button btnequipo4;
     public Button btnequipo5;
-               public     TeamsFragment teamsFr;
+    public TeamsFragment teamsFr;
+
+    public String date;
+    public TextView fechaRecorridos;
 
 
     public static String resAgreIntegrante;
@@ -114,6 +133,9 @@ public class TeamsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         inf = inflater.inflate(R.layout.fragment_teams, container, false);
+
+        date = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+        Log.d("ddd", "La fecha de hoy es"+date);
 
 
         btnequipo1 = (Button) inf.findViewById(R.id.btn1);
@@ -160,6 +182,7 @@ public class TeamsFragment extends Fragment {
                     final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.integrantesequipo, null);
                     final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
                     popupWindow.setFocusable(true);
+                    fechaRecorridos = (TextView) popupView.findViewById(R.id.txtFecha);
                     nombreEquipoRow = (TextView) popupView.findViewById(R.id.txtNomnbreEquipo);
                     detalleEquipoRow = (TextView) popupView.findViewById(R.id.txtDetalleEquipo);
                     jugador1 = (TextView) popupView.findViewById(R.id.txtNombre1);
@@ -167,10 +190,22 @@ public class TeamsFragment extends Fragment {
                     jugador3 = (TextView) popupView.findViewById(R.id.txtNombre3);
                     jugador4 = (TextView) popupView.findViewById(R.id.txtNombre4);
                     jugador5 = (TextView) popupView.findViewById(R.id.txtNombre5);
+
+                    tiempo1 = (TextView) popupView.findViewById(R.id.txtTiempo1);
+                    tiempo2 = (TextView) popupView.findViewById(R.id.txtTiempo2);
+                    tiempo3 = (TextView) popupView.findViewById(R.id.txtTiempo3);
+                    tiempo4 = (TextView) popupView.findViewById(R.id.txtTiempo4);
+                    tiempo5 = (TextView) popupView.findViewById(R.id.txtTiempo5);
+
+                    distancia1 = (TextView) popupView.findViewById(R.id.txtPuntaje1);
+                    distancia2 = (TextView) popupView.findViewById(R.id.txtPuntaje2);
+                    distancia3 = (TextView) popupView.findViewById(R.id.txtPuntaje3);
+                    distancia4 = (TextView) popupView.findViewById(R.id.txtPuntaje4);
+                    distancia5 = (TextView) popupView.findViewById(R.id.txtPuntaje5);
                     nombreEquipoSeleccionado = btnequipo1.getText().toString();
 
                     servicio4 = (ServicioWeb4) new ServicioWeb4().execute();
-
+                    fechaRecorridos.setText(date);
                     Button btn = (Button) popupView.findViewById(R.id.btnCerrarEquipo);
                     btn.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View view) {
@@ -266,6 +301,18 @@ public class TeamsFragment extends Fragment {
                     jugador3 = (TextView) popupView.findViewById(R.id.txtNombre3);
                     jugador4 = (TextView) popupView.findViewById(R.id.txtNombre4);
                     jugador5 = (TextView) popupView.findViewById(R.id.txtNombre5);
+
+                    tiempo1 = (TextView) popupView.findViewById(R.id.txtTiempo1);
+                    tiempo2 = (TextView) popupView.findViewById(R.id.txtTiempo2);
+                    tiempo3 = (TextView) popupView.findViewById(R.id.txtTiempo3);
+                    tiempo4 = (TextView) popupView.findViewById(R.id.txtTiempo4);
+                    tiempo5 = (TextView) popupView.findViewById(R.id.txtTiempo5);
+
+                    distancia1 = (TextView) popupView.findViewById(R.id.txtPuntaje1);
+                    distancia2 = (TextView) popupView.findViewById(R.id.txtPuntaje2);
+                    distancia3 = (TextView) popupView.findViewById(R.id.txtPuntaje3);
+                    distancia4 = (TextView) popupView.findViewById(R.id.txtPuntaje4);
+                    distancia5 = (TextView) popupView.findViewById(R.id.txtPuntaje5);
                     nombreEquipoSeleccionado = btnequipo2.getText().toString();
 
                     servicio4 = (ServicioWeb4) new ServicioWeb4().execute();
@@ -363,6 +410,18 @@ public class TeamsFragment extends Fragment {
                     jugador3 = (TextView) popupView.findViewById(R.id.txtNombre3);
                     jugador4 = (TextView) popupView.findViewById(R.id.txtNombre4);
                     jugador5 = (TextView) popupView.findViewById(R.id.txtNombre5);
+
+                    tiempo1 = (TextView) popupView.findViewById(R.id.txtTiempo1);
+                    tiempo2 = (TextView) popupView.findViewById(R.id.txtTiempo2);
+                    tiempo3 = (TextView) popupView.findViewById(R.id.txtTiempo3);
+                    tiempo4 = (TextView) popupView.findViewById(R.id.txtTiempo4);
+                    tiempo5 = (TextView) popupView.findViewById(R.id.txtTiempo5);
+
+                    distancia1 = (TextView) popupView.findViewById(R.id.txtPuntaje1);
+                    distancia2 = (TextView) popupView.findViewById(R.id.txtPuntaje2);
+                    distancia3 = (TextView) popupView.findViewById(R.id.txtPuntaje3);
+                    distancia4 = (TextView) popupView.findViewById(R.id.txtPuntaje4);
+                    distancia5 = (TextView) popupView.findViewById(R.id.txtPuntaje5);
                     nombreEquipoSeleccionado = btnequipo3.getText().toString();
 
                     servicio4 = (ServicioWeb4) new ServicioWeb4().execute();
@@ -460,6 +519,18 @@ public class TeamsFragment extends Fragment {
                     jugador3 = (TextView) popupView.findViewById(R.id.txtNombre3);
                     jugador4 = (TextView) popupView.findViewById(R.id.txtNombre4);
                     jugador5 = (TextView) popupView.findViewById(R.id.txtNombre5);
+
+                    tiempo1 = (TextView) popupView.findViewById(R.id.txtTiempo1);
+                    tiempo2 = (TextView) popupView.findViewById(R.id.txtTiempo2);
+                    tiempo3 = (TextView) popupView.findViewById(R.id.txtTiempo3);
+                    tiempo4 = (TextView) popupView.findViewById(R.id.txtTiempo4);
+                    tiempo5 = (TextView) popupView.findViewById(R.id.txtTiempo5);
+
+                    distancia1 = (TextView) popupView.findViewById(R.id.txtPuntaje1);
+                    distancia2 = (TextView) popupView.findViewById(R.id.txtPuntaje2);
+                    distancia3 = (TextView) popupView.findViewById(R.id.txtPuntaje3);
+                    distancia4 = (TextView) popupView.findViewById(R.id.txtPuntaje4);
+                    distancia5 = (TextView) popupView.findViewById(R.id.txtPuntaje5);
                     nombreEquipoSeleccionado = btnequipo4.getText().toString();
 
                     servicio4 = (ServicioWeb4) new ServicioWeb4().execute();
@@ -557,6 +628,18 @@ public class TeamsFragment extends Fragment {
                     jugador3 = (TextView) popupView.findViewById(R.id.txtNombre3);
                     jugador4 = (TextView) popupView.findViewById(R.id.txtNombre4);
                     jugador5 = (TextView) popupView.findViewById(R.id.txtNombre5);
+
+                    tiempo1 = (TextView) popupView.findViewById(R.id.txtTiempo1);
+                    tiempo2 = (TextView) popupView.findViewById(R.id.txtTiempo2);
+                    tiempo3 = (TextView) popupView.findViewById(R.id.txtTiempo3);
+                    tiempo4 = (TextView) popupView.findViewById(R.id.txtTiempo4);
+                    tiempo5 = (TextView) popupView.findViewById(R.id.txtTiempo5);
+
+                    distancia1 = (TextView) popupView.findViewById(R.id.txtPuntaje1);
+                    distancia2 = (TextView) popupView.findViewById(R.id.txtPuntaje2);
+                    distancia3 = (TextView) popupView.findViewById(R.id.txtPuntaje3);
+                    distancia4 = (TextView) popupView.findViewById(R.id.txtPuntaje4);
+                    distancia5 = (TextView) popupView.findViewById(R.id.txtPuntaje5);
                     nombreEquipoSeleccionado = btnequipo5.getText().toString();
 
                     servicio4 = (ServicioWeb4) new ServicioWeb4().execute();
@@ -1041,18 +1124,23 @@ public class TeamsFragment extends Fragment {
                         String nombrePersona = this.getWebServiceResponseData3(idPersonaBuscando);
                         if(indexUsuarios == 1){
                             jugador1.setText(nombrePersona);
+                            distancia1.setText(this.getWebServiceResponseData4(idPersonaBuscando));
                         }
                         if(indexUsuarios == 2){
                             jugador2.setText(nombrePersona);
+                            distancia2.setText(this.getWebServiceResponseData4(idPersonaBuscando));
                         }
                         if(indexUsuarios == 3){
                             jugador3.setText(nombrePersona);
+                            distancia3.setText(this.getWebServiceResponseData4(idPersonaBuscando));
                         }
                         if(indexUsuarios == 4){
                             jugador4.setText(nombrePersona);
+                            distancia4.setText(this.getWebServiceResponseData4(idPersonaBuscando));
                         }
                         if(indexUsuarios == 5){
                             jugador5.setText(nombrePersona);
+                            distancia5.setText(this.getWebServiceResponseData4(idPersonaBuscando));
                         }
 
                     }else{
@@ -1064,6 +1152,77 @@ public class TeamsFragment extends Fragment {
                 e.printStackTrace();
             }
             return "";
+        }
+
+        protected String getWebServiceResponseData4(int idPersonaBuscada) {
+            try {
+                url=new URL(path6);
+                Log.d(TAG, "ServerData: " + path6);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(15000);
+                conn.setConnectTimeout(15000);
+                conn.setRequestMethod("GET");
+
+                int responseCode = conn.getResponseCode();
+
+                Log.d(TAG, "Response code: " + responseCode);
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+                    // Reading response from input Stream
+                    BufferedReader in = new BufferedReader(
+                            new InputStreamReader(conn.getInputStream()));
+                    String output;
+                    response = new StringBuffer();
+
+                    while ((output = in.readLine()) != null) {
+                        response.append(output);
+                    }
+                    in.close();
+                }}
+            catch(Exception e){
+                e.printStackTrace();
+            }
+            responseText = response.toString();
+            Log.d(TAG, "data:" + responseText);
+            int totalRecorrido = 0;
+            int totalTiempo = 0;
+            try {
+
+                JSONArray jsonarray = new JSONArray(responseText);
+                Log.d(TAG, "LLUVIA" + jsonarray.length());
+
+                for (int i=0;i<jsonarray.length();i++){
+
+                    JSONObject jsonobject = jsonarray.getJSONObject(i);
+                    int idRow = jsonobject.getInt("idusuario");
+                    String fechaRow = jsonobject.getString("fecha");
+                    String tiempoRow = jsonobject.getString("tiempo");
+                    String distanciaRow = jsonobject.getString("distancia");
+
+                    //int idEquipo = jsonobject.getInt("idequipo");
+
+                    Log.d(TAG, "TRUENO DISTANCIA " + distanciaRow);
+                    Log.d(TAG, "TRUENO ENVIADO" + idPersonaBuscada);
+                    Log.d(TAG, "TRUENO DEFILAS" + idRow);
+                    Log.d(TAG, "+++++++++++++++++++++++++++" + idRow);
+                    Log.d(TAG, "TRUENO ACT" + date);
+                    Log.d(TAG, "TRUENO FIL" + tiempoRow);
+                    Log.d(TAG, "-------------------------" + tiempoRow);
+                    if (idPersonaBuscada == idRow && fechaRow.equals(date)){
+                        Log.d(TAG, "TORRENTE" + totalRecorrido);
+                        totalRecorrido = totalRecorrido + Integer.valueOf(distanciaRow);
+                    }else{
+
+                    }
+                }
+                //Log.d(TAG, "RELAMPAGO" + String.valueOf(totalRecorrido);
+                return String.valueOf(totalRecorrido);
+                //this.getWebServiceResponseData(idEquipoSolicitado);
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return String.valueOf(totalRecorrido);
         }
 
         protected String getWebServiceResponseData3(int idUsuarioABuscar) {
