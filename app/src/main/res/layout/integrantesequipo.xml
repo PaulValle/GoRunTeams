@@ -57,7 +57,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="5dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="5dp"
                 android:background="#ffffff"
                 android:orientation="horizontal">
 
@@ -70,8 +70,8 @@
                     android:layout_marginTop="35dp"
                     android:background="@android:color/holo_orange_dark"
                     android:paddingTop="20dp"
-                    android:paddingLeft="20dp"
-                    android:text="20km"
+                    android:textAlignment="center"
+                    android:text="--"
                     android:textColor="@android:color/background_light"
                     android:textStyle="bold" />
 
@@ -83,8 +83,8 @@
                     android:layout_marginTop="35dp"
                     android:background="@android:color/holo_blue_light"
                     android:paddingTop="70dp"
-                    android:paddingLeft="20dp"
-                    android:text="20km"
+                    android:textAlignment="center"
+                    android:text="--"
                     android:textColor="@android:color/background_light"
                     android:textStyle="bold" />
 
@@ -96,8 +96,8 @@
                     android:layout_marginTop="35dp"
                     android:background="@android:color/holo_green_light"
                     android:paddingTop="40dp"
-                    android:paddingLeft="20dp"
-                    android:text="20km"
+                    android:textAlignment="center"
+                    android:text="--"
                     android:textColor="@android:color/background_light"
                     android:textStyle="bold" />
 
@@ -107,7 +107,8 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="0dp"
                 android:background="#ffffff"
                 android:orientation="horizontal">
 
@@ -151,6 +152,7 @@
                 android:text="-- / -- / ----"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
+                android:layout_marginBottom="10dp"
                 android:textStyle="bold"
                 android:textAlignment="center"/>
 

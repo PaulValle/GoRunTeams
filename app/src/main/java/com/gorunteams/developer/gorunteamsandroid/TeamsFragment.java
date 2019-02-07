@@ -82,6 +82,25 @@ public class TeamsFragment extends Fragment {
     public TextView distancia4;
     public TextView distancia5;
 
+    public TextView top1Distancia;
+    public TextView top2Distancia;
+    public TextView top3Distancia;
+
+    public TextView top1Nombre;
+    public TextView top2Nombre;
+    public TextView top3Nombre;
+
+    public Integer top1;
+    public Integer top2;
+    public Integer top3;
+    public String ntop1;
+    public String ntop2;
+    public String ntop3;
+
+    public ArrayList<Persona> personasTop = new ArrayList<Persona>();
+
+
+
     public TextView txtEmail;
     public TextView mensaje3;
     public String txtEmail2;
@@ -202,6 +221,16 @@ public class TeamsFragment extends Fragment {
                     distancia3 = (TextView) popupView.findViewById(R.id.txtPuntaje3);
                     distancia4 = (TextView) popupView.findViewById(R.id.txtPuntaje4);
                     distancia5 = (TextView) popupView.findViewById(R.id.txtPuntaje5);
+
+                    top1Distancia = (TextView) popupView.findViewById(R.id.barraJugador1);
+                    top2Distancia = (TextView) popupView.findViewById(R.id.barraJugador2);
+                    top3Distancia = (TextView) popupView.findViewById(R.id.barraJugador3);
+
+                    top1Nombre = (TextView) popupView.findViewById(R.id.rankJugador1);
+                    top2Nombre = (TextView) popupView.findViewById(R.id.rankJugador2);
+                    top3Nombre = (TextView) popupView.findViewById(R.id.rankJugador3);
+
+
                     nombreEquipoSeleccionado = btnequipo1.getText().toString();
 
                     servicio4 = (ServicioWeb4) new ServicioWeb4().execute();
@@ -313,6 +342,14 @@ public class TeamsFragment extends Fragment {
                     distancia3 = (TextView) popupView.findViewById(R.id.txtPuntaje3);
                     distancia4 = (TextView) popupView.findViewById(R.id.txtPuntaje4);
                     distancia5 = (TextView) popupView.findViewById(R.id.txtPuntaje5);
+
+                    top1Distancia = (TextView) popupView.findViewById(R.id.barraJugador1);
+                    top2Distancia = (TextView) popupView.findViewById(R.id.barraJugador2);
+                    top3Distancia = (TextView) popupView.findViewById(R.id.barraJugador3);
+
+                    top1Nombre = (TextView) popupView.findViewById(R.id.rankJugador1);
+                    top2Nombre = (TextView) popupView.findViewById(R.id.rankJugador2);
+                    top3Nombre = (TextView) popupView.findViewById(R.id.rankJugador3);
                     nombreEquipoSeleccionado = btnequipo2.getText().toString();
 
                     servicio4 = (ServicioWeb4) new ServicioWeb4().execute();
@@ -422,6 +459,14 @@ public class TeamsFragment extends Fragment {
                     distancia3 = (TextView) popupView.findViewById(R.id.txtPuntaje3);
                     distancia4 = (TextView) popupView.findViewById(R.id.txtPuntaje4);
                     distancia5 = (TextView) popupView.findViewById(R.id.txtPuntaje5);
+
+                    top1Distancia = (TextView) popupView.findViewById(R.id.barraJugador1);
+                    top2Distancia = (TextView) popupView.findViewById(R.id.barraJugador2);
+                    top3Distancia = (TextView) popupView.findViewById(R.id.barraJugador3);
+
+                    top1Nombre = (TextView) popupView.findViewById(R.id.rankJugador1);
+                    top2Nombre = (TextView) popupView.findViewById(R.id.rankJugador2);
+                    top3Nombre = (TextView) popupView.findViewById(R.id.rankJugador3);
                     nombreEquipoSeleccionado = btnequipo3.getText().toString();
 
                     servicio4 = (ServicioWeb4) new ServicioWeb4().execute();
@@ -530,7 +575,15 @@ public class TeamsFragment extends Fragment {
                     distancia2 = (TextView) popupView.findViewById(R.id.txtPuntaje2);
                     distancia3 = (TextView) popupView.findViewById(R.id.txtPuntaje3);
                     distancia4 = (TextView) popupView.findViewById(R.id.txtPuntaje4);
-                    distancia5 = (TextView) popupView.findViewById(R.id.txtPuntaje5);
+
+
+                    top1Distancia = (TextView) popupView.findViewById(R.id.barraJugador1);
+                    top2Distancia = (TextView) popupView.findViewById(R.id.barraJugador2);
+                    top3Distancia = (TextView) popupView.findViewById(R.id.barraJugador3);
+
+                    top1Nombre = (TextView) popupView.findViewById(R.id.rankJugador1);
+                    top2Nombre = (TextView) popupView.findViewById(R.id.rankJugador2);
+                    top3Nombre = (TextView) popupView.findViewById(R.id.rankJugador3);
                     nombreEquipoSeleccionado = btnequipo4.getText().toString();
 
                     servicio4 = (ServicioWeb4) new ServicioWeb4().execute();
@@ -640,6 +693,14 @@ public class TeamsFragment extends Fragment {
                     distancia3 = (TextView) popupView.findViewById(R.id.txtPuntaje3);
                     distancia4 = (TextView) popupView.findViewById(R.id.txtPuntaje4);
                     distancia5 = (TextView) popupView.findViewById(R.id.txtPuntaje5);
+
+                    top1Distancia = (TextView) popupView.findViewById(R.id.barraJugador1);
+                    top2Distancia = (TextView) popupView.findViewById(R.id.barraJugador2);
+                    top3Distancia = (TextView) popupView.findViewById(R.id.barraJugador3);
+
+                    top1Nombre = (TextView) popupView.findViewById(R.id.rankJugador1);
+                    top2Nombre = (TextView) popupView.findViewById(R.id.rankJugador2);
+                    top3Nombre = (TextView) popupView.findViewById(R.id.rankJugador3);
                     nombreEquipoSeleccionado = btnequipo5.getText().toString();
 
                     servicio4 = (ServicioWeb4) new ServicioWeb4().execute();
@@ -1121,26 +1182,49 @@ public class TeamsFragment extends Fragment {
 
                     if (idEquipoABuscar == idEquipoBuscando){
                         indexUsuarios++;
+
                         String nombrePersona = this.getWebServiceResponseData3(idPersonaBuscando);
                         if(indexUsuarios == 1){
-                            jugador1.setText(nombrePersona);
-                            distancia1.setText(this.getWebServiceResponseData4(idPersonaBuscando));
+                            //jugador1.setText(nombrePersona);
+                            String dist1 = this.getWebServiceResponseData4(idPersonaBuscando);
+                            //distancia1.setText(dist1);
+                            Persona p1 = new Persona(idPersonaBuscando,nombrePersona, Integer.valueOf(dist1));
+                            personasTop.add(p1);
                         }
                         if(indexUsuarios == 2){
-                            jugador2.setText(nombrePersona);
-                            distancia2.setText(this.getWebServiceResponseData4(idPersonaBuscando));
+                            //jugador2.setText(nombrePersona);
+                            String dist2 = this.getWebServiceResponseData4(idPersonaBuscando);
+                           // distancia2.setText(dist2);
+                            Persona p2 = new Persona(idPersonaBuscando,nombrePersona, Integer.valueOf(dist2));
+                            //Log.d(TAG, "TROLOLO: " + p2.getNombre());
+                           // Log.d(TAG, "TROLOLO: " + p2.getTotal());
+                            personasTop.add(p2);
                         }
                         if(indexUsuarios == 3){
-                            jugador3.setText(nombrePersona);
-                            distancia3.setText(this.getWebServiceResponseData4(idPersonaBuscando));
+                            //jugador3.setText(nombrePersona);
+                            String dist3 = this.getWebServiceResponseData4(idPersonaBuscando);
+                           // distancia3.setText(dist3);
+                            Persona p3 = new Persona(idPersonaBuscando,nombrePersona, Integer.valueOf(dist3));
+                            //Log.d(TAG, "TROLOLO: " + p3.getNombre());
+                            //Log.d(TAG, "TROLOLO: " + p3.getTotal());
+                            personasTop.add(p3);
                         }
                         if(indexUsuarios == 4){
-                            jugador4.setText(nombrePersona);
-                            distancia4.setText(this.getWebServiceResponseData4(idPersonaBuscando));
+                            //jugador4.setText(nombrePersona);
+                            String dist4 = this.getWebServiceResponseData4(idPersonaBuscando);
+                            //distancia4.setText(dist4);
+                            Persona p4 = new Persona(idPersonaBuscando,nombrePersona, Integer.valueOf(dist4));
+                            //Log.d(TAG, "TROLOLO: " + p4.getNombre());
+                            //Log.d(TAG, "TROLOLO: " + p4.getTotal());
+                            personasTop.add(p4);
                         }
                         if(indexUsuarios == 5){
-                            jugador5.setText(nombrePersona);
-                            distancia5.setText(this.getWebServiceResponseData4(idPersonaBuscando));
+                            //jugador5.setText(nombrePersona);
+                            String dist5 = this.getWebServiceResponseData4(idPersonaBuscando);
+                            //distancia5.setText(dist5);
+                            Persona p5 = new Persona(idPersonaBuscando,nombrePersona, Integer.valueOf(dist5));
+                            personasTop.add(p5);
+
                         }
 
                     }else{
@@ -1148,11 +1232,40 @@ public class TeamsFragment extends Fragment {
                     }
                 }
 
+                for(int i = 0; i < personasTop.size() - 1; i++)
+
+                {
+
+                    for(int j = 0; j < personasTop.size() - 1; j++)
+
+                    {
+
+                        if (personasTop.get(j).getTotal() < personasTop.get(j + 1).getTotal())
+
+                        {
+                            int indexPlus = j +1;
+                            Persona tmp = new Persona(personasTop.get(j + 1));
+
+                            personasTop.set(j+1, personasTop.get(j));
+
+                            personasTop.set(j, tmp);
+
+                        }
+
+                    }
+
+                }
+
+
+
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             return "";
         }
+
+
 
         protected String getWebServiceResponseData4(int idPersonaBuscada) {
             try {
@@ -1282,6 +1395,41 @@ public class TeamsFragment extends Fragment {
             if (respuesta=="respuestas"){
                 detalleEquipoRow.setText(detalleEquipoSolicitado);
                 nombreEquipoRow.setText(nombreEquipoSolicitado);
+
+                for(int i = 0; i < 5; i++) {
+                    if(i == 0){
+                        top1Nombre.setText(personasTop.get(i).getNombre());
+                        top1Distancia.setText(String.valueOf(personasTop.get(i).getTotal()+"m"));
+                        jugador1.setText(personasTop.get(i).getNombre());
+                        distancia1.setText(String.valueOf(personasTop.get(i).getTotal()));
+                    }
+
+                    if(i == 1){
+                        top2Nombre.setText(personasTop.get(i).getNombre());
+                        top2Distancia.setText(String.valueOf(personasTop.get(i).getTotal()+"m"));
+                        jugador2.setText(personasTop.get(i).getNombre());
+                        distancia2.setText(String.valueOf(personasTop.get(i).getTotal()));
+                    }
+                    if(i == 2){
+                        top3Nombre.setText(personasTop.get(i).getNombre());
+                        top3Distancia.setText(String.valueOf(personasTop.get(i).getTotal()+"m"));
+                        jugador3.setText(personasTop.get(i).getNombre());
+                        distancia3.setText(String.valueOf(personasTop.get(i).getTotal()));
+                    }
+
+                    if(i == 3){
+                        jugador4.setText(personasTop.get(i).getNombre());
+                        distancia4.setText(String.valueOf(personasTop.get(i).getTotal()+"m"));
+                    }
+
+                    if(i == 4){
+                        jugador5.setText(personasTop.get(i).getNombre());
+                        distancia5.setText(String.valueOf(personasTop.get(i).getTotal()+"m"));
+                    }
+
+                    //Log.d(TAG, "TROLOLO: " + p1.getNombre());
+                    //Log.d(TAG, "TROLOLO: " + p1.getTotal());
+                }
 
             }else{
 
@@ -1923,4 +2071,34 @@ public class TeamsFragment extends Fragment {
         }
     }
 
+}
+
+class Persona{
+    private String nombre;
+    private int id;
+    private int total;
+
+    Persona(int id, String nombre, int total){
+        this.id = id;
+        this.nombre = nombre;
+        this.total = total;
+    }
+    Persona(Persona p1){
+        this.id = p1.getId();
+        this.nombre = p1.getNombre();
+        this.total = p1.getTotal();
+    }
+
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getTotal() {
+        return total;
+    }
 }
