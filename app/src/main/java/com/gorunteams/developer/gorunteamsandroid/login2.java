@@ -193,10 +193,12 @@ public class login2 extends AppCompatActivity {
                 Intent itemintent = new Intent(login2.this, resume.class);
                 itemintent.putExtra("mail" , email);
                 itemintent.putExtra("name" , usuario);
-                itemintent.putExtra("pass" , usuario);
+                itemintent.putExtra("pass" , String.valueOf(txtPass.getText()));
                 itemintent.putExtra("id" , idUser);
                 itemintent.putExtra("rol" , rolCruce);
                 itemintent.putExtra("celular" ,cellCruce);
+
+
 
                 startActivity(itemintent);
 

@@ -92,6 +92,7 @@ public class ResumeFragment extends Fragment {
     public Button editar;
     public String numeroApasar;
     public String rolApasar;
+    public String passUsuario;
 
     public TextView tv3;
     public TextView tv4;
@@ -106,6 +107,7 @@ public class ResumeFragment extends Fragment {
             textname = getArguments().getString("name");
             idUsuario = getArguments().getInt("id");
             rolUsuario = getArguments().getString("rol");
+            passUsuario = getArguments().getString("pass");
             celular = getArguments().getString("celular");
         }
     }
@@ -175,16 +177,9 @@ public class ResumeFragment extends Fragment {
                 });
 
 
-
-
-
-
-
-
-
                 Log.d(TAG, "celular "+ncelular);
                 Log.d(TAG, "radiobutton "+tipoRol);
-                //servicio3 = (ServicioWeb3) new ServicioWeb3().execute();
+
             }
         });
 
@@ -199,10 +194,6 @@ public class ResumeFragment extends Fragment {
         Log.d(TAG, "radiobutton2 "+tipoRol);
 
         //lanzarPopup();
-
-
-
-
 
 
 
@@ -227,32 +218,9 @@ public class ResumeFragment extends Fragment {
 
             }
         });
+        servicio3 = (ServicioWeb3) new ServicioWeb3().execute();
         return inf;
     }
-
-
-    /*public void onRadioButtonClicked(View view) {
-
-        // Is the button now checked?
-
-        boolean checked = ((RadioButton) view).isChecked();
-
-        // hacemos un case con lo que ocurre cada vez que pulsemos un botón
-
-        switch(view.getId()) {
-            case R.id.radio_estudiante:
-                if (checked)
-                    //
-                    break;
-            case R.id.radio_entrenador:
-                if (checked)
-                    //
-                    break;
-        }
-    }*/
-
-
-
 
 
     public void clearApplicationData() {
@@ -267,14 +235,6 @@ public class ResumeFragment extends Fragment {
             }
         }
 
-       /* try {
-            // clearing app data
-            String packageName = getActivity().getPackageName();
-            Runtime runtime = Runtime.getRuntime();
-            runtime.exec("pm clear "+packageName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
     }
 
     public static boolean deleteFile(File file) {
@@ -294,19 +254,10 @@ public class ResumeFragment extends Fragment {
     }
 
 
-
-
-
-
-
-
     public void setText(String text){
         TextView textView = (TextView) getView().findViewById(R.id.txtMAIL);
         textView.setText(text);
     }
-
-
-
 
 
     private class ServicioWeb2 extends AsyncTask<Integer, Integer, String> {
@@ -327,9 +278,12 @@ public class ResumeFragment extends Fragment {
             stringMap.put("idusuario",String.valueOf(idUsuario));
             stringMap.put("mail", String.valueOf(textomail));
             stringMap.put("nombre", String.valueOf(textname));
-            stringMap.put("pass", "default");
+            stringMap.put("pass", String.valueOf(passUsuario));
             stringMap.put("rol", String.valueOf(tipoRol));
             stringMap.put("celular", String.valueOf(ncelular));
+
+            Log.d(TAG, "VAMOH A GUARDA: "+tipoRol);
+            Log.d(TAG, "VAMOH A GUARDA: "+ncelular);
 
             String requestBody = FormRegister.Utils.buildPostParameters(stringMap);
             try {

@@ -445,9 +445,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 itemintent.putExtra("mail" , rsmail);
                 itemintent.putExtra("name" , rsname);
                 itemintent.putExtra("id" , idUser);
-                itemintent.putExtra("rol" , rol);
-                itemintent.putExtra("celular" , celular);
                 itemintent.putExtra("pass" , rspass);
+
+                if(rol == null){
+                    itemintent.putExtra("celular" , "9999999999");
+                    itemintent.putExtra("rol" , "Estudiante");
+                }else{
+                    itemintent.putExtra("celular" , celular);
+                    itemintent.putExtra("rol" , rol);
+                }
+
 
                 Log.d(TAG, "*****************************");
                 Log.d(TAG, "CORRECIONES333"+idUser);

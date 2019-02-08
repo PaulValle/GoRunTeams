@@ -14,7 +14,7 @@
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#ffffff"
+            android:background="@android:drawable/dialog_holo_light_frame"
             android:orientation="vertical">
 
             <ImageView
@@ -58,7 +58,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
-                android:background="#ffffff"
+                android:layout_gravity="center"
+                android:background="@android:drawable/dialog_holo_light_frame"
                 android:orientation="horizontal">
 
 
@@ -81,6 +82,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="35dp"
                     android:layout_marginTop="35dp"
+
                     android:background="@android:color/holo_blue_light"
                     android:paddingTop="70dp"
                     android:textAlignment="center"
@@ -109,7 +111,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="0dp"
-                android:background="#ffffff"
+
                 android:orientation="horizontal">
 
 
@@ -157,7 +159,7 @@
                 android:textAlignment="center"/>
 
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="384dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
@@ -178,24 +180,11 @@
                     android:paddingBottom="5dp"
                     android:paddingTop="5dp"
                     android:textStyle="bold" />
-                <TextView
-                    android:id="@+id/tituloRecorrido"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/btnborder"
-                    android:gravity="center"
-                    android:text="Tiempo"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp"
-                    android:textStyle="bold" />
+
 
                 <TextView
                     android:id="@+id/tituloTiempo"
-                    android:layout_width="90dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@drawable/btnborder"
@@ -212,7 +201,7 @@
 
             </LinearLayout>
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="384dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
@@ -233,24 +222,11 @@
                     android:paddingBottom="5dp"
                     android:paddingTop="5dp"
                     android:textStyle="bold" />
-                <TextView
-                    android:id="@+id/txtTiempo1"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/btnborder"
-                    android:gravity="center"
-                    android:text="--"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="12sp"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp"
-                    android:textStyle="bold" />
+
 
                 <TextView
                     android:id="@+id/txtPuntaje1"
-                    android:layout_width="90dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@drawable/btnborder"
@@ -266,7 +242,7 @@
             </LinearLayout>
 
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="384dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
@@ -287,24 +263,11 @@
                     android:paddingBottom="5dp"
                     android:paddingTop="5dp"
                     android:textStyle="bold" />
-                <TextView
-                    android:id="@+id/txtTiempo2"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/btnborder"
-                    android:gravity="center"
-                    android:text="--"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="12sp"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp"
-                    android:textStyle="bold" />
+
 
                 <TextView
                     android:id="@+id/txtPuntaje2"
-                    android:layout_width="90dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@drawable/btnborder"
@@ -321,10 +284,10 @@
             </LinearLayout>
 
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="384dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="5dp"
                 android:background="#ffffff"
                 android:orientation="horizontal">
 
@@ -342,24 +305,11 @@
                     android:paddingBottom="5dp"
                     android:paddingTop="5dp"
                     android:textStyle="bold" />
-                <TextView
-                    android:id="@+id/txtTiempo3"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/btnborder"
-                    android:gravity="center"
-                    android:text="--"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="12sp"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp"
-                    android:textStyle="bold" />
+
 
                 <TextView
                     android:id="@+id/txtPuntaje3"
-                    android:layout_width="90dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@drawable/btnborder"
@@ -376,7 +326,7 @@
             </LinearLayout>
 
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="384dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
@@ -398,24 +348,11 @@
                     android:paddingBottom="5dp"
                     android:paddingTop="5dp"
                     android:textStyle="bold" />
-                <TextView
-                    android:id="@+id/txtTiempo4"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/btnborder"
-                    android:gravity="center"
-                    android:text="--"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="12sp"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp"
-                    android:textStyle="bold" />
+
 
                 <TextView
                     android:id="@+id/txtPuntaje4"
-                    android:layout_width="90dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@drawable/btnborder"
@@ -432,7 +369,7 @@
             </LinearLayout>
 
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="384dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
@@ -454,24 +391,11 @@
                     android:paddingBottom="5dp"
                     android:paddingTop="5dp"
                     android:textStyle="bold" />
-                <TextView
-                    android:id="@+id/txtTiempo5"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/btnborder"
-                    android:gravity="center"
-                    android:text="--"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="12sp"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp"
-                    android:textStyle="bold" />
+
 
                 <TextView
                     android:id="@+id/txtPuntaje5"
-                    android:layout_width="90dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@drawable/btnborder"

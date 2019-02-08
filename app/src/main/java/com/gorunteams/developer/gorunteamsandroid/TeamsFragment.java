@@ -297,11 +297,7 @@ public class TeamsFragment extends Fragment {
                     jugador4 = (TextView) popupView.findViewById(R.id.txtNombre4);
                     jugador5 = (TextView) popupView.findViewById(R.id.txtNombre5);
 
-                    tiempo1 = (TextView) popupView.findViewById(R.id.txtTiempo1);
-                    tiempo2 = (TextView) popupView.findViewById(R.id.txtTiempo2);
-                    tiempo3 = (TextView) popupView.findViewById(R.id.txtTiempo3);
-                    tiempo4 = (TextView) popupView.findViewById(R.id.txtTiempo4);
-                    tiempo5 = (TextView) popupView.findViewById(R.id.txtTiempo5);
+
 
                     distancia1 = (TextView) popupView.findViewById(R.id.txtPuntaje1);
                     distancia2 = (TextView) popupView.findViewById(R.id.txtPuntaje2);
@@ -331,13 +327,16 @@ public class TeamsFragment extends Fragment {
                     });
 
                     Button btn2 = (Button) popupView.findViewById(R.id.btnAgregarJugador);
+                    if (tipoUsuario.equals("Estudiante")){
+                        btn2.setEnabled(false);
+                    }
                     btn2.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View view) {
                             popupWindow.dismiss();
                             final View popupView2 = LayoutInflater.from(getActivity()).inflate(R.layout.nuevointegrante, null);
-                            final PopupWindow popupWindow2 = new PopupWindow(popupView2, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+                            final PopupWindow popupWindow2 = new PopupWindow(popupView2 ,WindowManager.LayoutParams.MATCH_PARENT,1300);
                             popupWindow2.setFocusable(true);
-                            popupWindow2.showAsDropDown(popupView2, 0, 0);
+                            popupWindow2.showAtLocation(popupView2, Gravity.CENTER, 0, 0);
 
                             Button btn = (Button) popupView2.findViewById(R.id.btnclose);
                             btn.setOnClickListener(new View.OnClickListener() {
@@ -447,11 +446,7 @@ public class TeamsFragment extends Fragment {
                     jugador4 = (TextView) popupView.findViewById(R.id.txtNombre4);
                     jugador5 = (TextView) popupView.findViewById(R.id.txtNombre5);
 
-                    tiempo1 = (TextView) popupView.findViewById(R.id.txtTiempo1);
-                    tiempo2 = (TextView) popupView.findViewById(R.id.txtTiempo2);
-                    tiempo3 = (TextView) popupView.findViewById(R.id.txtTiempo3);
-                    tiempo4 = (TextView) popupView.findViewById(R.id.txtTiempo4);
-                    tiempo5 = (TextView) popupView.findViewById(R.id.txtTiempo5);
+
 
                     distancia1 = (TextView) popupView.findViewById(R.id.txtPuntaje1);
                     distancia2 = (TextView) popupView.findViewById(R.id.txtPuntaje2);
@@ -479,13 +474,16 @@ public class TeamsFragment extends Fragment {
                     });
 
                     Button btn2 = (Button) popupView.findViewById(R.id.btnAgregarJugador);
+                    if (tipoUsuario.equals("Estudiante")){
+                        btn2.setEnabled(false);
+                    }
                     btn2.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View view) {
                             popupWindow.dismiss();
                             final View popupView2 = LayoutInflater.from(getActivity()).inflate(R.layout.nuevointegrante, null);
-                            final PopupWindow popupWindow2 = new PopupWindow(popupView2, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+                            final PopupWindow popupWindow2 = new PopupWindow(popupView2 ,WindowManager.LayoutParams.MATCH_PARENT,1300);
                             popupWindow2.setFocusable(true);
-                            popupWindow2.showAsDropDown(popupView2, 0, 0);
+                            popupWindow2.showAtLocation(popupView2, Gravity.CENTER, 0, 0);
 
                             Button btn = (Button) popupView2.findViewById(R.id.btnclose);
                             btn.setOnClickListener(new View.OnClickListener() {
@@ -593,11 +591,7 @@ public class TeamsFragment extends Fragment {
                     jugador4 = (TextView) popupView.findViewById(R.id.txtNombre4);
                     jugador5 = (TextView) popupView.findViewById(R.id.txtNombre5);
 
-                    tiempo1 = (TextView) popupView.findViewById(R.id.txtTiempo1);
-                    tiempo2 = (TextView) popupView.findViewById(R.id.txtTiempo2);
-                    tiempo3 = (TextView) popupView.findViewById(R.id.txtTiempo3);
-                    tiempo4 = (TextView) popupView.findViewById(R.id.txtTiempo4);
-                    tiempo5 = (TextView) popupView.findViewById(R.id.txtTiempo5);
+
 
                     distancia1 = (TextView) popupView.findViewById(R.id.txtPuntaje1);
                     distancia2 = (TextView) popupView.findViewById(R.id.txtPuntaje2);
@@ -625,13 +619,16 @@ public class TeamsFragment extends Fragment {
                     });
 
                     Button btn2 = (Button) popupView.findViewById(R.id.btnAgregarJugador);
+                    if (tipoUsuario.equals("Estudiante")){
+                        btn2.setEnabled(false);
+                    }
                     btn2.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View view) {
                             popupWindow.dismiss();
                             final View popupView2 = LayoutInflater.from(getActivity()).inflate(R.layout.nuevointegrante, null);
-                            final PopupWindow popupWindow2 = new PopupWindow(popupView2, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+                            final PopupWindow popupWindow2 = new PopupWindow(popupView2 ,WindowManager.LayoutParams.MATCH_PARENT,1300);
                             popupWindow2.setFocusable(true);
-                            popupWindow2.showAsDropDown(popupView2, 0, 0);
+                            popupWindow2.showAtLocation(popupView2, Gravity.CENTER, 0, 0);
 
                             Button btn = (Button) popupView2.findViewById(R.id.btnclose);
                             btn.setOnClickListener(new View.OnClickListener() {
@@ -739,11 +736,7 @@ public class TeamsFragment extends Fragment {
                     jugador4 = (TextView) popupView.findViewById(R.id.txtNombre4);
                     jugador5 = (TextView) popupView.findViewById(R.id.txtNombre5);
 
-                    tiempo1 = (TextView) popupView.findViewById(R.id.txtTiempo1);
-                    tiempo2 = (TextView) popupView.findViewById(R.id.txtTiempo2);
-                    tiempo3 = (TextView) popupView.findViewById(R.id.txtTiempo3);
-                    tiempo4 = (TextView) popupView.findViewById(R.id.txtTiempo4);
-                    tiempo5 = (TextView) popupView.findViewById(R.id.txtTiempo5);
+
 
                     distancia1 = (TextView) popupView.findViewById(R.id.txtPuntaje1);
                     distancia2 = (TextView) popupView.findViewById(R.id.txtPuntaje2);
@@ -771,13 +764,20 @@ public class TeamsFragment extends Fragment {
                     });
 
                     Button btn2 = (Button) popupView.findViewById(R.id.btnAgregarJugador);
+                    if (tipoUsuario.equals("Estudiante")){
+                        btn2.setEnabled(false);
+                    }
                     btn2.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View view) {
                             popupWindow.dismiss();
-                            final View popupView2 = LayoutInflater.from(getActivity()).inflate(R.layout.nuevointegrante, null);
+                            /*final View popupView2 = LayoutInflater.from(getActivity()).inflate(R.layout.nuevointegrante, null);
                             final PopupWindow popupWindow2 = new PopupWindow(popupView2, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
                             popupWindow2.setFocusable(true);
-                            popupWindow2.showAsDropDown(popupView2, 0, 0);
+                            popupWindow2.showAsDropDown(popupView2, 0, 0);*/
+                            final View popupView2 = LayoutInflater.from(getActivity()).inflate(R.layout.nuevointegrante, null);
+                            final PopupWindow popupWindow2 = new PopupWindow(popupView2 ,WindowManager.LayoutParams.MATCH_PARENT,1300);
+                            popupWindow2.setFocusable(true);
+                            popupWindow2.showAtLocation(popupView2, Gravity.CENTER, 0, 0);
 
                             Button btn = (Button) popupView2.findViewById(R.id.btnclose);
                             btn.setOnClickListener(new View.OnClickListener() {
@@ -885,11 +885,7 @@ public class TeamsFragment extends Fragment {
                     jugador4 = (TextView) popupView.findViewById(R.id.txtNombre4);
                     jugador5 = (TextView) popupView.findViewById(R.id.txtNombre5);
 
-                    tiempo1 = (TextView) popupView.findViewById(R.id.txtTiempo1);
-                    tiempo2 = (TextView) popupView.findViewById(R.id.txtTiempo2);
-                    tiempo3 = (TextView) popupView.findViewById(R.id.txtTiempo3);
-                    tiempo4 = (TextView) popupView.findViewById(R.id.txtTiempo4);
-                    tiempo5 = (TextView) popupView.findViewById(R.id.txtTiempo5);
+
 
                     distancia1 = (TextView) popupView.findViewById(R.id.txtPuntaje1);
                     distancia2 = (TextView) popupView.findViewById(R.id.txtPuntaje2);
@@ -917,13 +913,18 @@ public class TeamsFragment extends Fragment {
                     });
 
                     Button btn2 = (Button) popupView.findViewById(R.id.btnAgregarJugador);
+                    if (tipoUsuario.equals("Estudiante")){
+                        btn2.setEnabled(false);
+                    }
                     btn2.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View view) {
                             popupWindow.dismiss();
+
                             final View popupView2 = LayoutInflater.from(getActivity()).inflate(R.layout.nuevointegrante, null);
-                            final PopupWindow popupWindow2 = new PopupWindow(popupView2, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+                            final PopupWindow popupWindow2 = new PopupWindow(popupView2 ,650,700);
                             popupWindow2.setFocusable(true);
-                            popupWindow2.showAsDropDown(popupView2, 0, 0);
+                            popupWindow2.showAtLocation(popupView2, Gravity.CENTER, 0, 0);
+
 
                             Button btn = (Button) popupView2.findViewById(R.id.btnclose);
                             btn.setOnClickListener(new View.OnClickListener() {

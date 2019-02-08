@@ -161,6 +161,8 @@ public class FormRegister extends AppCompatActivity {
                     stringMap.put("mail", String.valueOf(txtMail.getText()));
                     stringMap.put("pass", String.valueOf(txtPass.getText()));
                     stringMap.put("nombre", String.valueOf(txtName.getText()));
+                    stringMap.put("celular", "999999999");
+                    stringMap.put("rol", "Estudiante");
                     String requestBody = Utils.buildPostParameters(stringMap);
                     try {
                         urlConnection = (HttpURLConnection) Utils.makeRequest("POST", path, null, "application/x-www-form-urlencoded", requestBody);
