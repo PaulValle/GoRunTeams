@@ -13,9 +13,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ProgressBar progressBar;
 
 
-    public final static String path2 = "https://restgorun.herokuapp.com/listarusuarios";
+    public final static String path2 = "https://restgorun.herokuapp.com/listarUsuarios";
     java.net.URL url;
     ArrayList listaUsuarios=new ArrayList();
     String responseText;
@@ -69,10 +72,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     String respuesta;
     public String rsname ="" ;
-    String rsname2 = "holaaaaaa";
     public String rsmail = "";
     public String rspass = "";
+    public String celular = "";
+    public String rol = "";
+    public String passUser = "";
     ServicioWeb servicio;
+    //ServicioWeb2 servicio2;
     int idUser;
 
     private LinearLayout prof_section;
@@ -313,10 +319,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return "logear";
             }else{
 
+
                 Map<String, String> stringMap = new HashMap<>();
                 stringMap.put("mail",rsmail);
                 stringMap.put("pass", rspass);
                 stringMap.put("nombre", rsname);
+                stringMap.put("rol", "Estudiante");
+                stringMap.put("celular", "9999999999");
                 String requestBody = FormRegister.Utils.buildPostParameters(stringMap);
                 try {
                     urlConnection = (HttpURLConnection) FormRegister.Utils.makeRequest("POST", path, null, "application/x-www-form-urlencoded", requestBody);
@@ -347,7 +356,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         }
-
         protected String getWebServiceResponseData2(String dato) {
             try {
                 url=new URL(path2);
@@ -380,12 +388,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.d(TAG, "data:" + responseText);
             try {
                 JSONArray jsonarray = new JSONArray(responseText);
+                Log.d(TAG, "LOCALIZANDO"+jsonarray);
                 for (int i=0;i<jsonarray.length();i++){
+
+
                     JSONObject jsonobject = jsonarray.getJSONObject(i);
                     String mail = jsonobject.getString("mail");
                     int id = jsonobject.getInt("idusuario");
+                    String rolRow = jsonobject.getString("rol");
+                    String celularRow = jsonobject.getString("celular");
+                    String nombreRow = jsonobject.getString("nombre");
+                    String passRow = jsonobject.getString("pass");
+
+
+
+                    Log.d(TAG, "*****************************");
+                    Log.d(TAG, "CORRECIONES"+id);
+                    Log.d(TAG, "CORRECIONES"+nombreRow);
+                    Log.d(TAG, "CORRECIONES"+mail);
+                    Log.d(TAG, "CORRECIONES"+passRow);
+                    Log.d(TAG, "CORRECIONES"+rolRow);
+                    Log.d(TAG, "CORRECIONES"+celularRow);
                     if (String.valueOf(mailcompare).equals(String.valueOf(mail))){
-                        idUser=id;
+                        rsname =nombreRow ;
+                        rsmail = mail;
+                        rspass = passRow;
+                        celular = celularRow;
+                        rol = rolRow;
+                        idUser = id;
+
+
                         respuesta="existe";
 
                     }else{
@@ -405,17 +437,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             super.onPostExecute(respuesta);
             Log.d(TAG, "onPostExecute");
             if (respuesta=="correcto" || respuesta=="logear"){
-                progressBar.setVisibility(View.GONE);
+                //servicio2 = (ServicioWeb2) new ServicioWeb2().execute();
+
+
                 Intent itemintent = new Intent(MainActivity.this, resume.class);
+                progressBar.setVisibility(View.GONE);
                 itemintent.putExtra("mail" , rsmail);
                 itemintent.putExtra("name" , rsname);
                 itemintent.putExtra("id" , idUser);
-                //itemintent.putString("textFromActivityA", "sss");
-                // Agregas el Bundle al Intent e inicias ActivityB
+                itemintent.putExtra("rol" , rol);
+                itemintent.putExtra("celular" , celular);
+                itemintent.putExtra("pass" , rspass);
 
+                Log.d(TAG, "*****************************");
+                Log.d(TAG, "CORRECIONES333"+idUser);
+                Log.d(TAG, "CORRECIONES333"+rsname);
+                Log.d(TAG, "CORRECIONES333"+rsmail);
+                Log.d(TAG, "CORRECIONES333"+rspass);
+                Log.d(TAG, "CORRECIONES333"+celular);
+                Log.d(TAG, "CORRECIONES333"+rol);
                 startActivity(itemintent);
+
             }else{
-                // Log.d(TAG, "Registro fail:" + nombre);
                 Bundle args = new Bundle();
                 args.putString("titulo", "Advertencia");
                 args.putString("texto", "No se pudo registrar sus datos");
@@ -423,13 +466,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 f.setArguments(args);
                 f.show(getSupportFragmentManager(), "FragmentError");
             }
-
-
-
-
-
-
-
 
 /*
             try {
@@ -448,6 +484,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
     }
+
 
 
     public static class Utils{

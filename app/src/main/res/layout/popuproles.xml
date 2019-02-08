@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="700px"
+    android:layout_height="900px"
+    android:background="@color/common_google_signin_btn_text_dark_default"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="30dp"
+        app:srcCompat="@drawable/logogorun" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="3dp"
+        android:gravity="center"
+        android:text="Selecciona el Rol de tu cuenta"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginBottom="15dp"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+
+
+
+
+
+
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:textAlignment="center"
+        android:gravity="center"
+        >
+
+        <RadioButton
+            android:id="@+id/radio_estudiante"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/colorPrimary"
+            android:text="Estudiante"
+            android:textColor="@color/colorPrimary" />
+
+        <RadioButton
+            android:id="@+id/radio_entrenador"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/colorPrimary"
+            android:text="Entrenador"
+            android:textColor="@color/colorPrimary" />
+    </RadioGroup>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        android:gravity="center"
+        android:text="Ingrese numero celular de emergencia"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginBottom="1dp"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="15dp"
+        android:gravity="center"
+        android:text="Necesario para el botón de pánico"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="10sp"
+        android:textStyle="bold" />
+
+
+
+    <EditText
+        android:id="@+id/txtphone"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:hint="Número celular"
+        android:inputType="text"
+        android:textColor="#000"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="5dp"
+        android:textColorHint="#FF008577"
+        android:textColorLink="#000"
+        android:textAlignment="center"
+        android:background="@drawable/editborder"
+        android:paddingLeft="10dp"/>
+
+    <Button
+        android:id="@+id/btnActualizar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:text="Guardar"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/buttonbackground"  />
+</LinearLayout>

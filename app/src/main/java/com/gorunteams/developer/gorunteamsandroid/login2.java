@@ -38,7 +38,8 @@ public class login2 extends AppCompatActivity {
     int idUser;
     String usuario;
     String email;
-
+    String cellCruce;
+    String rolCruce;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,6 +149,8 @@ public class login2 extends AppCompatActivity {
                     JSONObject jsonobject = jsonarray.getJSONObject(i);
                     String mail = jsonobject.getString("mail");
                     String pass=jsonobject.getString("pass");
+                    String cell=jsonobject.getString("celular");
+                    String rol=jsonobject.getString("rol");
                     String name=jsonobject.getString("nombre");
                     int id = jsonobject.getInt("idusuario");
                     if(String.valueOf(txtUser.getText()).equals(String.valueOf(mail))){
@@ -157,6 +160,8 @@ public class login2 extends AppCompatActivity {
                             usuario=name;
                             idUser=id;
                             email=mail;
+                            cellCruce=cell;
+                            rolCruce=rol;
 
                         }else{
 
@@ -188,7 +193,10 @@ public class login2 extends AppCompatActivity {
                 Intent itemintent = new Intent(login2.this, resume.class);
                 itemintent.putExtra("mail" , email);
                 itemintent.putExtra("name" , usuario);
+                itemintent.putExtra("pass" , usuario);
                 itemintent.putExtra("id" , idUser);
+                itemintent.putExtra("rol" , rolCruce);
+                itemintent.putExtra("celular" ,cellCruce);
 
                 startActivity(itemintent);
 

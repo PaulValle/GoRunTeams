@@ -36,10 +36,27 @@
 
         android:textStyle="bold"/>
 
+    <TextView
+        android:id="@+id/advertencia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:text="Vacio"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+
+
+
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         app:srcCompat="@drawable/user" />
@@ -56,6 +73,7 @@
         android:textColor="@color/colorPrimary"
         android:textStyle="bold" />
 
+
     <TextView
         android:id="@+id/txtMAIL"
         android:layout_width="match_parent"
@@ -68,6 +86,31 @@
         android:textColor="@color/colorPrimary"
         android:textSize="20sp"
         android:textStyle="bold" />
+    <TextView
+        android:id="@+id/txtcelular"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:text="I"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnEditar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginBottom="60dp"
+        android:gravity="center"
+        android:background="@drawable/buttonbackground"
+        android:text="Editar Perfil" />
 
 
 
@@ -276,7 +319,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="90dp"
         android:background="@drawable/buttonbackground"
         android:text="Cerrar Sesión" />
 

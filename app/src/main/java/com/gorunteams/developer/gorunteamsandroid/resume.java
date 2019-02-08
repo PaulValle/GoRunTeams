@@ -23,6 +23,7 @@ public class resume extends AppCompatActivity implements BottomNavigationView.On
         nav.setOnNavigationItemSelectedListener(this);
         //setInitialFragment();
         Bundle parametros = this.getIntent().getExtras();
+
         datos = parametros;
 
         Fragment tmpfragment = null;

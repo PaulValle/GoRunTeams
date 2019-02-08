@@ -93,6 +93,8 @@ public class FriendFragment extends Fragment implements OnMapReadyCallback{
 
     String textomail;
     String textname;
+    String textcell;
+    String textrol;
     public String recorrido;
     public static int idUsuario;
 
@@ -114,6 +116,8 @@ public class FriendFragment extends Fragment implements OnMapReadyCallback{
             textomail = getArguments().getString("mail");
             textname = getArguments().getString("name");
             idUsuario = getArguments().getInt("id");
+            textcell = getArguments().getString("celular");
+            textrol = getArguments().getString("rol");
         }
 
 
@@ -137,7 +141,7 @@ public class FriendFragment extends Fragment implements OnMapReadyCallback{
                 try {
                     String text = "Necesito tu ayuda  ..........   https://maps.google.com/?q="+lat2+","+lng2;// Replace with your message.
 
-                    String toNumber = "593960630010"; // Replace with mobile phone number without +Sign or leading zeros.
+                    String toNumber = "593"+textcell; // Replace with mobile phone number without +Sign or leading zeros.
 
 
                     Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -432,22 +436,27 @@ public class FriendFragment extends Fragment implements OnMapReadyCallback{
             Log.d(TAG, "onPostExecute");
             if(respuesta == "correcto"){
                 final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.mensajesequipo, null);
-                final PopupWindow popupWindow = new PopupWindow(popupView ,1000,500);
+                final PopupWindow popupWindow = new PopupWindow(popupView ,1000,600);
                 popupWindow.setFocusable(true);
                 //popupWindow.showAsDropDown(popupView, 0, 0);
                 popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
+                TextView texto = (TextView) popupView.findViewById(R.id.txtmessage);
+                texto.setText("Felicidades has recorrido "+calculo+" metros en "+cronometro.getText());
+                //txtmessage
                 resultado.setText("000");
                 cronometro.setText("00:00:00");
+
             }else{
-                final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.nuevointegrante, null);
-                final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-                popupWindow.setFocusable(true);
-                popupWindow.showAsDropDown(popupView, 0, 0);
 
             }
 
         }
     }
+
+
+
+
+
 
 
 

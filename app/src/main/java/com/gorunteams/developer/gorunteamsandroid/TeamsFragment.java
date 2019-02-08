@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,6 +62,7 @@ public class TeamsFragment extends Fragment {
     ServicioWeb3 servicio3;
     ServicioWeb4 servicio4;
     ServicioWeb5 servicio5;
+    ServicioWeb6 servicio6;
     public TextView tv;
     public TextView detalleEquipoRow;
     public TextView nombreEquipoRow;
@@ -109,15 +111,18 @@ public class TeamsFragment extends Fragment {
     public static String nameEquipo;
     public static String detalleEquipo;
     public static int idTeam;
+    public static int idTeam2;
     public static int counter;
 
     public static String nombreEquipoSolicitado;
     public static String detalleEquipoSolicitado;
     public static int idEquipoSolicitado;
     public static String nombreEquipoSeleccionado;
+    public String equipoABuscar;
 
     String textomail;
     String textname;
+    public String tipoUsuario;
     public static int idUsuario;
     Integer idEq;
     public static View inf;
@@ -146,8 +151,58 @@ public class TeamsFragment extends Fragment {
             textomail = getArguments().getString("mail");
             textname = getArguments().getString("name");
             idUsuario = getArguments().getInt("id");
+            tipoUsuario = getArguments().getString("rol");
         }
     }
+
+    private void llenarTxtEquipos() {
+        btnequipo1.setText("UNIRTE A EQUIPO");
+        //btnequipo1.setBackgroundColor(Color.parseColor("#4B6F63"));
+        btnequipo2.setText("UNIRTE A EQUIPO");
+
+        //btnequipo2.setBackgroundColor(Color.parseColor("#4B6F63"));
+        btnequipo3.setText("UNIRTE A EQUIPO");
+        //btnequipo3.setBackgroundColor(Color.parseColor("#4B6F63"));
+        btnequipo4.setText("UNIRTE A EQUIPO");
+        //btnequipo4.setBackgroundColor(Color.parseColor("#4B6F63"));
+        btnequipo5.setText("UNIRTE A EQUIPO");
+        //btnequipo5.setBackgroundColor(Color.parseColor("#4B6F63"));
+
+    }
+
+    private void cambiarColor() {
+        if(btnequipo1.getText().equals("UNIRTE A EQUIPO")){
+            btnequipo1.setBackground(getResources().getDrawable(R.drawable.buttonbackgroundequipo));
+        }
+        if(btnequipo2.getText().equals("UNIRTE A EQUIPO")){
+            btnequipo2.setBackground(getResources().getDrawable(R.drawable.buttonbackgroundequipo));
+        }
+        if(btnequipo3.getText().equals("UNIRTE A EQUIPO")){
+            btnequipo3.setBackground(getResources().getDrawable(R.drawable.buttonbackgroundequipo));
+        }
+        if(btnequipo4.getText().equals("UNIRTE A EQUIPO")){
+            btnequipo4.setBackground(getResources().getDrawable(R.drawable.buttonbackgroundequipo));
+        }
+        if(btnequipo5.getText().equals("UNIRTE A EQUIPO")){
+            btnequipo5.setBackground(getResources().getDrawable(R.drawable.buttonbackgroundequipo));
+        }
+
+    }
+
+    private void verificarRol() {
+        Log.d(TAG, "entre a verificar rol");
+        Log.d(TAG, "entre a verificar rol"+tipoUsuario);
+
+        if(tipoUsuario.equals("Entrenador") ){
+
+        }else if(tipoUsuario.equals("Estudiante")){
+            Log.d(TAG, "si entre en el if");
+            llenarTxtEquipos();
+        }
+    }
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -155,13 +210,19 @@ public class TeamsFragment extends Fragment {
 
         date = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
         Log.d("ddd", "La fecha de hoy es"+date);
-
-
         btnequipo1 = (Button) inf.findViewById(R.id.btn1);
         btnequipo2 = (Button) inf.findViewById(R.id.btn2);
         btnequipo3 = (Button) inf.findViewById(R.id.btn3);
         btnequipo4 = (Button) inf.findViewById(R.id.btn4);
         btnequipo5 = (Button) inf.findViewById(R.id.btn5);
+
+        btnequipo1.setEnabled(false);
+        btnequipo2.setEnabled(false);
+        btnequipo3.setEnabled(false);
+        btnequipo4.setEnabled(false);
+        btnequipo5.setEnabled(false);
+
+        verificarRol();
 
         btnequipo1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,6 +258,32 @@ public class TeamsFragment extends Fragment {
                         }
                     });
                     popupWindow.showAsDropDown(popupView, 0, 0);
+                }else if(btnequipo1.getText().equals("UNIRTE A EQUIPO")){
+
+
+                    final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.unirseaequipo, null);
+                    final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+                    popupWindow.setFocusable(true);
+                    Button btn = (Button) popupView.findViewById(R.id.btnclose);
+                    btn.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View view) {
+                            popupWindow.dismiss();
+                        }
+                    });
+
+                    Button btn2 = (Button) popupView.findViewById(R.id.btnagregar);
+                    btn2.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View view) {
+                            TextView equipo = (TextView) popupView.findViewById(R.id.txtnameEquipo);
+                            equipoABuscar = String.valueOf(equipo.getText());
+                            servicio6= (ServicioWeb6) new ServicioWeb6().execute();
+                            popupWindow.dismiss();
+                        }
+                    });
+                    popupWindow.showAsDropDown(popupView, 0, 0);
+
+
+
                 }else{
                     final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.integrantesequipo, null);
                     final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
@@ -234,6 +321,7 @@ public class TeamsFragment extends Fragment {
                     nombreEquipoSeleccionado = btnequipo1.getText().toString();
 
                     servicio4 = (ServicioWeb4) new ServicioWeb4().execute();
+
                     fechaRecorridos.setText(date);
                     Button btn = (Button) popupView.findViewById(R.id.btnCerrarEquipo);
                     btn.setOnClickListener(new View.OnClickListener() {
@@ -319,10 +407,38 @@ public class TeamsFragment extends Fragment {
                         }
                     });
                     popupWindow.showAsDropDown(popupView, 0, 0);
-                }else{
+                }else if(btnequipo2.getText().equals("UNIRTE A EQUIPO")){
+
+
+                    final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.unirseaequipo, null);
+                    final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+                    popupWindow.setFocusable(true);
+                    Button btn = (Button) popupView.findViewById(R.id.btnclose);
+                    btn.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View view) {
+                            popupWindow.dismiss();
+                        }
+                    });
+
+                    Button btn2 = (Button) popupView.findViewById(R.id.btnagregar);
+                    btn2.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View view) {
+                            TextView equipo = (TextView) popupView.findViewById(R.id.txtnameEquipo);
+                            equipoABuscar = String.valueOf(equipo.getText());
+                            servicio6= (ServicioWeb6) new ServicioWeb6().execute();
+                            popupWindow.dismiss();
+                        }
+                    });
+                    popupWindow.showAsDropDown(popupView, 0, 0);
+
+
+
+                }
+                else{
                     final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.integrantesequipo, null);
                     final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
                     popupWindow.setFocusable(true);
+                    fechaRecorridos = (TextView) popupView.findViewById(R.id.txtFecha);
                     nombreEquipoRow = (TextView) popupView.findViewById(R.id.txtNomnbreEquipo);
                     detalleEquipoRow = (TextView) popupView.findViewById(R.id.txtDetalleEquipo);
                     jugador1 = (TextView) popupView.findViewById(R.id.txtNombre1);
@@ -353,6 +469,7 @@ public class TeamsFragment extends Fragment {
                     nombreEquipoSeleccionado = btnequipo2.getText().toString();
 
                     servicio4 = (ServicioWeb4) new ServicioWeb4().execute();
+                    fechaRecorridos.setText(date);
 
                     Button btn = (Button) popupView.findViewById(R.id.btnCerrarEquipo);
                     btn.setOnClickListener(new View.OnClickListener() {
@@ -436,10 +553,38 @@ public class TeamsFragment extends Fragment {
                         }
                     });
                     popupWindow.showAsDropDown(popupView, 0, 0);
-                }else{
+                }else if(btnequipo3.getText().equals("UNIRTE A EQUIPO")){
+
+
+                    final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.unirseaequipo, null);
+                    final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+                    popupWindow.setFocusable(true);
+                    Button btn = (Button) popupView.findViewById(R.id.btnclose);
+                    btn.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View view) {
+                            popupWindow.dismiss();
+                        }
+                    });
+
+                    Button btn2 = (Button) popupView.findViewById(R.id.btnagregar);
+                    btn2.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View view) {
+                            TextView equipo = (TextView) popupView.findViewById(R.id.txtnameEquipo);
+                            equipoABuscar = String.valueOf(equipo.getText());
+                            servicio6= (ServicioWeb6) new ServicioWeb6().execute();
+                            popupWindow.dismiss();
+                        }
+                    });
+                    popupWindow.showAsDropDown(popupView, 0, 0);
+
+
+
+                }
+                else{
                     final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.integrantesequipo, null);
                     final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
                     popupWindow.setFocusable(true);
+                    fechaRecorridos = (TextView) popupView.findViewById(R.id.txtFecha);
                     nombreEquipoRow = (TextView) popupView.findViewById(R.id.txtNomnbreEquipo);
                     detalleEquipoRow = (TextView) popupView.findViewById(R.id.txtDetalleEquipo);
                     jugador1 = (TextView) popupView.findViewById(R.id.txtNombre1);
@@ -470,6 +615,7 @@ public class TeamsFragment extends Fragment {
                     nombreEquipoSeleccionado = btnequipo3.getText().toString();
 
                     servicio4 = (ServicioWeb4) new ServicioWeb4().execute();
+                    fechaRecorridos.setText(date);
 
                     Button btn = (Button) popupView.findViewById(R.id.btnCerrarEquipo);
                     btn.setOnClickListener(new View.OnClickListener() {
@@ -553,10 +699,38 @@ public class TeamsFragment extends Fragment {
                         }
                     });
                     popupWindow.showAsDropDown(popupView, 0, 0);
-                }else{
+                }else if(btnequipo4.getText().equals("UNIRTE A EQUIPO")){
+
+
+                    final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.unirseaequipo, null);
+                    final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+                    popupWindow.setFocusable(true);
+                    Button btn = (Button) popupView.findViewById(R.id.btnclose);
+                    btn.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View view) {
+                            popupWindow.dismiss();
+                        }
+                    });
+
+                    Button btn2 = (Button) popupView.findViewById(R.id.btnagregar);
+                    btn2.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View view) {
+                            TextView equipo = (TextView) popupView.findViewById(R.id.txtnameEquipo);
+                            equipoABuscar = String.valueOf(equipo.getText());
+                            servicio6= (ServicioWeb6) new ServicioWeb6().execute();
+                            popupWindow.dismiss();
+                        }
+                    });
+                    popupWindow.showAsDropDown(popupView, 0, 0);
+
+
+
+                }
+                else{
                     final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.integrantesequipo, null);
                     final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
                     popupWindow.setFocusable(true);
+                    fechaRecorridos = (TextView) popupView.findViewById(R.id.txtFecha);
                     nombreEquipoRow = (TextView) popupView.findViewById(R.id.txtNomnbreEquipo);
                     detalleEquipoRow = (TextView) popupView.findViewById(R.id.txtDetalleEquipo);
                     jugador1 = (TextView) popupView.findViewById(R.id.txtNombre1);
@@ -587,6 +761,7 @@ public class TeamsFragment extends Fragment {
                     nombreEquipoSeleccionado = btnequipo4.getText().toString();
 
                     servicio4 = (ServicioWeb4) new ServicioWeb4().execute();
+                    fechaRecorridos.setText(date);
 
                     Button btn = (Button) popupView.findViewById(R.id.btnCerrarEquipo);
                     btn.setOnClickListener(new View.OnClickListener() {
@@ -670,10 +845,38 @@ public class TeamsFragment extends Fragment {
                         }
                     });
                     popupWindow.showAsDropDown(popupView, 0, 0);
-                }else{
+                }else if(btnequipo5.getText().equals("UNIRTE A EQUIPO")){
+
+
+                    final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.unirseaequipo, null);
+                    final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+                    popupWindow.setFocusable(true);
+                    Button btn = (Button) popupView.findViewById(R.id.btnclose);
+                    btn.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View view) {
+                            popupWindow.dismiss();
+                        }
+                    });
+
+                    Button btn2 = (Button) popupView.findViewById(R.id.btnagregar);
+                    btn2.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View view) {
+                            TextView equipo = (TextView) popupView.findViewById(R.id.txtnameEquipo);
+                            equipoABuscar = String.valueOf(equipo.getText());
+                            servicio6= (ServicioWeb6) new ServicioWeb6().execute();
+                            popupWindow.dismiss();
+                        }
+                    });
+                    popupWindow.showAsDropDown(popupView, 0, 0);
+
+
+
+                }
+                else{
                     final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.integrantesequipo, null);
                     final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
                     popupWindow.setFocusable(true);
+                    fechaRecorridos = (TextView) popupView.findViewById(R.id.txtFecha);
                     nombreEquipoRow = (TextView) popupView.findViewById(R.id.txtNomnbreEquipo);
                     detalleEquipoRow = (TextView) popupView.findViewById(R.id.txtDetalleEquipo);
                     jugador1 = (TextView) popupView.findViewById(R.id.txtNombre1);
@@ -704,6 +907,7 @@ public class TeamsFragment extends Fragment {
                     nombreEquipoSeleccionado = btnequipo5.getText().toString();
 
                     servicio4 = (ServicioWeb4) new ServicioWeb4().execute();
+                    fechaRecorridos.setText(date);
 
                     Button btn = (Button) popupView.findViewById(R.id.btnCerrarEquipo);
                     btn.setOnClickListener(new View.OnClickListener() {
@@ -751,326 +955,7 @@ public class TeamsFragment extends Fragment {
                 }
             }
         });
-/*
-        btnequipo2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(btnequipo2.getText().equals("NUEVO EQUIPO")){
-                    final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.popup_equipo, null);
-                    final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-                    popupWindow.setFocusable(true);
-                    Button btn = (Button) popupView.findViewById(R.id.btncerrar);
-                    btn.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View view) {
-                            popupWindow.dismiss();
-                        }
-                    });
 
-                    Button btn2 = (Button) popupView.findViewById(R.id.btnguardar);
-                    btn2.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View view) {
-                            TextView nombreEquipo = (TextView) popupView.findViewById(R.id.txtnomequipo);
-                            TextView detalle = (TextView) popupView.findViewById(R.id.txtdetequipo);
-                            //tv.setText(nombreEquipo.getText());
-                            nameEquipo=String.valueOf(nombreEquipo.getText());
-
-                            detalleEquipo=String.valueOf(detalle.getText());
-                            Log.d(TAG, "aquiiiiiiiiiii"+nombreEquipo.getText());
-
-                            servicio = (ServicioWeb) new ServicioWeb().execute();
-                            popupWindow.dismiss();
-                        }
-                    });
-                    popupWindow.showAsDropDown(popupView, 0, 0);
-                }else{
-                    final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.integrantesequipo, null);
-                    final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-                    popupWindow.setFocusable(true);
-                    nombreEquipoRow = (TextView) popupView.findViewById(R.id.txtNomnbreEquipo);
-                    detalleEquipoRow = (TextView) popupView.findViewById(R.id.txtDetalleEquipo);
-                    jugador1 = (TextView) popupView.findViewById(R.id.txtNombre1);
-                    jugador2 = (TextView) popupView.findViewById(R.id.txtNombre2);
-                    jugador3 = (TextView) popupView.findViewById(R.id.txtNombre3);
-                    jugador4 = (TextView) popupView.findViewById(R.id.txtNombre4);
-                    jugador5 = (TextView) popupView.findViewById(R.id.txtNombre5);
-                    nombreEquipoSeleccionado = btnequipo2.getText().toString();
-
-                    servicio4 = (ServicioWeb4) new ServicioWeb4().execute();
-                    Button btn = (Button) popupView.findViewById(R.id.btnCerrarEquipo);
-
-                    btn.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View view) {
-                            popupWindow.dismiss();
-                        }
-                    });
-
-                    Button btn2 = (Button) popupView.findViewById(R.id.btnAgregarJugador);
-                    btn2.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View view) {
-                            popupWindow.dismiss();
-                            final View popupView2 = LayoutInflater.from(getActivity()).inflate(R.layout.nuevointegrante, null);
-                            final PopupWindow popupWindow2 = new PopupWindow(popupView2, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-                            popupWindow2.setFocusable(true);
-                            popupWindow2.showAsDropDown(popupView2, 0, 0);
-
-                            Button btn = (Button) popupView2.findViewById(R.id.btnclose);
-                            btn.setOnClickListener(new View.OnClickListener() {
-                                public void onClick(View view) {
-                                    popupWindow2.dismiss();
-                                }
-                            });
-
-                            Button btn2 = (Button) popupView2.findViewById(R.id.btnagregar);
-                            btn2.setOnClickListener(new View.OnClickListener() {
-                                public void onClick(View view) {
-
-                                    txtEmail = (TextView) popupView2.findViewById(R.id.txtcorreo);
-                                    txtEmail2 = txtEmail.getText().toString();
-                                    Log.d(TAG, "mostrando mail"+txtEmail2);
-
-                                    servicio5 = (ServicioWeb5) new ServicioWeb5().execute();
-                                    popupWindow2.dismiss();
-
-
-                                }
-                            });
-                        }
-                    });
-                    popupWindow.showAsDropDown(popupView, 0, 0);
-                }
-            }
-        });
-
-        btnequipo3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(btnequipo3.getText().equals("NUEVO EQUIPO")){
-                    final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.popup_equipo, null);
-                    final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-                    popupWindow.setFocusable(true);
-                    Button btn = (Button) popupView.findViewById(R.id.btncerrar);
-                    btn.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View view) {
-                            popupWindow.dismiss();
-                        }
-                    });
-
-                    Button btn2 = (Button) popupView.findViewById(R.id.btnguardar);
-                    btn2.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View view) {
-                            TextView nombreEquipo = (TextView) popupView.findViewById(R.id.txtnomequipo);
-                            TextView detalle = (TextView) popupView.findViewById(R.id.txtdetequipo);
-                            //tv.setText(nombreEquipo.getText());
-                            nameEquipo=String.valueOf(nombreEquipo.getText());
-
-                            detalleEquipo=String.valueOf(detalle.getText());
-                            Log.d(TAG, "aquiiiiiiiiiii"+nombreEquipo.getText());
-
-                            servicio = (ServicioWeb) new ServicioWeb().execute();
-                            popupWindow.dismiss();
-                        }
-                    });
-                    popupWindow.showAsDropDown(popupView, 0, 0);
-                }else{
-                    final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.integrantesequipo, null);
-                    final PopupWindow popupWindow3 = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-                    popupWindow3.setFocusable(true);
-                    nombreEquipoRow = (TextView) popupView.findViewById(R.id.txtNomnbreEquipo);
-                    detalleEquipoRow = (TextView) popupView.findViewById(R.id.txtDetalleEquipo);
-                    jugador1 = (TextView) popupView.findViewById(R.id.txtNombre1);
-                    jugador2 = (TextView) popupView.findViewById(R.id.txtNombre2);
-                    jugador3 = (TextView) popupView.findViewById(R.id.txtNombre3);
-                    jugador4 = (TextView) popupView.findViewById(R.id.txtNombre4);
-                    jugador5 = (TextView) popupView.findViewById(R.id.txtNombre5);
-                    nombreEquipoSeleccionado = btnequipo3.getText().toString();
-
-                    servicio4 = (ServicioWeb4) new ServicioWeb4().execute();
-                    Button btn = (Button) popupView.findViewById(R.id.btnCerrarEquipo);
-                    btn.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View view) {
-                            popupWindow3.dismiss();
-                        }
-                    });
-
-                    Button btn2 = (Button) popupView.findViewById(R.id.btnAgregarJugador);
-                    btn2.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View view) {
-                            popupWindow3.dismiss();
-                            final View popupView2 = LayoutInflater.from(getActivity()).inflate(R.layout.nuevointegrante, null);
-                            final PopupWindow popupWindow2 = new PopupWindow(popupView2, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-                            popupWindow2.setFocusable(true);
-                            popupWindow2.showAsDropDown(popupView2, 0, 0);
-
-                            Button btn = (Button) popupView2.findViewById(R.id.btnclose);
-                            btn.setOnClickListener(new View.OnClickListener() {
-                                public void onClick(View view) {
-                                    popupWindow2.dismiss();
-                                }
-                            });
-
-                            Button btn2 = (Button) popupView2.findViewById(R.id.btnagregar);
-                            btn2.setOnClickListener(new View.OnClickListener() {
-                                public void onClick(View view) {
-
-                                    txtEmail = (TextView) popupView2.findViewById(R.id.txtcorreo);
-                                    txtEmail2 = txtEmail.getText().toString();
-                                    Log.d(TAG, "mostrando mail"+txtEmail2);
-
-                                    servicio5 = (ServicioWeb5) new ServicioWeb5().execute();
-                                    popupWindow2.dismiss();
-
-
-                                }
-                            });
-                        }
-                    });
-                    popupWindow3.showAsDropDown(popupView, 0, 0);
-                }
-            }
-        });
-
-        btnequipo4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(btnequipo4.getText().equals("NUEVO EQUIPO")){
-                    final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.popup_equipo, null);
-                    final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-                    popupWindow.setFocusable(true);
-                    Button btn = (Button) popupView.findViewById(R.id.btncerrar);
-                    btn.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View view) {
-                            popupWindow.dismiss();
-                        }
-                    });
-
-                    Button btn2 = (Button) popupView.findViewById(R.id.btnguardar);
-                    btn2.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View view) {
-                            TextView nombreEquipo = (TextView) popupView.findViewById(R.id.txtnomequipo);
-                            TextView detalle = (TextView) popupView.findViewById(R.id.txtdetequipo);
-                            //tv.setText(nombreEquipo.getText());
-                            nameEquipo=String.valueOf(nombreEquipo.getText());
-
-                            detalleEquipo=String.valueOf(detalle.getText());
-                            Log.d(TAG, "aquiiiiiiiiiii"+nombreEquipo.getText());
-
-                            servicio = (ServicioWeb) new ServicioWeb().execute();
-                            popupWindow.dismiss();
-                        }
-                    });
-                    popupWindow.showAsDropDown(popupView, 0, 0);
-                }else{
-                    final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.integrantesequipo, null);
-                    final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-                    popupWindow.setFocusable(true);
-                    nombreEquipoRow = (TextView) popupView.findViewById(R.id.txtNomnbreEquipo);
-                    detalleEquipoRow = (TextView) popupView.findViewById(R.id.txtDetalleEquipo);
-                    jugador1 = (TextView) popupView.findViewById(R.id.txtNombre1);
-                    jugador2 = (TextView) popupView.findViewById(R.id.txtNombre2);
-                    jugador3 = (TextView) popupView.findViewById(R.id.txtNombre3);
-                    jugador4 = (TextView) popupView.findViewById(R.id.txtNombre4);
-                    jugador5 = (TextView) popupView.findViewById(R.id.txtNombre5);
-                    nombreEquipoSeleccionado = btnequipo4.getText().toString();
-                    servicio4 = (ServicioWeb4) new ServicioWeb4().execute();
-                    Button btn = (Button) popupView.findViewById(R.id.btnCerrarEquipo);
-                    btn.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View view) {
-                            popupWindow.dismiss();
-                        }
-                    });
-
-                    Button btn2 = (Button) popupView.findViewById(R.id.btnAgregarJugador);
-                    btn2.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View view) {
-                            TextView nombreEquipo = (TextView) popupView.findViewById(R.id.txtnomequipo);
-                            TextView detalle = (TextView) popupView.findViewById(R.id.txtdetequipo);
-                            //tv.setText(nombreEquipo.getText());
-                            nameEquipo=String.valueOf(nombreEquipo.getText());
-
-                            detalleEquipo=String.valueOf(detalle.getText());
-                            Log.d(TAG, "aquiiiiiiiiiii"+nombreEquipo.getText());
-
-                            servicio = (ServicioWeb) new ServicioWeb().execute();
-                            popupWindow.dismiss();
-                        }
-                    });
-                    popupWindow.showAsDropDown(popupView, 0, 0);
-                }
-            }
-        });
-
-        btnequipo5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(btnequipo5.getText().equals("NUEVO EQUIPO")){
-                    final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.popup_equipo, null);
-                    final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-                    popupWindow.setFocusable(true);
-                    Button btn = (Button) popupView.findViewById(R.id.btncerrar);
-                    btn.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View view) {
-                            popupWindow.dismiss();
-                        }
-                    });
-
-                    Button btn2 = (Button) popupView.findViewById(R.id.btnguardar);
-                    btn2.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View view) {
-                            TextView nombreEquipo = (TextView) popupView.findViewById(R.id.txtnomequipo);
-                            TextView detalle = (TextView) popupView.findViewById(R.id.txtdetequipo);
-                            //tv.setText(nombreEquipo.getText());
-                            nameEquipo=String.valueOf(nombreEquipo.getText());
-
-                            detalleEquipo=String.valueOf(detalle.getText());
-                            Log.d(TAG, "aquiiiiiiiiiii"+nombreEquipo.getText());
-
-                            servicio = (ServicioWeb) new ServicioWeb().execute();
-                            popupWindow.dismiss();
-                        }
-                    });
-                    popupWindow.showAsDropDown(popupView, 0, 0);
-                }else{
-                    final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.integrantesequipo, null);
-                    final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-                    popupWindow.setFocusable(true);
-                    nombreEquipoRow = (TextView) popupView.findViewById(R.id.txtNomnbreEquipo);
-                    detalleEquipoRow = (TextView) popupView.findViewById(R.id.txtDetalleEquipo);
-                    jugador1 = (TextView) popupView.findViewById(R.id.txtNombre1);
-                    jugador2 = (TextView) popupView.findViewById(R.id.txtNombre2);
-                    jugador3 = (TextView) popupView.findViewById(R.id.txtNombre3);
-                    jugador4 = (TextView) popupView.findViewById(R.id.txtNombre4);
-                    jugador5 = (TextView) popupView.findViewById(R.id.txtNombre5);
-                    nombreEquipoSeleccionado = btnequipo5.getText().toString();
-
-                    servicio4 = (ServicioWeb4) new ServicioWeb4().execute();
-                    Button btn = (Button) popupView.findViewById(R.id.btnCerrarEquipo);
-                    btn.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View view) {
-                            popupWindow.dismiss();
-                        }
-                    });
-
-                    Button btn2 = (Button) popupView.findViewById(R.id.btnAgregarJugador);
-                    btn2.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View view) {
-                            TextView nombreEquipo = (TextView) popupView.findViewById(R.id.txtnomequipo);
-                            TextView detalle = (TextView) popupView.findViewById(R.id.txtdetequipo);
-                            //tv.setText(nombreEquipo.getText());
-                            nameEquipo=String.valueOf(nombreEquipo.getText());
-
-                            detalleEquipo=String.valueOf(detalle.getText());
-                            Log.d(TAG, "aquiiiiiiiiiii"+nombreEquipo.getText());
-
-                            servicio = (ServicioWeb) new ServicioWeb().execute();
-                            popupWindow.dismiss();
-                        }
-                    });
-                    popupWindow.showAsDropDown(popupView, 0, 0);
-                }
-            }
-        });
-
-*/
         servicio3 = (ServicioWeb3) new ServicioWeb3(inf).execute();
 
         return inf;
@@ -1396,25 +1281,27 @@ public class TeamsFragment extends Fragment {
                 detalleEquipoRow.setText(detalleEquipoSolicitado);
                 nombreEquipoRow.setText(nombreEquipoSolicitado);
 
-                for(int i = 0; i < 5; i++) {
+                for(int i = 0; i < personasTop.size(); i++) {
                     if(i == 0){
                         top1Nombre.setText(personasTop.get(i).getNombre());
                         top1Distancia.setText(String.valueOf(personasTop.get(i).getTotal()+"m"));
                         jugador1.setText(personasTop.get(i).getNombre());
-                        distancia1.setText(String.valueOf(personasTop.get(i).getTotal()));
+                        distancia1.setText(String.valueOf(personasTop.get(i).getTotal()+"m"));
                     }
 
                     if(i == 1){
                         top2Nombre.setText(personasTop.get(i).getNombre());
                         top2Distancia.setText(String.valueOf(personasTop.get(i).getTotal()+"m"));
+                        Log.d(TAG, "mostrando distancia " + String.valueOf(personasTop.get(i).getTotal()+"m"));
                         jugador2.setText(personasTop.get(i).getNombre());
-                        distancia2.setText(String.valueOf(personasTop.get(i).getTotal()));
+                        distancia2.setText(String.valueOf(personasTop.get(i).getTotal()+"m"));
+                        Log.d(TAG, "mostrando distancia 2 " + personasTop.get(i).getTotal());
                     }
                     if(i == 2){
                         top3Nombre.setText(personasTop.get(i).getNombre());
                         top3Distancia.setText(String.valueOf(personasTop.get(i).getTotal()+"m"));
                         jugador3.setText(personasTop.get(i).getNombre());
-                        distancia3.setText(String.valueOf(personasTop.get(i).getTotal()));
+                        distancia3.setText(String.valueOf(personasTop.get(i).getTotal()+"m"));
                     }
 
                     if(i == 3){
@@ -1426,10 +1313,8 @@ public class TeamsFragment extends Fragment {
                         jugador5.setText(personasTop.get(i).getNombre());
                         distancia5.setText(String.valueOf(personasTop.get(i).getTotal()+"m"));
                     }
-
-                    //Log.d(TAG, "TROLOLO: " + p1.getNombre());
-                    //Log.d(TAG, "TROLOLO: " + p1.getTotal());
                 }
+                personasTop.clear();
 
             }else{
 
@@ -1593,7 +1478,12 @@ public class TeamsFragment extends Fragment {
         protected void onPostExecute(String respuesta) {
             super.onPostExecute(respuesta);
             Log.d(TAG, "data:siiiiiiiiiiiiii" + idEq );
-
+            cambiarColor();
+            btnequipo1.setEnabled(true);
+            btnequipo2.setEnabled(true);
+            btnequipo3.setEnabled(true);
+            btnequipo4.setEnabled(true);
+            btnequipo5.setEnabled(true);
             Log.d(TAG, "onPostExecute");
             if (respuesta=="correcto"){
 
@@ -1787,6 +1677,7 @@ public class TeamsFragment extends Fragment {
             Map<String, String> stringMap = new HashMap<>();
             stringMap.put("nombre", nameEquipo);
             stringMap.put("detalle", detalleEquipo);
+            stringMap.put("identrenador", String.valueOf(idUsuario));
 
             String requestBody = FormRegister.Utils.buildPostParameters(stringMap);
             try {
@@ -2067,6 +1958,125 @@ public class TeamsFragment extends Fragment {
 
             }else{
 
+            }
+        }
+    }
+
+
+
+    private class ServicioWeb6 extends AsyncTask<Integer, Integer, String> {
+        @Override
+        protected String doInBackground(Integer... params) {
+            return getWebServiceResponseData();
+        }
+
+
+        protected String getWebServiceResponseData() {
+            try {
+                url=new URL(path2);
+                Log.d(TAG, "ServerData: " + path2);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(15000);
+                conn.setConnectTimeout(15000);
+                conn.setRequestMethod("GET");
+
+                int responseCode = conn.getResponseCode();
+
+                Log.d(TAG, "Response code: " + responseCode);
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+                    // Reading response from input Stream
+                    BufferedReader in = new BufferedReader(
+                            new InputStreamReader(conn.getInputStream()));
+                    String output;
+                    response = new StringBuffer();
+
+                    while ((output = in.readLine()) != null) {
+                        response.append(output);
+                    }
+                    in.close();
+                }}
+            catch(Exception e){
+                e.printStackTrace();
+            }
+            String equipoBuscado= equipoABuscar;
+            responseText = response.toString();
+            Log.d(TAG, "data:" + responseText);
+            try {
+                JSONArray jsonarray = new JSONArray(responseText);
+                for (int i=0;i<jsonarray.length();i++){
+                    JSONObject jsonobject = jsonarray.getJSONObject(i);
+                    String nEquipo = jsonobject.getString("nombre");
+                    int idEquipo = jsonobject.getInt("idequipo");
+                    if (String.valueOf(equipoABuscar).equals(String.valueOf(nEquipo))){
+                        idTeam2=idEquipo;
+                        this.getWebServiceResponseData2();
+                        //respuesta="existe";
+                    }else{
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return respuesta;
+        }
+
+
+
+        protected String getWebServiceResponseData2() {
+            respuesta="";
+
+            HttpURLConnection urlConnection = null;
+            Map<String, Integer> intMap = new HashMap<>();
+            //this.getWebServiceResponseData2(nameEquipo);
+            intMap.put("idusuario", idUsuario);
+            intMap.put("idequipo", idTeam2);
+            String requestBody = FormRegister.Utils.buildPostParameters(intMap);
+            try {
+                urlConnection = (HttpURLConnection) FormRegister.Utils.makeRequest("POST", path3, null, "application/x-www-form-urlencoded", requestBody);
+                InputStream inputStream;
+                Log.d(TAG, requestBody);
+                // get stream
+                if (urlConnection.getResponseCode() < HttpURLConnection.HTTP_BAD_REQUEST) {
+                    inputStream = urlConnection.getInputStream();
+                } else {
+                    inputStream = urlConnection.getErrorStream();
+                }
+                // parse stream
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String temp, response = "";
+                while ((temp = bufferedReader.readLine()) != null) {
+                    response += temp;
+                }
+                respuesta="correcto";
+                return respuesta;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return e.toString();
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+            }
+        }
+
+
+
+
+        @Override
+        protected void onPostExecute(String respuesta) {
+            super.onPostExecute(respuesta);
+            Log.d(TAG, "onPostExecute");
+            final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.mensajesequipo, null);
+            final PopupWindow popupWindow = new PopupWindow(popupView ,1000,600);
+            popupWindow.setFocusable(true);
+            TextView texto = (TextView) popupView.findViewById(R.id.txtmessage);
+            //popupWindow.showAsDropDown(popupView, 0, 0);
+            popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
+            servicio3 = (ServicioWeb3) new ServicioWeb3(inf).execute();
+            if (respuesta=="correcto"){
+                texto.setText("Felicidades has sido agregado al equipo "+equipoABuscar);
+            }else{
+                texto.setText("Error al registrar");
             }
         }
     }

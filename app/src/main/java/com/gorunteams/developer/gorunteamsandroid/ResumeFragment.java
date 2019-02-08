@@ -28,18 +28,18 @@ public class ResumeFragment extends Fragment {
 package com.gorunteams.developer.gorunteamsandroid;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.PopupWindow;
+import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,13 +47,14 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
-
-import static com.gorunteams.developer.gorunteamsandroid.TeamsFragment.path4;
 
 
 public class ResumeFragment extends Fragment {
@@ -61,17 +62,23 @@ public class ResumeFragment extends Fragment {
     public ResumeFragment() {}
     String textomail;
     String textname;
+    String rolUsuario;
+    String celular;
     int idUsuario;
     private static final String TAG = "AsyncTaskActivity";
 
     public final static String path = "https://restgorun.herokuapp.com/listarRecorridos";
+    public final static String path2 = "https://restgorun.herokuapp.com/actualizarUsuario";
 
     java.net.URL url;
     ServicioWeb2 servicio2;
+    ServicioWeb3 servicio3;
 
     String respuesta;
     String responseText;
     StringBuffer response;
+    public static String  ncelular;
+    public static String  tipoRol;
     public TextView fecha0;
     public TextView distancia0;
     public TextView tiempo0;
@@ -82,7 +89,12 @@ public class ResumeFragment extends Fragment {
     public TextView distancia2;
     public TextView tiempo2;
     public Button salir;
+    public Button editar;
+    public String numeroApasar;
+    public String rolApasar;
 
+    public TextView tv3;
+    public TextView tv4;
 
 
 
@@ -93,7 +105,15 @@ public class ResumeFragment extends Fragment {
              textomail = getArguments().getString("mail");
             textname = getArguments().getString("name");
             idUsuario = getArguments().getInt("id");
+            rolUsuario = getArguments().getString("rol");
+            celular = getArguments().getString("celular");
         }
+    }
+
+    public void asignarVariables(String ncelular, String tipoRol){
+        numeroApasar=ncelular;
+        rolApasar=tipoRol;
+
     }
 
     @Override
@@ -103,8 +123,10 @@ public class ResumeFragment extends Fragment {
         tv.setText(textomail);
         TextView tv2 = (TextView) inf.findViewById(R.id.txtNAME);
         tv2.setText(textname);
-        TextView tv3 = (TextView) inf.findViewById(R.id.txtID);
-        tv3.setText("#"+idUsuario);
+        tv3 = (TextView) inf.findViewById(R.id.txtID);
+        tv3.setText(rolUsuario);
+        tv4 = (TextView) inf.findViewById(R.id.txtcelular);
+        tv4.setText("#"+celular);
         fecha0 = (TextView) inf.findViewById(R.id.txtf1);
         distancia0 = (TextView) inf.findViewById(R.id.txtd1);
         tiempo0 = (TextView) inf.findViewById(R.id.txtT1);
@@ -114,15 +136,87 @@ public class ResumeFragment extends Fragment {
         fecha2 = (TextView) inf.findViewById(R.id.txtf3);
         distancia2 = (TextView) inf.findViewById(R.id.txtd3);
         tiempo2 = (TextView) inf.findViewById(R.id.txtT3);
-        servicio2 = (ServicioWeb2) new ServicioWeb2().execute();
+        //servicio2 = (ServicioWeb2) new ServicioWeb2().execute();
         salir = (Button) inf.findViewById(R.id.btnSalir);
+        editar = (Button) inf.findViewById(R.id.btnEditar);
+
+        editar.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+                final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.popuproles, null);
+                final PopupWindow popupWindow = new PopupWindow(popupView ,1000,1200);
+                popupWindow.setFocusable(true);
+
+
+                popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
+
+                Button btn2 = (Button) popupView.findViewById(R.id.btnActualizar);
+
+                btn2.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View view) {
+                        TextView texto = (TextView) popupView.findViewById(R.id.txtphone);
+                        ncelular =String.valueOf(texto.getText());
+                        Log.d(TAG, "estoy cogiendo el celular "+ncelular);
+                        RadioButton r1 = (RadioButton) popupView.findViewById(R.id.radio_entrenador);
+                        RadioButton r2=(RadioButton) popupView.findViewById(R.id.radio_estudiante);
+                        if (r1.isChecked()==true) {
+                            tipoRol= String.valueOf(r1.getText().toString());
+                            Log.d(TAG, "estoy cogiendo el tipo "+tipoRol);
+
+                        }else if (r2.isChecked()==true) {
+                            tipoRol= String.valueOf(r2.getText().toString());
+                            Log.d(TAG, "estoy cogiendo el tipo "+tipoRol);
+                        }
+
+                        //asignarVariables(ncelular,tipoRol);
+                        servicio2 = (ServicioWeb2) new ServicioWeb2().execute();
+                        popupWindow.dismiss();
+                    }
+                });
+
+
+
+
+
+
+
+
+
+                Log.d(TAG, "celular "+ncelular);
+                Log.d(TAG, "radiobutton "+tipoRol);
+                //servicio3 = (ServicioWeb3) new ServicioWeb3().execute();
+            }
+        });
+
+        TextView tv5 = (TextView) inf.findViewById(R.id.advertencia);
+        if(celular.equals("9999999999")){
+            tv5.setText("Para usar todas las funcionalidades debes editar tu perfil");
+        }else{
+            tv5.setText("");
+
+        }
+        Log.d(TAG, "celular2 "+ncelular);
+        Log.d(TAG, "radiobutton2 "+tipoRol);
+
+        //lanzarPopup();
+
+
+
+
+
+
 
         salir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View inf) {
+
+
                 clearApplicationData();
                 Intent itemintent = new Intent(getActivity(), MainActivity.class);
                 startActivity(itemintent);
+
+
+
                /* SharedPreferences settings = this.getSharedPreferences(PREFS_KEY, MODE_PRIVATE);
                 SharedPreferences.Editor editor = settings.edit();
                 editor.clear();
@@ -135,6 +229,28 @@ public class ResumeFragment extends Fragment {
         });
         return inf;
     }
+
+
+    /*public void onRadioButtonClicked(View view) {
+
+        // Is the button now checked?
+
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // hacemos un case con lo que ocurre cada vez que pulsemos un botón
+
+        switch(view.getId()) {
+            case R.id.radio_estudiante:
+                if (checked)
+                    //
+                    break;
+            case R.id.radio_entrenador:
+                if (checked)
+                    //
+                    break;
+        }
+    }*/
+
 
 
 
@@ -194,6 +310,90 @@ public class ResumeFragment extends Fragment {
 
 
     private class ServicioWeb2 extends AsyncTask<Integer, Integer, String> {
+        @Override
+        protected String doInBackground(Integer... params) {
+            return getWebServiceResponseData();
+        }
+
+        protected String getWebServiceResponseData() {
+
+
+            Log.d(TAG, "entre al servicio celular"+ ncelular);
+            Log.d(TAG, "entre al servicio rol "+tipoRol);
+            String respuesta="";
+
+            HttpURLConnection urlConnection = null;
+            Map<String, String> stringMap = new HashMap<>();
+            stringMap.put("idusuario",String.valueOf(idUsuario));
+            stringMap.put("mail", String.valueOf(textomail));
+            stringMap.put("nombre", String.valueOf(textname));
+            stringMap.put("pass", "default");
+            stringMap.put("rol", String.valueOf(tipoRol));
+            stringMap.put("celular", String.valueOf(ncelular));
+
+            String requestBody = FormRegister.Utils.buildPostParameters(stringMap);
+            try {
+                urlConnection = (HttpURLConnection) FormRegister.Utils.makeRequest("PUT", path2, null, "application/x-www-form-urlencoded", requestBody);
+                InputStream inputStream;
+                // get stream
+                if (urlConnection.getResponseCode() < HttpURLConnection.HTTP_BAD_REQUEST) {
+                    inputStream = urlConnection.getInputStream();
+                } else {
+                    inputStream = urlConnection.getErrorStream();
+                }
+                // parse stream
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String temp, response = "";
+                while ((temp = bufferedReader.readLine()) != null) {
+                    response += temp;
+                }
+                respuesta="correcto";
+            } catch (Exception e) {
+                e.printStackTrace();
+                return e.toString();
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+            }
+            return respuesta;
+        }
+
+
+
+
+
+
+        @Override
+        protected void onPostExecute(String respuesta) {
+            super.onPostExecute(respuesta);
+
+            if(respuesta == "correcto"){
+                final View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.mensajesconboton, null);
+                final PopupWindow popupWindow = new PopupWindow(popupView ,1000,900);
+                popupWindow.setFocusable(true);
+                TextView texto = (TextView) popupView.findViewById(R.id.txtmessage);
+                texto.setText("Se han guardado sus datos");
+                //popupWindow.showAsDropDown(popupView, 0, 0);
+                popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
+                Button btn = (Button) popupView.findViewById(R.id.btnAcept);
+                btn.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View view) {
+                        popupWindow.dismiss();
+                        clearApplicationData();
+                        Intent itemintent = new Intent(getActivity(), MainActivity.class);
+                        startActivity(itemintent);
+                    }
+                });
+            }else{
+
+
+            }
+
+        }
+    }
+
+    private class ServicioWeb3 extends AsyncTask<Integer, Integer, String> {
         @Override
         protected String doInBackground(Integer... params) {
             return getWebServiceResponseData();
