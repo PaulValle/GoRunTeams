@@ -479,6 +479,7 @@ public class FriendFragment extends Fragment implements OnMapReadyCallback{
         import android.net.Uri;
         import android.os.AsyncTask;
         import android.os.Bundle;
+        import android.os.Vibrator;
         import android.support.v4.app.ActivityCompat;
         import android.support.v4.app.Fragment;
         import android.util.Log;
@@ -514,9 +515,10 @@ public class FriendFragment extends Fragment implements OnMapReadyCallback{
         import java.util.Date;
         import java.util.HashMap;
         import java.util.Map;
-
+        import android.os.Vibrator;
         import javax.net.ssl.HttpsURLConnection;
 
+        import static android.support.v4.content.ContextCompat.getSystemService;
         import static com.gorunteams.developer.gorunteamsandroid.TeamsFragment.path4;
 
 
@@ -572,7 +574,7 @@ public class FriendFragment extends Fragment implements OnMapReadyCallback{
     public TextView distancia1;
     public TextView tiempo1;
 
-
+    private Context mContext;
 
     public FriendFragment() {
     }
@@ -587,6 +589,8 @@ public class FriendFragment extends Fragment implements OnMapReadyCallback{
             idUsuario = getArguments().getInt("id");
             textcell = getArguments().getString("celular");
             textrol = getArguments().getString("rol");
+
+
         }
 
 
@@ -633,6 +637,9 @@ public class FriendFragment extends Fragment implements OnMapReadyCallback{
                 horas = 0;
                 cronos = (FriendFragment.CronometroMio) new FriendFragment.CronometroMio().execute();
                 datoInicio();
+                Vibrator var = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+
+                var.vibrate(400);
             }
         });
 
@@ -641,6 +648,9 @@ public class FriendFragment extends Fragment implements OnMapReadyCallback{
             public void onClick(View inf) {
                 pausado = true;
                 datoFin();
+                Vibrator var = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+
+                var.vibrate(400);
             }
         });
 
